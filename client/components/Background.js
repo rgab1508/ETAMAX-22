@@ -1,22 +1,22 @@
-import { Image } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 export default function Background() {
   // Current idea is to include parallax effect in the background and have it move with the scroll
   // Minified version of the events will be displayed later
   return (
-    <Image
+    <Box
+      as="img"
       src={"assets/festImageTest.jpeg"}
       alt={"festImageTest"}
-      position="absolute"
+      position="fixed"
       zIndex="-1"
-      top="0"
-      left="0"
-      right="0"
-      bottom="0"
       objectFit="cover"
-      objectPosition="center"
-      w="100%"
+      backgroundAttachment="scroll"
+      backgroundPosition="center"
+      backgroundRepeat="no-repeat"
+      backgroundSize="cover"
       h="100vh"
+      w="100%"
     />
   );
 }
