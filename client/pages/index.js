@@ -1,5 +1,6 @@
 import { Box, Center, Text, Flex } from "@chakra-ui/react";
 import Background from "../components/Background";
+/* import LoginForm from "../components/LoginForm"; */
 import { useState } from "react";
 
 export default function Home() {
@@ -24,6 +25,7 @@ export default function Home() {
           </Box>
         </Center>
       </Flex>
+   {/*    <LoginForm /> */}
     </>
   );
 }
