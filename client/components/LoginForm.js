@@ -1,13 +1,18 @@
 import { useState } from "react";
-
 import {
+  Flex,
+  Box,
   FormControl,
   FormLabel,
-  FormErrorMessage,
-  FormHelperText,
   Input,
-  Center,
+  Checkbox,
+  Stack,
+  Link,
   Button,
+  Heading,
+  Text,
+  useColorModeValue,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 
 const LoginForm = () => {
@@ -18,13 +23,13 @@ const LoginForm = () => {
   const rollNoHandler = (event) => {
     setRoll(event.target.value);
   };
-  const passwordNoHandler = (event) => {
+  const passwordHandler = (event) => {
     setPassword(event.target.value);
   };
 
   const submitFormHandler = (event) => {
     event.preventDefault();
-    if (rollNo == '' || password.trim() == "") {
+    if (rollNo == "" && password.trim() == "") {
       setFormValid(false);
       return;
     }
@@ -32,33 +37,74 @@ const LoginForm = () => {
     console.log({ rollNo, password });
   };
   return (
-    <>
-      <FormControl id="rollno">
-        <FormLabel>Roll Number</FormLabel>
-        <Input
-          placeholder="Roll no."
-          type="number"
-          value={rollNo}
-          onChange={rollNoHandler}
-        />
-        {!isFormValid && <FormErrorMessage>Incorrect Roll No</FormErrorMessage>}
-      </FormControl>
-      <FormControl id="passowrd">
-        <FormLabel>Password</FormLabel>
-        <Input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={passwordNoHandler}
-        />
-        {!isFormValid && (
-          <FormErrorMessage>Incorrect Password</FormErrorMessage>
-        )}
-      </FormControl>
-      <Button onClick={submitFormHandler} variant="solid">
-        Login
-      </Button>
-    </>
+    <Flex
+      minH={"80vh"}
+      align={"center"}
+      justify={"center"}
+      bg={useColorModeValue("gray.50", "gray.800")}
+    >
+      <Stack spacing={6} mx={"auto"} maxW={"lg"} py={12} px={6}>
+        <Stack align={"center"}>
+          <Heading fontSize={"2xl"}>Sign In for FCRIT Students</Heading>
+        </Stack>
+        <Box
+          rounded={"lg"}
+          bg={useColorModeValue("white", "gray.700")}
+          boxShadow={"lg"}
+          p={8}
+        >
+          <Stack spacing={4}>
+            <FormControl id="rollno" isRequired>
+              <FormLabel color={isFormValid ? "black" : "red"}>
+                Roll Number
+              </FormLabel>
+              <Input
+                placeholder="1019104"
+                type="number"
+                value={rollNo}
+                onChange={rollNoHandler}
+                borderColor={isFormValid ? "black" : "red"}
+              />
+              {!isFormValid && <Text color="red">Incorrect Roll No</Text>}
+            </FormControl>
+            <FormControl id="password" isRequired>
+              <FormLabel color={isFormValid ? "black" : "red"}>
+                Password
+              </FormLabel>
+              <Input
+                type="password"
+                value={password}
+                onChange={passwordHandler}
+                placeholder="*******"
+                borderColor={isFormValid ? "grey" : "red"}
+              />
+              {!isFormValid && <Text color="red">Incorrect Password</Text>}
+            </FormControl>
+            <Stack spacing={10}>
+              <Button
+                size="lg"
+                bg={"blue.400"}
+                color={"white"}
+                _hover={{
+                  bg: "blue.500",
+                }}
+                onClick={submitFormHandler}
+              >
+                Log In
+              </Button>
+              <Stack
+                direction={{ base: "column", sm: "row" }}
+                align={"start"}
+                justify={"space-between"}
+              >
+                <Checkbox>Remember me</Checkbox>
+                <Link color={"blue.400"}>Forgot password?</Link>
+              </Stack>
+            </Stack>
+          </Stack>
+        </Box>
+      </Stack>
+    </Flex>
   );
 };
 
