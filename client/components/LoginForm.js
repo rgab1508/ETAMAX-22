@@ -1,43 +1,64 @@
+import { useState } from "react";
+
 import {
   FormControl,
   FormLabel,
   FormErrorMessage,
   FormHelperText,
-  Box,
-  Tab,
-  Tabs,
-  TabIndicator,
-  Container,
-  TabPanel,
-  TabPanels,
-  TabList,
   Input,
+  Center,
+  Button,
 } from "@chakra-ui/react";
 
 const LoginForm = () => {
+  var [rollNo, setRoll] = useState("");
+  var [password, setPassword] = useState("");
+  var [isFormValid, setFormValid] = useState(true);
+
+  const rollNoHandler = (event) => {
+    setRoll(event.target.value);
+  };
+  const passwordNoHandler = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const submitFormHandler = (event) => {
+    event.preventDefault();
+    if (rollNo == '' || password.trim() == "") {
+      setFormValid(false);
+      return;
+    }
+    setFormValid(true);
+    console.log({ rollNo, password });
+  };
   return (
-    <Container maxW="container.xl" centerContent>
-      <Tabs isFitted variant="enclosed">
-        <Box w="100%">
-          <TabList>
-            <Tab>FCRIT Students</Tab>
-            <Tab>Other Colleges</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              <FormControl id="rollno">
-                <FormLabel>Roll Number</FormLabel>
-                <Input type="text" />
-              </FormControl>
-              <FormControl id="passowrd">
-                <FormLabel>Password</FormLabel>
-                <Input type="password" />
-              </FormControl>
-            </TabPanel>
-          </TabPanels>
-        </Box>
-      </Tabs>
-    </Container>
+    <>
+      <FormControl id="rollno">
+        <FormLabel>Roll Number</FormLabel>
+        <Input
+          placeholder="Roll no."
+          type="number"
+          value={rollNo}
+          onChange={rollNoHandler}
+        />
+        {!isFormValid && <FormErrorMessage>Incorrect Roll No</FormErrorMessage>}
+      </FormControl>
+      <FormControl id="passowrd">
+        <FormLabel>Password</FormLabel>
+        <Input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={passwordNoHandler}
+        />
+        {!isFormValid && (
+          <FormErrorMessage>Incorrect Password</FormErrorMessage>
+        )}
+      </FormControl>
+      <Button onClick={submitFormHandler} variant="solid">
+        Login
+      </Button>
+    </>
   );
 };
 
