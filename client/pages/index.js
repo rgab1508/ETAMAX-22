@@ -1,12 +1,9 @@
 import { Box, Center, Text, Flex } from "@chakra-ui/react";
 import Background from "../components/Background";
-import LoginForm from "../components/LoginForm";
-import { useState } from "react";
-import Navbar from "../components/layout/Navbar";
+// import LoginForm from "../components/LoginForm";
+import Layout from "../components/layout/Layout";
 
 export default function Home() {
-  // Parallax effect for the background
-
   return (
     <>
       <Background />
@@ -16,17 +13,19 @@ export default function Home() {
         minW="100vw"
         fontSize="2xl"
         fontWeight="bold"
+        flexDirection="column"
       >
-        <Navbar />
-        <Center bg="rgb(0,0,0,0.5)" h="100vh" w="100%">
-          <Box w="80%">
-            <Text fontSize="6xl" color="white">
-              ETAMAX-22 FLEUR
-            </Text>
-          </Box>
-        </Center>
+        <Layout>
+          <Center bg="rgb(0,0,0,0.5)" h="100vh" w="100%">
+            <Box w="80%">
+              <Text fontSize="6xl" color="white">
+                ETAMAX-22 FLEUR
+              </Text>
+            </Box>
+          </Center>
+        </Layout>
       </Flex>
-      <LoginForm />
+      {/* <LoginForm /> */}
     </>
   );
 }
