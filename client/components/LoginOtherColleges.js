@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Flex,
   Box,
@@ -7,20 +6,21 @@ import {
   Input,
   Checkbox,
   Stack,
-  Link,
   Button,
   Heading,
   Text,
   useColorModeValue,
-  FormErrorMessage,
+  Link,
 } from "@chakra-ui/react";
+import { useState } from "react";
 
-const LoginForm = () => {
-  var [rollNo, setRoll] = useState("");
+const LoginOtherColleges = () => {
+
+  var [email, setEmail] = useState("");
   var [password, setPassword] = useState("");
   var [isFormValid, setFormValid] = useState(true);
 
-  const rollNoHandler = (event) => {
+  const emailHandler = (event) => {
     setRoll(event.target.value);
   };
   const passwordHandler = (event) => {
@@ -29,12 +29,12 @@ const LoginForm = () => {
 
   const submitFormHandler = (event) => {
     event.preventDefault();
-    if (rollNo == "" && password.trim() == "") {
+    if (email == "" && password.trim() == "") {
       setFormValid(false);
       return;
     }
     setFormValid(true);
-    console.log({ rollNo, password });
+    console.log({ email, password });
   };
   return (
     <Flex
@@ -45,7 +45,9 @@ const LoginForm = () => {
     >
       <Stack spacing={6} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
-          <Heading fontSize={"2xl"}>Sign In for FCRIT Students</Heading>
+          <Heading fontSize={"2xl"} textAlign={"center"}>
+            Sign In for Non-FCRIT Students
+          </Heading>
         </Stack>
         <Box
           rounded={"lg"}
@@ -54,45 +56,39 @@ const LoginForm = () => {
           p={8}
         >
           <Stack spacing={4}>
-            <FormControl id="rollno" isRequired>
-              <FormLabel color={isFormValid ? "black" : "red"}>
-                Roll Number
-              </FormLabel>
-              <Input
-                placeholder="1019104"
-                type="number"
-                value={rollNo}
-                onChange={rollNoHandler}
-                borderColor={isFormValid ? "black" : "red"}
+            <FormControl id="email" isRequired>
+              <FormLabel color={isFormValid ? "black" : "red"}>Email address</FormLabel>
+              <Input 
+              type="email" 
+              value = {email}
+              onChange = {emailHandler}
+              placeholder = "abc@xyz.com"
+              borderColor={isFormValid ? "black" : "red"}
               />
-              {!isFormValid && <Text color="red">Incorrect Roll No</Text>}
+               {!isFormValid && <Text color="red">Incorrect Email</Text>}
             </FormControl>
             <FormControl id="password" isRequired>
-              <FormLabel color={isFormValid ? "black" : "red"}>
-                Password
-              </FormLabel>
-              <Input
-                type="password"
-                value={password}
-                onChange={passwordHandler}
-                placeholder="*******"
-                borderColor={isFormValid ? "grey" : "red"}
-              />
-              {!isFormValid && <Text color="red">Incorrect Password</Text>}
+              <FormLabel color={isFormValid ? "black" : "red"}>Password</FormLabel>
+                <Input 
+                type = "password"
+                value = {password}
+                onChange = {passwordHandler}
+                placeholder = "******"
+                borderColor={isFormValid ? "black" : "red"}
+                />
+                 {!isFormValid && <Text color="red">Incorrect Password</Text>}
             </FormControl>
-            <Stack spacing={10}>
+            <Stack spacing={10} pt={2}>
               <Button
                 size="lg"
                 bg={"blue.400"}
                 color={"white"}
-                _hover={{
-                  bg: "blue.500",
-                }}
-                onClick={submitFormHandler}
+                onClick = {submitFormHandler}
               >
-                Log In
+               Log In
               </Button>
-              <Stack
+            </Stack>
+            <Stack
                 direction={{ base: "column", sm: "row" }}
                 align={"start"}
                 justify={"space-between"}
@@ -100,7 +96,6 @@ const LoginForm = () => {
                 <Checkbox>Remember me</Checkbox>
                 <Link color={"blue.400"}>Forgot password?</Link>
               </Stack>
-            </Stack>
           </Stack>
         </Box>
       </Stack>
@@ -108,4 +103,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default LoginOtherColleges;

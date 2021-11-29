@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import Flower from "../components/Flower";
 import { randNum } from "../components/utils/utils";
+import Layout from "../components/layout/Layout";
 
 if (typeof window !== "undefined") {
   import("../components/utils/blossom");
@@ -37,15 +38,19 @@ export default function Home() {
         minW="100vw"
         fontSize="2xl"
         fontWeight="bold"
-        id="blossom-container"
+        flexDirection="column"
       >
-        <Center bgColor="pink.50" h="100vh" w="100%">
-          <Box w="80%">
-            <Text fontSize="6xl">ETAMAX-22 FLEUR</Text>
-          </Box>
-        </Center>
+        <Layout>
+          <Center bg="rgb(0,0,0,0.5)" h="100vh" w="100%">
+            <Box w="80%">
+              <Text fontSize="6xl" color="white">
+                ETAMAX-22 FLEUR
+              </Text>
+            </Box>
+          </Center>
+        </Layout>
       </Flex>
-      {/*    <LoginForm /> */}
+      {/* <LoginForm /> */}
     </>
   );
 }
