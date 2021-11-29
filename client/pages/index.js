@@ -17,7 +17,7 @@ export default function Home() {
 
   useEffect(() => {
     window.addEventListener("mousedown", function(e) {
-      var amt = randNum(1, 5);
+      var amt = randNum(1, 3);
       for (var i = 0; i < amt; i++) {
         var top = randNum(e.clientY - 30, e.clientY + 30);
         var left = randNum(e.clientX - 30, e.clientX + 10);
@@ -27,6 +27,12 @@ export default function Home() {
         });
       }
     });
+
+    return () => {
+      window.removeEventListener("mousedown", () => {
+        console.log("removed");
+      });
+    };
   }, []);
 
   return (
@@ -39,13 +45,12 @@ export default function Home() {
         fontSize="2xl"
         fontWeight="bold"
         flexDirection="column"
+        id="blossom-container"
       >
         <Layout>
-          <Center bg="rgb(0,0,0,0.5)" h="100vh" w="100%">
+          <Center bgColor="pink.50" h="100vh" w="100%">
             <Box w="80%">
-              <Text fontSize="6xl" color="white">
-                ETAMAX-22 FLEUR
-              </Text>
+              <Text fontSize="6xl">ETAMAX-22 FLEUR</Text>
             </Box>
           </Center>
         </Layout>

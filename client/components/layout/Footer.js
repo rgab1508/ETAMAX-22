@@ -6,12 +6,12 @@ export default function Footer() {
       position="relative"
       bottom="0"
       w="100%"
-      h="10vh"
+      h="50px"
       justifyContent="center"
-      bg="black"
+      bg="pink.100"
     >
       <Text fontSize="xl" color="white">
-        Footer here
+        FCRIT
       </Text>
     </Flex>
   );

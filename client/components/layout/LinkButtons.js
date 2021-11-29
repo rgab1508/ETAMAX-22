@@ -16,8 +16,8 @@ export default function Component({ children, to }) {
       bg="transparent"
       color="white"
       fontWeight="medium"
-      rounded="2xl"
-      shadow="xl"
+      // rounded="2xl"
+      // shadow="xl"
       size={"lg"}
       _focus={{
         outline: "none",
@@ -25,14 +25,13 @@ export default function Component({ children, to }) {
       transition="background 0.5s"
       backgroundPosition="center"
       _hover={{
-        bgColor: `white`,
+        bgColor: `pink.200`,
         bgGradient: `radial(circle, transparent 1%, gray.${step2} 1%)`,
         bgPos: "center",
         backgroundSize: "15000%",
-        color: "black",
       }}
       _active={{
-        bgColor: `white`,
+        bgColor: `pink.200`,
         backgroundSize: "100%",
         transition: "background 0s",
         color: "black",

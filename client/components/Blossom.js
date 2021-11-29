@@ -1,3 +1,5 @@
+import { randNum } from "./utils/utils";
+
 export class Petal {
   constructor(config) {
     this.customClass = config.customClass || "";
@@ -55,6 +57,7 @@ export class BlossomScene {
    */
   resetPetal(petal) {
     petal.x = this.width * 2 - Math.random() * this.width * 1.75;
+    // petal.x = randNum(this.width * 0.1, this.width - 10);
     petal.y = petal.el.offsetHeight * -1;
     petal.z = Math.random() * 200;
     if (petal.x > this.width) {
