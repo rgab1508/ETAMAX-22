@@ -1,5 +1,6 @@
 import {
   Box,
+  Center,
   Heading,
   Button,
   Flex,
@@ -25,7 +26,7 @@ const MotionFlex = motion(Flex);
 
 function Logo({ visible, ...rest }) {
   return (
-    <Box {...rest}>
+    <Center {...rest}>
       <Heading
         fontSize={{ base: "2xl", md: "25pt" }}
         fontWeight="bolder"
@@ -33,7 +34,7 @@ function Logo({ visible, ...rest }) {
       >
         {visible && "ETAMAX - 22"}
       </Heading>
-    </Box>
+    </Center>
   );
 }
 

@@ -1,22 +1,17 @@
 import { Box, Center, Text, Flex } from "@chakra-ui/react";
-import Background from "../components/Background";
-/* import LoginForm from "../components/LoginForm"; */
-import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import Flower from "../components/Flower";
 import { randNum } from "../components/utils/utils";
 import Layout from "../components/layout/Layout";
+import Head from "next/head";
 
 if (typeof window !== "undefined") {
   import("../components/utils/blossom");
 }
 
 export default function Home() {
-  // Parallax effect for the background
-  const [scrollY, setScrollY] = useState(0);
-
   useEffect(() => {
-    window.addEventListener("mousedown", function(e) {
+    window.addEventListener("mousedown", function (e) {
       var amt = randNum(1, 3);
       for (var i = 0; i < amt; i++) {
         var top = randNum(e.clientY - 30, e.clientY + 30);
@@ -37,7 +32,9 @@ export default function Home() {
 
   return (
     <>
-      {/* <Background /> */}
+      <Head>
+        <title>ETAMAX-22 | Home</title>
+      </Head>
       <Flex
         bg="transparent"
         minH="100vh"
@@ -55,7 +52,6 @@ export default function Home() {
           </Center>
         </Layout>
       </Flex>
-      {/* <LoginForm /> */}
     </>
   );
 }

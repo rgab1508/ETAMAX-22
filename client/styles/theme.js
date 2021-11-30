@@ -1,7 +1,6 @@
 // Add theme data here
 // Font and color data will be decided later
 import { extendTheme } from "@chakra-ui/react";
-import "@fontsource/lato";
 import "@fontsource/poppins/200.css";
 import "@fontsource/poppins/300.css";
 import "@fontsource/poppins/400.css";
