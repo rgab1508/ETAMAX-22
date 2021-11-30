@@ -41,7 +41,7 @@ const LoginForm = () => {
       minH={"80vh"}
       align={"center"}
       justify={"center"}
-      bg={useColorModeValue("gray.50", "gray.800")}
+      bg={useColorModeValue("pink.100", "pink.800")}
     >
       <Stack spacing={6} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
@@ -83,10 +83,10 @@ const LoginForm = () => {
             <Stack spacing={10}>
               <Button
                 size="lg"
-                bg={"blue.400"}
+                bg={"pink.400"}
                 color={"white"}
                 _hover={{
-                  bg: "blue.500",
+                  bg: "pink.500",
                 }}
                 onClick={submitFormHandler}
               >

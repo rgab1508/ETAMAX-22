@@ -41,7 +41,7 @@ const LoginOtherColleges = () => {
       minH={"80vh"}
       align={"center"}
       justify={"center"}
-      bg={useColorModeValue("gray.50", "gray.800")}
+      bg={useColorModeValue("pink.100", "pink.800")}
     >
       <Stack spacing={6} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
@@ -81,7 +81,7 @@ const LoginOtherColleges = () => {
             <Stack spacing={10} pt={2}>
               <Button
                 size="lg"
-                bg={"blue.400"}
+                bg={"pink.400"}
                 color={"white"}
                 onClick = {submitFormHandler}
               >
