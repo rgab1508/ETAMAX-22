@@ -781,6 +781,11 @@
   resolved "https://registry.yarnpkg.com/@fontsource/lato/-/lato-4.5.0.tgz#c248b083be330daafade76995fed9088d5b76c04"
   integrity sha512-Y1qluoF+5b2U6MWcEz70+euZwl4TEV+9v7nZCmuRgNHb5McYc3VmbNmYNEiLsnb1HHwlAHA70P/LktP9EJ61ag==
 
+"@fontsource/paytone-one@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/paytone-one/-/paytone-one-4.5.0.tgz#ff0d08e1c130f5299c6fee6118a8e76666ab314f"
+  integrity sha512-HD0xwIfSjvBRzghPxubKd7f7CXf8Q/Zv8ebwMrrjNCYMM3JamDKI/IeR4OvuUEI8vaBxqJFyZOJGLbRMS396MA==
+
 "@fontsource/poppins@^4.5.0":
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/@fontsource/poppins/-/poppins-4.5.0.tgz#a419697b85864afbf8363f5c247b1e9d1f117564"

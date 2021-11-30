@@ -1,4 +1,4 @@
-import { Box, Center, Text, Flex } from "@chakra-ui/react";
+import { Box, Center, Heading, Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Flower from "../components/Flower";
 import { randNum } from "../components/utils/utils";
@@ -35,23 +35,25 @@ export default function Home() {
       <Head>
         <title>ETAMAX-22 | Home</title>
       </Head>
-      <Flex
-        bg="transparent"
-        minH="100vh"
-        minW="100vw"
-        fontSize="2xl"
-        fontWeight="bold"
-        flexDirection="column"
-        id="blossom-container"
-      >
-        <Layout>
+      <Layout>
+        <Flex
+          bg="transparent"
+          minH="100vh"
+          minW="100vw"
+          fontSize="2xl"
+          fontWeight="bold"
+          flexDirection="column"
+          id="blossom-container"
+        >
           <Center bgColor="pink.50" h="100vh" w="100%">
             <Box w="80%">
-              <Text fontSize="6xl">ETAMAX-22 FLEUR</Text>
+              <Heading color="pink.600" fontSize="6xl">
+                ETAMAX-22 FLEUR
+              </Heading>
             </Box>
           </Center>
-        </Layout>
-      </Flex>
+        </Flex>
+      </Layout>
     </>
   );
 }

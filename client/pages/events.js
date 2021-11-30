@@ -1,7 +1,11 @@
-import React from "react";
+import Head from "next/head";
 
-const Events = () => {
-  return <div>Events</div>;
-};
-
-export default Events;
+export default function Events() {
+  return (
+    <>
+      <Head>
+        <title>Events</title>
+      </Head>
+    </>
+  );
+}

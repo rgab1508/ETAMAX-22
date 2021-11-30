@@ -29,14 +29,14 @@ export default function Component({ children, to }) {
         bgGradient: `radial(circle, transparent 1%, pink.${step2} 1%)`,
         bgPos: "center",
         backgroundSize: "15000%",
-        color: "black",
+        color: "pink",
         outline: "none",
       }}
       _active={{
         bgColor: `pink.200`,
         backgroundSize: "100%",
         transition: "background 0s",
-        color: "black",
+        color: "pink.500",
         outline: "none",
       }}
       onClick={() => {

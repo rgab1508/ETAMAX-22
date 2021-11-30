@@ -88,7 +88,7 @@ function DrawerNavbar({ isOpen }) {
       <Collapse in={isOpen} animateOpacity>
         <Box
           flexBasis={{ base: "100%", md: "auto" }}
-          background={{ base: "black", md: "transparent" }}
+          background={{ base: "pink.100", md: "transparent" }}
           p={{ base: "20px", md: "0px" }}
           borderRadius="15px"
           color="white"
@@ -129,7 +129,6 @@ function NavbarContainer({ setVisible, children, ...rest }) {
       sx={{ transition: "all 0.22s ease-in-out" }}
       position="fixed"
       zIndex="3"
-      gridGap="20px"
       boxShadow="0px 1px 10px 0px rgb(255 0 200 / 25%)"
       {...rest}
     >
