@@ -4,6 +4,7 @@ import Flower from "../components/Flower";
 import { randNum } from "../components/utils/utils";
 import Layout from "../components/layout/Layout";
 import Head from "next/head";
+import Background from "../components/Background";
 
 if (typeof window !== "undefined") {
   import("../components/utils/blossom");
@@ -45,9 +46,10 @@ export default function Home() {
           flexDirection="column"
           id="blossom-container"
         >
-          <Center bgColor="pink.50" h="100vh" w="100%">
-            <Box w="80%">
-              <Heading color="pink.600" fontSize="6xl">
+          <Background />
+          <Center h="60vh" w="100%">
+            <Box w="85%">
+              <Heading color="pink.300" fontSize="6xl">
                 ETAMAX-22 FLEUR
               </Heading>
             </Box>

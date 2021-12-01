@@ -6,7 +6,7 @@ export default function Background() {
   return (
     <Box
       as="img"
-      src={"assets/festImageTest.jpeg"}
+      src={"assets/background.svg"}
       alt={"festImageTest"}
       position="fixed"
       zIndex="-1"

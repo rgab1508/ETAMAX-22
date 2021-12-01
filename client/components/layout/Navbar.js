@@ -121,7 +121,7 @@ function NavbarContainer({ setVisible, children, ...rest }) {
     <MotionFlex
       justifyContent={{ base: "space-between", md: "space-between" }}
       initial={false}
-      background="pink.100"
+      background="pink.200"
       justify="space-between"
       wrap="wrap"
       p="20px"
