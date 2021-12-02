@@ -7,12 +7,12 @@ export default function Background() {
     <Box
       as="img"
       src={"assets/background.svg"}
-      alt={"festImageTest"}
+      alt={"Background test"}
       position="fixed"
-      zIndex="-1"
+      zIndex="-2"
       objectFit="cover"
-      backgroundAttachment="scroll"
       backgroundPosition="center"
+      backgroundAttachment="fixed"
       backgroundRepeat="no-repeat"
       backgroundSize="cover"
       h="100vh"

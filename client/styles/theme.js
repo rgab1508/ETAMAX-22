@@ -10,11 +10,13 @@ import "@fontsource/poppins/700.css";
 import "@fontsource/poppins/800.css";
 import "@fontsource/poppins/900.css";
 import "@fontsource/paytone-one";
+import "@fontsource/birthstone-bounce";
 
 const theme = extendTheme({
   fonts: {
     body: "Poppins",
     heading: "Paytone One",
+    strong: "Birthstone Bounce",
   },
 });
 

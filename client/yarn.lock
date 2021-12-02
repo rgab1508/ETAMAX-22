@@ -776,6 +776,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@fontsource/birthstone-bounce@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/birthstone-bounce/-/birthstone-bounce-4.5.0.tgz#88ae6c05d7f26400d8488a8f0f57a549fdd06b26"
+  integrity sha512-SLxDxYBsiKvIKRR4citR9b0Lv1OQ7h312h4TMwrUytTP28NRQiGdmtIvsdYWgmZkoss5/hvbE4LGCcrmFraMzg==
+
 "@fontsource/lato@^4.5.0":
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/@fontsource/lato/-/lato-4.5.0.tgz#c248b083be330daafade76995fed9088d5b76c04"

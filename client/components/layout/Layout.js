@@ -6,7 +6,7 @@ export default function Layout({ children }) {
   return (
     <>
       <Navbar />
-      <Flex flexDirection="column" minH="100vh" w="100vw">
+      <Flex bg="transparent" flexDirection="column" h="auto" w="100vw">
         {children}
       </Flex>
       <Footer />

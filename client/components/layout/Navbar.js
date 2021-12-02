@@ -32,7 +32,7 @@ function Logo({ visible, ...rest }) {
         fontWeight="bolder"
         color="white"
       >
-        {visible && "ETAMAX - 22"}
+        {visible ? "ETAMAX - 22" : ""}
       </Heading>
     </Center>
   );
@@ -72,11 +72,26 @@ function MenuToggle({ toggle }) {
   );
 }
 
-function MenuItems({ children, to }) {
-  return <LinkButtons to={to}>{children}</LinkButtons>;
+function MenuItems({ children, to, color }) {
+  return (
+    <LinkButtons color={color} to={to}>
+      {children}
+    </LinkButtons>
+  );
 }
 
 function DrawerNavbar({ isOpen }) {
+  const [color, setColor] = useState("pink.400");
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 500) {
+        setColor("white");
+      } else {
+        setColor("pink.400");
+      }
+    });
+  }, []);
+
   return (
     <Box
       bg="transparent"
@@ -91,7 +106,6 @@ function DrawerNavbar({ isOpen }) {
           background={{ base: "pink.100", md: "transparent" }}
           p={{ base: "20px", md: "0px" }}
           borderRadius="15px"
-          color="white"
         >
           <SlideFade in={isOpen}>
             <Stack
@@ -99,13 +113,13 @@ function DrawerNavbar({ isOpen }) {
               direction={["column", "row", "row", "row"]}
               pt={[4, 4, 0, 0]}
             >
-              <MenuItems color="white" to="/">
+              <MenuItems color={color} to="/">
                 Home
               </MenuItems>
-              <MenuItems color="white" to="/events">
+              <MenuItems color={color} to="/events">
                 Events
               </MenuItems>
-              <MenuItems color="white" to="/login">
+              <MenuItems color={color} to="/login">
                 Login
               </MenuItems>
             </Stack>
@@ -117,19 +131,35 @@ function DrawerNavbar({ isOpen }) {
 }
 
 function NavbarContainer({ setVisible, children, ...rest }) {
+  const [background, setBackground] = useState("transparent");
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 500) {
+        setBackground("#fcc0cb");
+      } else {
+        setBackground("transparent");
+      }
+    });
+  }, []);
+
   return (
     <MotionFlex
       justifyContent={{ base: "space-between", md: "space-between" }}
       initial={false}
-      background="pink.200"
+      background={background}
       justify="space-between"
       wrap="wrap"
       p="20px"
       w="100%"
-      sx={{ transition: "all 0.22s ease-in-out" }}
+      sx={{ transition: "all 0.2s ease-in-out" }}
       position="fixed"
       zIndex="3"
-      boxShadow="0px 1px 10px 0px rgb(255 0 200 / 25%)"
+      boxShadow={
+        background != "transparent"
+          ? "0px 1px 10px 0px rgb(255 0 200 / 25%)"
+          : "none"
+      }
       {...rest}
     >
       {children}
@@ -154,13 +184,23 @@ export default function Navbar(props) {
     window.innerWidth >= 768 ? toggleOpen(true) : toggleOpen(false);
   }, []);
 
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 500) {
+        setVisible(1);
+      } else {
+        setVisible(0);
+      }
+    });
+  }, []);
+
   return (
     <NavbarContainer
       animate={isOpen ? "open" : "closed"}
       ref={containerRef}
       {...props}
     >
-      <Logo visible={true} />
+      <Logo visible={visible} />
       <Box>{/* Cart items here */}</Box>
       <MenuToggle toggle={toggle} />
       <DrawerNavbar isOpen={isOpen} />

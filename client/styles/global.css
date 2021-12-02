@@ -1,12 +1,8 @@
-body {
-  overflow: hidden;
-}
-
 #blossom-container {
-  background-color: #f1f1f1;
-  position: absolute;
-  width: calc(100% - 40px);
-  height: calc(100% - 40px);
+  background-color: transparent;
+  position: relative;
+  /* width: calc(100% - 40px);
+  height: calc(100% - 40px); */
 }
 
 .petal {

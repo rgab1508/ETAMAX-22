@@ -10,7 +10,7 @@ export default function Footer() {
       justifyContent="center"
       bg="pink.100"
     >
-      <Text fontSize="xl" color="white">
+      <Text fontSize="xl" color="pink.400">
         FCRIT
       </Text>
     </Flex>

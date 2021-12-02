@@ -2,34 +2,28 @@ import React from "react";
 import { Button, useColorModeValue } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
-export default function Component({ children, to }) {
-  const scheme = "yellow";
-  const step1 = useColorModeValue("600", "300");
+export default function Component({ children, to, color }) {
   const step2 = useColorModeValue("300", "200");
-  const step3 = useColorModeValue("300", "500");
   const router = useRouter();
 
   const sizes = ["lg"];
   return (
     <Button
-      //bgColor={`${scheme}.${step1}`}
       bg="transparent"
-      color="white"
+      color={color}
       fontWeight="medium"
-      // rounded="2xl"
-      // shadow="xl"
       size={"lg"}
       _focus={{
         outline: "none",
       }}
-      transition="background 0.5s"
+      transition="all 0.3s"
       backgroundPosition="center"
       _hover={{
-        bgColor: `white`,
+        bgColor: `pink.100`,
         bgGradient: `radial(circle, transparent 1%, pink.${step2} 1%)`,
         bgPos: "center",
         backgroundSize: "15000%",
-        color: "pink",
+        color: "pink.300",
         outline: "none",
       }}
       _active={{
