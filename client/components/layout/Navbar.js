@@ -15,8 +15,8 @@ import { useState, useEffect, useRef } from "react";
 const Path = (props) => (
   <motion.path
     fill="transparent"
-    strokeWidth="3"
-    stroke="hsl(0,0%,18%)"
+    strokeWidth="3.5"
+    stroke="#eb94a4"
     strokeLinecap="round"
     {...props}
   />
@@ -41,10 +41,12 @@ function Logo({ visible, ...rest }) {
 function MenuToggle({ toggle }) {
   return (
     <Button
-      bg="white"
-      color="black"
+      bg="transparent"
+      variant="ghost"
+      color="white"
       display={{ md: "none", base: "block" }}
       onClick={toggle}
+      _focus={{ outline: "none!important", bg: "pink.100" }}
     >
       <svg width="20" height="20" viewBox="0 0 20 20">
         <Path
@@ -201,7 +203,6 @@ export default function Navbar(props) {
       {...props}
     >
       <Logo visible={visible} />
-      <Box>{/* Cart items here */}</Box>
       <MenuToggle toggle={toggle} />
       <DrawerNavbar isOpen={isOpen} />
     </NavbarContainer>

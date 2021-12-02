@@ -12,8 +12,6 @@ export default function Background() {
       zIndex="-2"
       objectFit="cover"
       backgroundPosition="center"
-      backgroundAttachment="fixed"
-      backgroundRepeat="no-repeat"
       backgroundSize="cover"
       h="100vh"
       w="100%"
