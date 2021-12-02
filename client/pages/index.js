@@ -58,7 +58,7 @@ export default function Home() {
           </Center>
         </Flex>
         <Flex h="100vh" minW="100vw" bg="#fcc0cb">
-          Hello world
+          Events and sponsors here
         </Flex>
       </Layout>
     </>
