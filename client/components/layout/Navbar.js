@@ -86,7 +86,7 @@ function DrawerNavbar({ isOpen }) {
   const [color, setColor] = useState("pink.400");
   useEffect(() => {
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 500) {
+      if (window.scrollY > 450) {
         setColor("white");
       } else {
         setColor("pink.400");
@@ -137,7 +137,7 @@ function NavbarContainer({ setVisible, children, ...rest }) {
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 500) {
+      if (window.scrollY > 450) {
         setBackground("#fcc0cb");
       } else {
         setBackground("transparent");
@@ -188,7 +188,7 @@ export default function Navbar(props) {
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 500) {
+      if (window.scrollY > 450) {
         setVisible(1);
       } else {
         setVisible(0);

@@ -6,6 +6,7 @@ import Layout from "../components/layout/Layout";
 import Head from "next/head";
 import Background from "../components/Background";
 import "@fontsource/birthstone-bounce";
+import { useEffect } from "react";
 
 if (typeof window !== "undefined") {
   import("../components/utils/blossom");
@@ -31,6 +32,18 @@ export default function Home() {
   //     });
   //   };
   // }, []);
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      const dist = window.scrollY;
+      document.getElementById(
+        "blossom-container"
+      ).style.transform = `-translateY(${dist * 1}px)`;
+      document.getElementById(
+        "background-image"
+      ).style.transform = `translateY(${dist * 0.1}px)`;
+    });
+  }, []);
 
   return (
     <>
