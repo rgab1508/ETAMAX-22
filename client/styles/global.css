@@ -28,3 +28,7 @@
   height: 34px;
   background-position: -49px -35px;
 }
+
+body {
+  overflow-x: hidden;
+}
