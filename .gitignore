@@ -2,6 +2,11 @@
 # Created by https://www.toptal.com/developers/gitignore/api/node,react,nextjs,yarn,python,django
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,react,nextjs,yarn,python,django
 
+
+init.sh
+
+
+
 ### Django ###
 *.log
 *.pot
