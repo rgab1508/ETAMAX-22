@@ -46,8 +46,8 @@ export class BlossomScene {
     this.timer = 0;
     this.container.style.overflow = "hidden";
     this.placeholder.style.transformStyle = "preserve-3d";
-    this.placeholder.style.width = this.container.offsetWidth + "px";
-    this.placeholder.style.height = this.container.offsetHeight + "px";
+    // this.placeholder.style.width = this.container.offsetWidth + "px";
+    // this.placeholder.style.height = this.container.offsetHeight + "px";
     // this.container.appendChild(this.placeholder);
     this.createPetals();
     requestAnimationFrame(this.updateFrame.bind(this));
