@@ -23,6 +23,7 @@ class Event(models.Model):
   title = models.CharField(_("Event Title"), max_length=256,blank=False)
   description = MartorField(_("Event Description"), blank=False)
   # description = models.TextField(_("Event Description"), blank=False)
+  is_fcrit_only = models.BooleanField("Is Event Only For FCRIT Students", default=False)
   whatsapp_link = models.URLField(_("Whatsapp Link"), blank=True, null=True)
   image = models.ImageField(_("Event Banner"), upload_to="uploads/")
   seats = models.IntegerField(_("Event Seats"),blank=False,default=0)
