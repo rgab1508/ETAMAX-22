@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import LoginForm from "../components/layout/LoginForm";
 import LoginOtherColleges from "../components/layout/LoginOtherColleges";
+import Background from "../components/Background";
 import Head from "next/head";
 const login = () => {
   return (
@@ -19,6 +20,7 @@ const login = () => {
       <Head>
         <title>ETAMAX-22 | Login</title>
       </Head>
+          <Background />
       <Box alignItems="center" borderRadius="lg">
         <Center>
           <Tabs isFitted variant="enclosed" color="pink.800">
