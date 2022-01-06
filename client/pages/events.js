@@ -1,4 +1,4 @@
-import { Box, Flex, Center } from "@chakra-ui/react";
+import { Box, Flex, Center, Heading, Text } from "@chakra-ui/react";
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import EventCard from "../components/cards/EventCards";
@@ -31,14 +31,33 @@ export default function Events() {
         <title>ETAMAX-22 | Events</title>
       </Head>
       <Layout>
-        <Background />
+        <Background pageName={"Events"} />
         <Flex
           id="blossom-container"
           maxW="100vw"
           flexDirection="column"
           h="100vh"
-        ></Flex>
-        <Center w="100%" minH="60vh" flexDir={"column"} gridGap="2">
+        >
+          <Center h="100vh" w="100%" flexDir={"column"}>
+            <Box w="80%">
+              <Heading color="pink.300" fontSize="6xl">
+                ETAMAX-22{" "}
+                <Text fontSize="8xl" fontFamily="Birthstone Bounce">
+                  Fleur
+                </Text>
+              </Heading>
+            </Box>
+            <Box mt={4} w="83%" p="20px">
+              <Text fontSize={"3xl"} fontWeight={"normal"} color="pink.400">
+                ETAMAX offers you a variety of events to choose from. Feel free
+                to pick any event of your choice from Technical, Cultural and
+                Sports (Only for FCRIT students), but make sure you follow the
+                registration criteria.
+              </Text>
+            </Box>
+          </Center>
+        </Flex>
+        <Center py="30px" w="100%" minH="60vh" flexDir={"column"} gridGap="2">
           {numbers.map((num) => (
             <EventCard />
           ))}

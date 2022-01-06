@@ -42,7 +42,7 @@ export default function EventCard({ event }) {
       )} */}
       <Flex
         flexDirection={{ base: "column-reverse", md: "row" }}
-        minH={{ md: "170px" }}
+        minH={{ md: "15vh" }}
         onClick={() => setOpen(!isOpen)}
       >
         <Box
@@ -62,7 +62,6 @@ export default function EventCard({ event }) {
           >
             event.title
           </Text>
-
           <Text
             mt={3}
             w="100%"
@@ -98,6 +97,7 @@ export default function EventCard({ event }) {
           position="relative"
           w={{ base: "100%", md: "50%" }}
           h={{ base: "15vh", md: "auto" }}
+          transition={"all 0.2s ease-in-out"}
         >
           <Flex
             p="10px"
