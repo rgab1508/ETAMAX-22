@@ -34,34 +34,49 @@ export default function Events() {
         <Background pageName={"Events"} />
         <Flex
           id="blossom-container"
+          flexDir="column"
+          h="auto"
+          w="100vw"
           maxW="100vw"
-          flexDirection="column"
-          h="100vh"
         >
-          <Center h="100vh" w="100%" flexDir={"column"}>
-            <Box w="80%">
-              <Heading color="pink.300" fontSize="6xl">
-                ETAMAX-22{" "}
-                <Text fontSize="8xl" fontFamily="Birthstone Bounce">
-                  Fleur
+          <Flex
+            maxW="100vw"
+            flexDirection="column"
+            h={{ base: "120vh", md: "100vh" }}
+          >
+            <Center
+              h={{ base: "110vh", md: "100vh" }}
+              w="100%"
+              flexDir={"column"}
+            >
+              <Box w="80%">
+                <Heading color="pink.300" fontSize="6xl">
+                  ETAMAX-22{" "}
+                  <Text fontSize="8xl" fontFamily="Birthstone Bounce">
+                    Fleur
+                  </Text>
+                </Heading>
+              </Box>
+              <Box mt={4} w="83%" p="20px">
+                <Text
+                  fontSize={{ base: "xl", md: "3xl" }}
+                  fontWeight={"normal"}
+                  color="pink.400"
+                >
+                  ETAMAX offers you a variety of events to choose from. Feel
+                  free to pick any event of your choice from Technical, Cultural
+                  and Sports (Only for FCRIT students), but make sure you follow
+                  the registration criteria.
                 </Text>
-              </Heading>
-            </Box>
-            <Box mt={4} w="83%" p="20px">
-              <Text fontSize={"3xl"} fontWeight={"normal"} color="pink.400">
-                ETAMAX offers you a variety of events to choose from. Feel free
-                to pick any event of your choice from Technical, Cultural and
-                Sports (Only for FCRIT students), but make sure you follow the
-                registration criteria.
-              </Text>
-            </Box>
+              </Box>
+            </Center>
+          </Flex>
+          <Center py="30px" w="100%" minH="60vh" flexDir={"column"} gridGap="4">
+            {numbers.map((num) => (
+              <EventCard />
+            ))}
           </Center>
         </Flex>
-        <Center py="30px" w="100%" minH="60vh" flexDir={"column"} gridGap="2">
-          {numbers.map((num) => (
-            <EventCard />
-          ))}
-        </Center>
       </Layout>
     </>
   );

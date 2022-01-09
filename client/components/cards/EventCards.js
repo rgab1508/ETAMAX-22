@@ -28,96 +28,106 @@ export default function EventCard({ event }) {
         boxShadow: "2xl",
       }}
       cursor="pointer"
-      sx={{ transition: "box-shadow 0.2s ease-in-out, height 1s" }}
+      position="relative"
+      zIndex="1"
+      transition="box-shadow 0.2s ease-in-out, height 1s"
     >
-      {/* {alertContent && (
-        <AlertDialogBox
-          content={alertContent}
-          open={alertOpen}
-          setOpen={setAlertOpen}
-          closeBtn={true}
-          submitText="Confirm"
-          onClose={handleRegister}
-        />
-      )} */}
       <Flex
         flexDirection={{ base: "column-reverse", md: "row" }}
-        minH={{ md: "15vh" }}
+        backgroundSize="cover"
+        backgroundPosition="center"
+        backgroundRepeat="no-repeat"
+        backgroundImage={`https://picsum.photos/200/300`}
+        h="30vh"
         onClick={() => setOpen(!isOpen)}
+        borderRadius="10px"
       >
-        <Box
-          sx={{ transition: "all 0.5s" }}
-          p="15px"
-          w={{ base: "100%", md: "50%" }}
-          h="100%"
-        >
-          <Text
-            color="pink.400"
-            fontWeight="bold"
-            fontSize={{
-              base: isOpen ? "13pt" : "11pt",
-              md: isOpen ? "30pt" : "22pt",
-            }}
-            transition="all 0.2s ease-in-out"
-          >
-            event.title
-          </Text>
-          <Text
-            mt={3}
-            w="100%"
-            noOfLines={2}
-            color="pink.400"
-            fontWeight="bold"
-            fontSize={{ base: "9pt", md: "16pt" }}
-          >
-            event.start - event.end
-          </Text>
+        <Flex w="100%" h="100%" bgColor="rgb(0,0,0,0.4)" borderRadius="10px">
           <Flex
-            opacity={isOpen ? 0 : 1}
-            transition={"opacity 0.2s"}
-            w={{ md: "100%" }}
-            overflow="hidden"
-          >
-            <Text
-              sx={{ transition: "font-size 0.3s" }}
-              noOfLines={{ base: 2, md: 2 }}
-              color="pink.400"
-              fontSize={{ base: "9pt", md: "12pt" }}
-              textOverflow="ellipsis"
-              whiteSpace="nowrap"
-              fontStyle="italic"
-            >
-              Click here to learn more
-            </Text>
-          </Flex>
-        </Box>
-        <Box
-          overflow="hidden"
-          borderRadius="10px"
-          position="relative"
-          w={{ base: "100%", md: "50%" }}
-          h={{ base: "15vh", md: "auto" }}
-          transition={"all 0.2s ease-in-out"}
-        >
-          <Flex
-            p="10px"
-            flexDirection="column"
+            transition="all 0.2s"
+            p="15px"
+            w={{ base: "100%", md: "50%" }}
+            h="100%"
             borderRadius="10px"
-            gridGap="2"
-            position="absolute"
-            right={0}
-            zIndex={1}
+            bgColor="transparent"
+            _hover={{
+              bgColor: "white",
+              color: "pink.300",
+            }}
+            color="white"
+            flexDir="column"
+            justifyContent="space-evenly"
           >
-            <Badge
-              ml="auto"
-              bg="purple.900"
-              color="white"
-              fontSize={{ base: "10pt", md: "14pt" }}
-              borderRadius="5px"
+            <Box>
+              <Text
+                fontWeight="bold"
+                fontSize={{
+                  base: isOpen ? "22pt" : "18pt",
+                  md: isOpen ? "40pt" : "35pt",
+                }}
+                transition="all 0.2s ease-in-out"
+              >
+                event.title
+              </Text>
+              <Text
+                w="100%"
+                noOfLines={2}
+                fontWeight="bold"
+                fontSize={{
+                  base: isOpen ? "18pt" : "16pt",
+                  md: isOpen ? "25pt" : "20pt",
+                }}
+                transition="all 0.2s ease-in-out"
+              >
+                event.start - event.end
+              </Text>
+            </Box>
+            <Flex
+              opacity={isOpen ? 0 : 1}
+              transition={"opacity 0.2s"}
+              w={{ md: "100%" }}
+              overflow="hidden"
+              bottom={0}
             >
-              Day - event.day
-            </Badge>
-            {/* <Badge
+              <Text
+                sx={{ transition: "font-size 0.3s" }}
+                noOfLines={{ base: 2, md: 2 }}
+                fontSize={{ base: "9pt", md: "12pt" }}
+                textOverflow="ellipsis"
+                whiteSpace="nowrap"
+                fontStyle="italic"
+              >
+                Click here to learn more
+              </Text>
+            </Flex>
+          </Flex>
+          <Box
+            overflow="hidden"
+            borderRadius="10px"
+            position="relative"
+            w={{ base: "100%", md: "50%" }}
+            h={{ base: "15vh", md: "auto" }}
+            transition={"all 0.2s ease-in-out"}
+          >
+            <Flex
+              p="10px"
+              flexDirection="column"
+              borderRadius="10px"
+              gridGap="2"
+              position="absolute"
+              right={0}
+              zIndex={1}
+            >
+              <Badge
+                ml="auto"
+                bg="purple.900"
+                color="white"
+                fontSize={{ base: "10pt", md: "14pt" }}
+                borderRadius="5px"
+              >
+                Day - event.day
+              </Badge>
+              {/* <Badge
               ml="auto"
               bg={event.category == "S" ? "blue.700" : "red.700"}
               color="white"
@@ -137,19 +147,9 @@ export default function EventCard({ event }) {
                 Group
               </Badge>
             ) : null} */}
-          </Flex>
-          <Box
-            backgroundSize="cover"
-            backgroundPosition="center"
-            backgroundRepeat="no-repeat"
-            backgroundImage={`https://picsum.photos/200/300`}
-            borderRadius="10px"
-            w="100%"
-            h="100%"
-            transition="0.2s all"
-            _hover={{ transform: "scale(1.1)" }}
-          />
-        </Box>
+            </Flex>
+          </Box>
+        </Flex>
       </Flex>
       <Collapse in={isOpen} animateOpacity>
         <Flex
