@@ -1,6 +1,6 @@
 import Background from "../components/Background";
 import { Center, Text } from "@chakra-ui/react";
-import Footer from "../components/Layout/Footer";
+import Footer from "../components/layout/Footer";
 import Head from "next/head";
 
 if (typeof window !== "undefined") {
