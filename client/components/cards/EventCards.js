@@ -28,7 +28,6 @@ export default function EventCard({ event, key }) {
         _hover={{
           boxShadow: "2xl",
         }}
-        cursor="pointer"
         position="relative"
         zIndex="1"
         transition="box-shadow 0.2s ease, height 1s"
@@ -42,6 +41,7 @@ export default function EventCard({ event, key }) {
           h="30vh"
           onClick={() => setOpen(!isOpen)}
           borderRadius="10px"
+          cursor="pointer"
         >
           <Flex w="100%" h="100%" bgColor="rgb(0,0,0,0.4)" borderRadius="10px">
             <Flex
@@ -74,7 +74,7 @@ export default function EventCard({ event, key }) {
                 <Text
                   w="100%"
                   noOfLines={2}
-                  fontWeight="bold"
+                  fontWeight="normal"
                   position={"relative"}
                   bottom={isOpen ? "-30px" : "0px"}
                   fontSize={{
@@ -100,7 +100,7 @@ export default function EventCard({ event, key }) {
                   whiteSpace="nowrap"
                   fontStyle="italic"
                 >
-                  Click here to learn more
+                  Click to learn more
                 </Text>
               </Flex>
             </Flex>
