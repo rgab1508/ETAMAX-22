@@ -12,9 +12,11 @@ from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 
+from transactions.models import Transaction
 
-from .models import Team, User
-from .serializers import TeamSerializer, TeamSerializer2, UserSerializer
+
+from .models import Participation, User, UserRequest
+from .serializers import ParticipationSerializer, ParticipationSerializer2, UserSerializer, UserRequestSerializer
 from .permissions import IsProfileFilled
 
 import csv
@@ -27,7 +29,7 @@ class OTPVerify(APIView):
 
     if secret != settings.OTP_VERIFY_SECRET:
       return JsonResponse({"detail": "Something went Wrong", "success": False}, status=400)
-    
+
     phone_no = request.data["phone_no"]
     user = request.user
     user.phone_no = phone_no
@@ -97,21 +99,19 @@ class RegisterView(APIView):
 
 class LoginView(ObtainAuthToken):
 
-    def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data,
-                                           context={'request': request})
-        
-        if serializer.is_valid():
-          user = serializer.validated_data['user']
-          user_serializer = UserSerializer(user)
-          token, created = Token.objects.get_or_create(user=user)
-          return JsonResponse({
-              'token': token.key,
-              'user': user_serializer.data,
-              'success': True,
-          }, status=200)
-        else:
-          return JsonResponse({"success": False, "errors": serializer.errors}, status=400)
+  def post(self, request, *args, **kwargs):
+    serializer = self.serializer_class(data=request.data, context={'request': request})
+    if serializer.is_valid():
+      user = serializer.validated_data['user']
+      user_serializer = UserSerializer(user)
+      token, created = Token.objects.get_or_create(user=user)
+      return JsonResponse({
+        'token': token.key,
+        'user': user_serializer.data,
+        'success': True,
+      }, status=200)
+    else:
+      return JsonResponse({"success": False, "errors": serializer.errors}, status=400)
 
 class LogoutView(APIView):
   authentication_classes = [TokenAuthentication]
@@ -163,49 +163,58 @@ class UserCriteria(APIView):
 class UserCheckout(APIView):
   permission_classes = [IsAuthenticated, IsProfileFilled]
 
+  # ! CHECK CRITERIA COMPLETED
+
   def post(self, request):
     user = request.user
 
-    team_codes = request.data['teams']
-    transaction_id = request.data['transaction_id']
-    if len(transaction_id) < 5:
+    participations = request.data['participations']
+    upi_transaction_id = request.data['upi_transaction_id']
+    if len(upi_transaction_id) < 5:
       return JsonResponse({"detail": "Enter a Valid Transaction ID", "success": False},status=400)
-    
-    # checking criteria
-    # but this creates a deadlock as criteria cannot be update before verify and people cannot checkout before criteria satisfies
-    # criteria = json.loads(user.criteria)
-    # criteria_fullfilled = True
-    # for c in criteria.keys():
-    #   if not criteria[c]:
-    #     criteria_fullfilled = False
-    
-    # if not criteria_fullfilled:
-    #   return JsonResponse({"detail": "Please Fullfill all the Criterias before Checkout", "success": False},status=400)
-    
-    teams = []
 
-    for t in team_codes:
-      team_q = user.teams.filter(team_code=t)
-      if not team_q:
+    event_amount = 0
+    t = Transaction(user=user, upi_transaction_id=upi_transaction_id,is_paid=True)
+    p_objs = []
+
+    for p in participations:
+      part_q = user.participations.filter(part_id=p)
+      _p = part_q.first()
+      event_amount += _p.event.entry_fee
+      p_objs.append(_p)
+
+      if not part_q:
         return JsonResponse({"detail": "Not Registered for that Event", "success": False},status=400)
-      
-      team = team_q.first()
-      team.transaction_id = transaction_id
-      team.is_paid = True
-      teams.append(team)
-    
+
     user.money_owed = 0
 
+    t.event_amount = event_amount
+    if request.data["donation_amount"]:
+      t.donation_amount = int(request.data["donation_amount"])
+
+    t.total_amount = t.event_amount + t.donation_amount
     try:
-      for t in teams:
-        t.save()
-      
-      user.save()
-      return JsonResponse({"detail": "Transaction ID Added Successfully!", "success": True},status=200)
-    except:
+      t.save()
+    except Exception as e:
+      print(e)
       return JsonResponse({"detail": "Something Went Wrong", "success": False},status=400)
 
-# CART REALTED
+    try:
+      for p in p_objs:
+        p.transaction = t
+        p.save()
+    except:
+      t.delete()
+      return JsonResponse({"detail": "Something Went Wrong", "success": False},status=400)
+
+    try:
+      user.save()
+      return JsonResponse({"detail": "Transaction ID Added Successfully!", "success": True},status=200)
+    except Exception as e:
+      print(e)
+      return JsonResponse({"detail": "Something Went Wrong", "success": False},status=400)
+
+# # CART REALTED
 
 class UserCartUpdate(APIView):
   permission_classes = [IsAuthenticated]
@@ -221,9 +230,6 @@ class UserCartUpdate(APIView):
       return JsonResponse({"detail": "Cart Updated Successfully!", "success": True}, status=200)
     except ValueError:
       return JsonResponse({"detail": "Something went Wrong", "success": False}, status=400)
-
-  
-
 
 
 class MakeUsersView(APIView):
@@ -266,23 +272,34 @@ class MakeUsersView(APIView):
           # but sending throught mail merge in google sheeets
         except:
           print(roll_no, email, text_password, department, semester)
-          
+
     return JsonResponse({"success": True}, status=200)
 
 
-class TeamList(APIView):
-  permission_classes=[IsAdminUser]
-  
-  def get(self, request):
-    data = Team.objects.filter(is_paid=True)
-    
-    data_serializer = TeamSerializer2(data, many=True)
-    
-    for d in data_serializer.data:
-      event = d["event"]
-      # members = d["members"]
-      
-      d["event"] = event["title"]
-        
+# User Request from non-FCRIT
 
-    return JsonResponse({"data": data_serializer.data}, status=200)
+class UserRequestView(APIView):
+  def post(self, request):
+    serializer = UserRequestSerializer(data=request.data)
+    if serializer.is_valid():
+      serializer.save()
+      return JsonResponse(serializer.data, status=201)
+    else:
+      return JsonResponse(serializer.errors, status=400)
+
+# class TeamList(APIView):
+#   permission_classes=[IsAdminUser]
+
+#   def get(self, request):
+#     data = Transaction.objects.filter(is_paid=True)
+
+#     data_serializer = TeamSerializer2(data, many=True)
+
+#     for d in data_serializer.data:
+#       event = d["event"]
+#       # members = d["members"]
+
+#       d["event"] = event["title"]
+
+
+#     return JsonResponse({"data": data_serializer.data}, status=200)

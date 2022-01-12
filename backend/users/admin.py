@@ -18,7 +18,7 @@ class UserRequestAdmin(admin.ModelAdmin):
 @admin.register(Participation)
 class ParticipationAdmin(admin.ModelAdmin):
   search_fields = ('part_id', 'team_name', 'transaction_id', 'members__name', 'members__roll_no', 'members__email', 'event__title')
-  list_filter = ('is_verified', 'is_paid')
+  list_filter = ('is_verified',)
 
   actions = ['export_as_csv']
 

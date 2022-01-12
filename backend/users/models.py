@@ -7,6 +7,7 @@ from django.dispatch import receiver
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
+from transactions.models import Transaction
 
 from events.models import Event
 from .managers import UserManager
@@ -22,6 +23,9 @@ DEPARTMENTS = (
 
 def make_roll_no() -> int:
   return random.randint(9000000, 10000000)
+
+def make_password() -> str:
+  return str(uuid4())[-8:]
 
 class User(AbstractBaseUser, PermissionsMixin):
 
@@ -67,16 +71,23 @@ class UserRequest(models.Model):
   USERNAME_FIELD = 'email'
   REQUIRED_FIELDS = ['email','name', 'department', 'semester', 'phone_no', 'college']
 
+  def __str__(self) -> str:
+      return f"{self.name}#{self.email}"
+
 
 @receiver(post_save, sender=UserRequest)
 def make_user_when_approved(sender, instance, created, **kwargs):
-  if not created:
-    if instance.is_approved:
-      u = [1]
-      while len(u) > 0:
-        new_roll_no = make_roll_no()
-        u = User.objects.filter(roll_no=new_roll_no)
+  if not created and instance.is_approved:
+    if User.objects.filter(email=instance.email).exists():
+      return
 
+    u = [1]
+    while len(u) > 0:
+      new_roll_no = make_roll_no()
+      u = User.objects.filter(roll_no=new_roll_no)
+
+    try:
+      pwd = make_password()
       user = User(
         roll_no=new_roll_no,
         email=instance.email,
@@ -85,50 +96,26 @@ def make_user_when_approved(sender, instance, created, **kwargs):
         semester=instance.semester,
         college=instance.college,
         phone_no=instance.phone_no,
-        is_from_fcrit=False
+        is_phone_no_verified=True,
+        has_filled_profile=True,
+        is_from_fcrit=False,
+        password=pwd
       )
+      print(pwd)
+      ## ! SEND EMAIL HERE
       user.save()
+    except Exception as e:
+      print(f"Error creating User: {instance.email}#{new_roll_no}")
+      print(e)
 
 
 class Participation(models.Model):
   part_id = models.CharField(_("Participation Id"), default=uuid4,max_length=36, unique=True, primary_key=True)
   team_name = models.CharField(_("Team Name"), max_length=256,blank=False)
-  event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="participants")
+  event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="participations")
   members = models.ManyToManyField(User, related_name='participations')
-  transaction_id = models.CharField(_("Transactions Id"), max_length=36, blank=True, null=True)
-  is_paid = models.BooleanField(_("Is Paid"), default=False)
+  transaction = models.ForeignKey(Transaction, on_delete=models.CASCADE, related_name="participations", null=True, blank=True)
   is_verified = models.BooleanField(_("Is Verified"), default=False)
-
 
   def __str__(self) -> str:
     return f"{self.team_name}#{self.part_id}"
-
-
-# POST_SAVE after getting verified and increment event seats
-@receiver(post_save, sender=Participation)
-def update_seats(sender, instance, created, **kwargs):
-  def update_criteria(user: User, event: Event) -> User:
-    user_criteria = json.loads(user.criteria)
-    user_criteria[event.category] = user_criteria[event.category] + 1
-    user.criteria = json.dumps(user_criteria)
-    return user
-
-  print("post save bruh")
-  if not created:
-    if instance.is_paid and instance.is_verified:
-      event = instance.event
-      # Inc Event Seats
-      event.seats += 1
-      event.save()
-
-      # Update Student Criteria
-      if event.team_size > 1:
-        # Team
-        for m in instance.members.all():
-          m = update_criteria(m, event)
-          m.save()
-      else:
-        # Solo
-        user = instance.members.first()
-        user = update_criteria(user, event)
-        user.save()

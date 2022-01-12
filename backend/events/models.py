@@ -14,6 +14,7 @@ class Event(models.Model):
   CATEGORIES = (
     ("C","Cultural"),
     ("T", "Technical"),
+    ("S", "Sports"),
   )
 
   event_code = models.CharField(_("Event Code"),max_length=36,default=uuid4, unique=True, primary_key=True)
@@ -34,7 +35,7 @@ class Event(models.Model):
   is_team_size_strict = models.BooleanField(_("Is Team Size Strict"), blank=False)
   entry_fee = models.IntegerField(_("Entry Fee"), blank=False)
   prize_money = models.TextField(_("Prize Money JSON"))
-  transaction = models.ForeignKey('transactions.Transaction', on_delete=models.CASCADE, blank=True, null=True, related_name="events")
+
 
 
   def __str__(self) -> str:
