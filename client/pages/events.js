@@ -73,7 +73,9 @@ export default function Events() {
           </Flex>
           <Center py="30px" w="100%" minH="60vh" flexDir={"column"} gridGap="4">
             {numbers.map((num) => (
-              <EventCard />
+              <Center w="100vw" key={num}>
+                <EventCard />
+              </Center>
             ))}
           </Center>
         </Flex>
