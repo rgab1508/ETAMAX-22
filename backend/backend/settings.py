@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-nc8%5lucm--y429wjc*gm2=wxg(r!tao**j4%sx@r8n=t6g*qz
 OTP_VERIFY_SECRET = os.getenv("OTP_VERIFY_SECRET", "BRUH")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False if os.getenv('DJANGO_DEBUG') == 'False' else True 
 
 ALLOWED_HOSTS = ['127.0.0.1', 'etamax.fcrit.ac.in', 'etamax22.herokuapp.com', os.getenv("PUBLIC_IP", "localhost")]
 
