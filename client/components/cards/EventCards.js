@@ -10,8 +10,10 @@ import {
   Badge,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
+import { API_BASE_URL_IMG } from "../../config";
 
-export default function EventCard({ event, key }) {
+export default function EventCard({ event }) {
   const [isOpen, setOpen] = useState(false);
   // background-color: #e96196;
   // background-image: linear-gradient(315deg, #e96196 0%, #ffffff 74%);
@@ -37,7 +39,7 @@ export default function EventCard({ event, key }) {
           backgroundSize="cover"
           backgroundPosition="center"
           backgroundRepeat="no-repeat"
-          backgroundImage={`https://picsum.photos/200/300`}
+          backgroundImage={`${API_BASE_URL_IMG}${event.image}`}
           h="30vh"
           onClick={() => setOpen(!isOpen)}
           borderRadius="10px"
@@ -47,7 +49,7 @@ export default function EventCard({ event, key }) {
             <Flex
               transition="all 0.2s"
               p="15px"
-              w={{ base: "100%", md: "50%" }}
+              w={{ base: "100%", md: "60%" }}
               h="100%"
               borderRadius="10px"
               bg="transparent"
@@ -65,25 +67,25 @@ export default function EventCard({ event, key }) {
                   fontWeight="bold"
                   fontSize={{
                     base: isOpen ? "22pt" : "18pt",
-                    md: isOpen ? "40pt" : "35pt",
+                    md: "35pt",
                   }}
                   transition="all 0.2s ease"
                 >
-                  event.title
+                  {event.title}
                 </Text>
                 <Text
                   w="100%"
                   noOfLines={2}
                   fontWeight="normal"
                   position={"relative"}
-                  bottom={isOpen ? "-30px" : "0px"}
+                  bottom={isOpen ? "-20px" : "0px"}
                   fontSize={{
                     base: isOpen ? "18pt" : "16pt",
-                    md: isOpen ? "25pt" : "20pt",
+                    md: isOpen ? "23pt" : "20pt",
                   }}
                   transition="all 0.2s ease"
                 >
-                  event.start - event.end
+                  {event.start} - {event.end}
                 </Text>
               </Box>
               <Flex
@@ -128,28 +130,28 @@ export default function EventCard({ event, key }) {
                   fontSize={{ base: "10pt", md: "14pt" }}
                   borderRadius="5px"
                 >
-                  Day - event.day
+                  Day - {event.day}
                 </Badge>
-                {/* <Badge
-              ml="auto"
-              bg={event.category == "S" ? "blue.700" : "red.700"}
-              color="white"
-              fontSize={{ base: "10pt", md: "14pt" }}
-              borderRadius="5px"
-            >
-              {event.category == "S" ? "E-sports" : "Cultural"}
-            </Badge>
-            {event.team_size > 1 ? (
-              <Badge
-                ml="auto"
-                bg="yellow.500"
-                color="white"
-                fontSize={{ base: "10pt", md: "14pt" }}
-                borderRadius="5px"
-              >
-                Group
-              </Badge>
-            ) : null} */}
+                <Badge
+                  ml="auto"
+                  bg={event.category == "S" ? "blue.700" : "red.700"}
+                  color="white"
+                  fontSize={{ base: "10pt", md: "14pt" }}
+                  borderRadius="5px"
+                >
+                  {event.category == "S" ? "E-sports" : "Cultural"}
+                </Badge>
+                {event.team_size > 1 ? (
+                  <Badge
+                    ml="auto"
+                    bg="yellow.500"
+                    color="white"
+                    fontSize={{ base: "10pt", md: "14pt" }}
+                    borderRadius="5px"
+                  >
+                    Group
+                  </Badge>
+                ) : null}
               </Flex>
             </Box>
           </Flex>
@@ -168,42 +170,55 @@ export default function EventCard({ event, key }) {
               className="listMarginLeft"
               fontSize={{ base: "12pt", md: "17pt" }}
               flexDirection="column"
+              p="10px"
             >
-              {/* <ReactMarkdown children={event.description} /> */}
-              Event description
+              <b style={{ marginLeft: "10px" }}>Event description</b>
+              <Box p="10px">
+                {event.description ? (
+                  <ReactMarkdown
+                    components={{
+                      li: ({ node, ordered = false, ...props }) => (
+                        <li style={{ listStyleType: "disc" }} {...props} />
+                      ),
+                    }}
+                    children={event.description}
+                  />
+                ) : (
+                  "No description"
+                )}
+              </Box>
             </Flex>
             <Flex p="15px" gridGap="5" flexDir="column">
-              {
-                /*event.size > 1 */ true && (
-                  <Text
-                    color="pink.400"
-                    fontWeight="bold"
-                    fontSize={{ base: "12pt", md: "17pt" }}
-                  >
-                    Team size : event.team_size{" "}
-                    {/* {event.is_team_size_strict ? "(Strict)" : "(Not Strict)"} */}
-                  </Text>
-                )
-              }
-              {/* <Text
-              fontSize={{ base: "12pt", md: "17pt" }}
-              color={event.max_seats - event.seats < 10 ? "red" : "white"}
-              fontWeight="bold"
-            >
-              Seats booked: {event.seats} / {event.max_seats}
-            </Text> */}
+              {event.size > 1 && (
+                <Text
+                  color="pink.400"
+                  fontWeight="bold"
+                  fontSize={{ base: "12pt", md: "17pt" }}
+                >
+                  Team size : {event.team_size}{" "}
+                  {event.is_team_size_strict ? "(Strict)" : "(Not Strict)"}
+                </Text>
+              )}
+              <Text
+                fontSize={{ base: "12pt", md: "17pt" }}
+                color={event.max_seats - event.seats < 10 ? "red" : "pink.400"}
+                fontWeight="bold"
+              >
+                Seats booked: {event.seats} / {event.max_seats}
+              </Text>
               <Text
                 fontSize={{ base: "12pt", md: "18pt" }}
                 color="pink.400"
                 fontWeight="bold"
               >
-                Event price: event.entry_fee != 0 ? event.entry_fee Rs` : "Free"
+                Event price:{" "}
+                {event.entry_fee != 0 ? `${event.entry_fee} Rs` : "Free"}
               </Text>
             </Flex>
             {true && /* event.team_size > 1 */ true && (
               <Flex flexDirection="column" gridGap="3">
                 <Flex
-                  bg="rgb(27, 94, 32)"
+                  bg="pink.200"
                   borderRadius="10px"
                   mt={4}
                   flexDirection="column"
@@ -280,7 +295,7 @@ export default function EventCard({ event, key }) {
                     // color="whitesmoke"
                     gridGap={2}
                     alignItems="center"
-                    bgColor="green.200"
+                    bgColor="pink.200"
                     borderRadius="md"
                   >
                     <Text>Registered</Text>
