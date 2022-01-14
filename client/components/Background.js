@@ -1,8 +1,10 @@
 import { Box } from "@chakra-ui/react";
+import { useEffect } from "react";
 
 export default function Background({ pageName }) {
   // Current idea is to include parallax effect in the background and have it move with the scroll
   // Minified version of the events will be displayed later
+
   return (
     <>
       <Box bg="#fff2f6" h="300vh" w="100vw" position="fixed" zIndex="-5" />

@@ -10,8 +10,8 @@ import {
   Center,
   Spacer,
 } from "@chakra-ui/react";
-import LoginForm from "../components/layout/LoginForm";
-import LoginOtherColleges from "../components/layout/LoginOtherColleges";
+import LoginForm from "../components/LoginForm";
+import LoginOtherColleges from "../components/LoginOtherColleges";
 import Background from "../components/Background";
 import Head from "next/head";
 const login = () => {

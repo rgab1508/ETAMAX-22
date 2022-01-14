@@ -20,7 +20,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { API_BASE_URL } from "../../config";
+import { API_BASE_URL } from "../config";
 
 const LoginOtherColleges = () => {
   var [email, setEmail] = useState("");
@@ -96,13 +96,31 @@ const LoginOtherColleges = () => {
     return true;
   };
 
-  const isEmailRegistered = async (email) => {
-    // fetch();
-    return false;
-  };
-
-  const isPhoneNoRegistered = async (phone_no) => {
-    // fetch();
+  const isRegistered = async (email, phone_no) => {
+    let body;
+    if (email) {
+      body = { email };
+    } else {
+      body = { phone_no };
+    }
+    fetch(`${API_BASE_URL}/u/exists/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify(body),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.success) {
+          return res.exists;
+        }
+      })
+      .catch((res) => {
+        errorToast({ title: "Something went wrong!" });
+      });
     return false;
   };
 
@@ -121,12 +139,12 @@ const LoginOtherColleges = () => {
     let semester = Number.parseInt(s);
 
     // check if email is already registered
-    if (await isEmailRegistered(email)) {
+    if (await isRegistered(email, null)) {
       errorToast({ title: "Email is already registered!" });
       return;
     }
     // check if phone number is already registered
-    if (await isPhoneNoRegistered("+91" + p)) {
+    if (await isRegistered(null, "+91" + p)) {
       errorToast({ title: "Phone Number is already registered!" });
       return;
     }

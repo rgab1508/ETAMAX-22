@@ -125,10 +125,18 @@ class LogoutView(APIView):
 
 class UserExistsView(APIView):
   def post(self, request):
-    roll_no = request.data['roll_no']
+    roll_no = request.data.get('roll_no', None)
+    email = request.data.get('email', None) #request.data['email'] or None
+    phone_no = request.data.get('phone_no', None)
 
+    users = None
     try:
-      users = User.objects.filter(roll_no=roll_no)
+      if roll_no:
+        users = User.objects.filter(roll_no=roll_no)
+      elif email:
+        users = User.objects.filter(email=email)
+      else:
+        users = User.objects.filter(phone_no=phone_no)
       c = users.count()
       user = users.first()
       

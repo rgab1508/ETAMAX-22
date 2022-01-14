@@ -13,7 +13,7 @@ if (typeof window !== "undefined") {
 
 export default function Home() {
   useEffect(() => {
-    window.addEventListener("mousedown", function (e) {
+    window.addEventListener("mousedown", function(e) {
       var amt = randNum(1, 3);
       for (var i = 0; i < amt; i++) {
         var top = randNum(e.clientY - 30, e.clientY + 30);
@@ -35,15 +35,11 @@ export default function Home() {
   useEffect(() => {
     window.addEventListener("scroll", () => {
       const dist = window.scrollY;
-      document.getElementById(
-        "blossom-container"
-      ).style.transform = `-translateY(${dist * 1}px)`;
-      document.getElementById(
-        "background-image"
-      ).style.transform = `translateY(${dist * 0.1}px)`;
+
+      let ele = document.getElementById("background-image");
+      if (ele) ele.style.transform = `translateY(${dist * 0.1}px)`;
     });
   }, []);
-
   return (
     <>
       <Head>
@@ -51,13 +47,7 @@ export default function Home() {
       </Head>
       <Layout>
         <Background pageName={"Home"} />
-        <Flex
-          id="blossom-container"
-          bg="transparent"
-          h="100vh"
-          maxW="100vw"
-          flexDirection="column"
-        >
+        <Flex bg="transparent" h="100vh" maxW="100vw" flexDirection="column">
           <Center h="60vh" w="100%">
             <Box w="80%">
               <Heading color="pink.300" fontSize="6xl">
