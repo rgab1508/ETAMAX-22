@@ -15,8 +15,12 @@ import {
   Select,
   InputLeftAddon,
   InputGroup,
+  useToast,
+  toast,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../../config";
 
 const LoginOtherColleges = () => {
   var [email, setEmail] = useState("");
@@ -30,22 +34,130 @@ const LoginOtherColleges = () => {
     semester: "",
     phone_no: "",
   });
+  const errorToast = useToast({
+    position: "top-right",
+    duration: 3000,
+    status: "error",
+    isClosable: true,
+  });
+  const successToast = useToast({
+    position: "top-right",
+    duration: 3000,
+    status: "success",
+    isClosable: true,
+  });
 
-  const emailHandler = (event) => {
-    setRoll(event.target.value);
-  };
-  const passwordHandler = (event) => {
-    setPassword(event.target.value);
+  const router = useRouter();
+
+  const validateInput = () => {
+    const departments = ["COMP", "IT", "EXTC", "ELEC", "MECH", "OTHERS"];
+    const {
+      name,
+      email,
+      college,
+      department,
+      semester: s,
+      phone_no: p,
+    } = values;
+    let semester = parseInt(s);
+    let phone_no = parseInt(p);
+    if (name.trim() == "") {
+      errorToast({ title: "Name is required!" });
+      return false;
+    }
+    if (college.trim() == "") {
+      errorToast({ title: "College is required!" });
+      return false;
+    }
+    if (!departments.includes(department.trim())) {
+      errorToast({ title: "Department is required!" });
+      return false;
+    }
+    if (Number.isNaN(semester) || semester < 1 || semester > 8) {
+      errorToast({ title: "Semester should be between 1 and 8!" });
+      return false;
+    }
+    if (Number.isNaN(phone_no) || p.trim().length < 10) {
+      errorToast({ title: "Enter a valid Phone Number!" });
+      return false;
+    }
+    if (
+      !email
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )
+    ) {
+      errorToast({
+        title: "Enter a valid Email!",
+      });
+      return false;
+    }
+    return true;
   };
 
-  const submitFormHandler = (event) => {
-    event.preventDefault();
-    if (email == "" && password.trim() == "") {
-      setFormValid(false);
+  const isEmailRegistered = async (email) => {
+    // fetch();
+    return false;
+  };
+
+  const isPhoneNoRegistered = async (phone_no) => {
+    // fetch();
+    return false;
+  };
+
+  const handleSubmit = async (e) => {
+    // validate input
+    if (!validateInput()) return;
+
+    const {
+      name,
+      email,
+      college,
+      department,
+      semester: s,
+      phone_no: p,
+    } = values;
+    let semester = Number.parseInt(s);
+
+    // check if email is already registered
+    if (await isEmailRegistered(email)) {
+      errorToast({ title: "Email is already registered!" });
       return;
     }
-    setFormValid(true);
-    console.log({ email, password });
+    // check if phone number is already registered
+    if (await isPhoneNoRegistered("+91" + p)) {
+      errorToast({ title: "Phone Number is already registered!" });
+      return;
+    }
+    // resgister user
+    fetch(`${API_BASE_URL}/u/request/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify({
+        name,
+        email,
+        college,
+        department,
+        semester,
+        phone_no: "+91" + p,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        successToast({
+          title: "Request sent successfully!",
+          description: "You will recieve an email when approved",
+        });
+        router.push("/");
+      })
+      .catch((res) => {
+        errorToast({ title: "Something went wrong!" });
+      });
   };
 
   const handleChange = (e) => {
@@ -160,7 +272,7 @@ const LoginOtherColleges = () => {
                 size="lg"
                 bg={"pink.400"}
                 color={"white"}
-                onClick={submitFormHandler}
+                onClick={handleSubmit}
               >
                 Register
               </Button>
