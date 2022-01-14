@@ -45,7 +45,8 @@ const LoginForm = () => {
     >
       <Stack spacing={6} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
-          <Heading fontSize={"2xl"}>Sign In for FCRIT Students</Heading>
+          <Heading fontSize={"2xl"}>Credentials sent in email</Heading>
+          <Text>*check spam folder</Text>
         </Stack>
         <Box
           rounded={"lg"}
@@ -54,7 +55,7 @@ const LoginForm = () => {
           p={8}
         >
           <Stack spacing={4}>
-            <FormControl id="rollno" isRequired>
+            <FormControl isRequired>
               <FormLabel color={isFormValid ? "black" : "red"}>
                 Roll Number
               </FormLabel>
@@ -67,7 +68,7 @@ const LoginForm = () => {
               />
               {!isFormValid && <Text color="red">Incorrect Roll No</Text>}
             </FormControl>
-            <FormControl id="password" isRequired>
+            <FormControl isRequired>
               <FormLabel color={isFormValid ? "black" : "red"}>
                 Password
               </FormLabel>
@@ -92,14 +93,6 @@ const LoginForm = () => {
               >
                 Log In
               </Button>
-              <Stack
-                direction={{ base: "column", sm: "row" }}
-                align={"start"}
-                justify={"space-between"}
-              >
-                <Checkbox>Remember me</Checkbox>
-                <Link color={"blue.400"}>Forgot password?</Link>
-              </Stack>
             </Stack>
           </Stack>
         </Box>

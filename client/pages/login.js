@@ -20,16 +20,22 @@ const login = () => {
       <Head>
         <title>ETAMAX-22 | Login</title>
       </Head>
-          <Background />
+      <Background />
       <Box alignItems="center" borderRadius="lg">
         <Center>
-          <Tabs isFitted variant="enclosed" color="pink.800">
+          <Tabs
+            w={["90%", "80%", "60%", "30%"]}
+            mt={10}
+            isFitted
+            variant="enclosed"
+            color="pink.800"
+          >
             <TabList color="pink.800">
               <Tab fontSize={"xl"} color="pink.800">
-                FCRIT Students
+                Login
               </Tab>
               <Tab fontSize={"xl"} color="pink.800">
-                Other Colleges
+                Register
               </Tab>
             </TabList>
             <TabPanels>

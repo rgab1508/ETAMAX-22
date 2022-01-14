@@ -5,7 +5,7 @@
 
 init.sh
 
-
+routes.txt
 
 ### Django ###
 *.log

@@ -90,6 +90,7 @@ export async function getStaticProps(context) {
     const res = await fetch(`${API_BASE_URL}/e`).then((response) =>
       response.json()
     );
+    console.log(res);
     return {
       props: {
         events: res.events,
