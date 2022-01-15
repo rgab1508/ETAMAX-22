@@ -2,39 +2,50 @@ import {
   Box,
   Tab,
   Tabs,
-  TabIndicator,
-  Container,
   TabPanel,
   TabPanels,
   TabList,
   Center,
-  Spacer,
 } from "@chakra-ui/react";
 import LoginForm from "../components/LoginForm";
 import LoginOtherColleges from "../components/LoginOtherColleges";
 import Background from "../components/Background";
 import Head from "next/head";
-const login = () => {
+
+if (typeof window !== "undefined") {
+  import("../components/utils/blossom");
+}
+
+export default function Login(props) {
   return (
     <>
       <Head>
         <title>ETAMAX-22 | Login</title>
       </Head>
-      <Background />
-      <Box alignItems="center" borderRadius="lg">
+      <Background pageName={"Login"} />
+      <Box id="blossom-container" alignItems="center" borderRadius="lg">
         <Center>
           <Tabs
-            w={["90%", "80%", "60%", "30%"]}
+            w={["90%", "80%", "60%", "60%"]}
             mt={10}
             isFitted
-            variant="enclosed"
-            color="pink.800"
+            variant="solid-rounded"
           >
-            <TabList color="pink.800">
-              <Tab fontSize={"xl"} color="pink.800">
+            <TabList>
+              <Tab
+                _selected={{ color: "white", bg: "#fcc0cb" }}
+                fontSize={"xl"}
+                color="pink.00"
+                _focus={{ outline: "none!important" }}
+              >
                 Login
               </Tab>
-              <Tab fontSize={"xl"} color="pink.800">
+              <Tab
+                _selected={{ color: "white", bg: "#fcc0cb" }}
+                fontSize={"xl"}
+                color="pink.700"
+                _focus={{ outline: "none!important" }}
+              >
                 Register
               </Tab>
             </TabList>
@@ -51,6 +62,4 @@ const login = () => {
       </Box>
     </>
   );
-};
-
-export default login;
+}

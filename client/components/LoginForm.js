@@ -42,8 +42,10 @@ const LoginForm = () => {
       align={"center"}
       justify={"center"}
       bg={useColorModeValue("pink.100", "pink.800")}
+      w="100%"
+      borderRadius={"10px"}
     >
-      <Stack spacing={6} mx={"auto"} maxW={"lg"} py={12} px={6}>
+      <Stack w="100%" spacing={6} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
           <Heading fontSize={"2xl"}>Credentials sent in email</Heading>
           <Text>*check spam folder</Text>
@@ -53,6 +55,7 @@ const LoginForm = () => {
           bg={useColorModeValue("white", "gray.700")}
           boxShadow={"lg"}
           p={8}
+          w="100%"
         >
           <Stack spacing={4}>
             <FormControl isRequired>

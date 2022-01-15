@@ -11,7 +11,7 @@ export default function Background({ pageName }) {
       {pageName == "Home" && (
         <Box
           as="img"
-          src={"assets/background.svg"}
+          src={"assets/home.svg"}
           alt={"Background test"}
           position="fixed"
           zIndex="-2"
@@ -26,7 +26,22 @@ export default function Background({ pageName }) {
       {pageName == "Events" && (
         <Box
           as="img"
-          src={"assets/bg2.svg"}
+          src={"assets/events.svg"}
+          alt={"Background test"}
+          position="fixed"
+          zIndex="-2"
+          objectFit="cover"
+          backgroundPosition="center"
+          backgroundSize="cover"
+          h="100vh"
+          w="100%"
+          id="background-image"
+        />
+      )}
+      {pageName == "Login" && (
+        <Box
+          as="img"
+          src={"assets/login.svg"}
           alt={"Background test"}
           position="fixed"
           zIndex="-2"

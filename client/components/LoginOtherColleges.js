@@ -21,6 +21,7 @@ import {
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { API_BASE_URL } from "../config";
+import Success from "../components/alerts/Success";
 
 const LoginOtherColleges = () => {
   var [email, setEmail] = useState("");
@@ -43,7 +44,7 @@ const LoginOtherColleges = () => {
   const successToast = useToast({
     position: "top-right",
     duration: 3000,
-    status: "success",
+    render: () => <Success message={"Successfully registered"} />,
     isClosable: true,
   });
 
@@ -195,8 +196,9 @@ const LoginOtherColleges = () => {
       align={"center"}
       justify={"center"}
       bg={useColorModeValue("pink.100", "pink.800")}
+      borderRadius={"10px"}
     >
-      <Stack spacing={6} mx={"auto"} maxW={"lg"} py={12} px={6}>
+      <Stack w="100%" spacing={6} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
           <Heading fontSize={"2xl"} textAlign={"center"}>
             *Only for Non-FCRIT Students
