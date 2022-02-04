@@ -31,8 +31,8 @@ export default function Events(props) {
       <Head>
         <title>ETAMAX-22 | Events</title>
       </Head>
+      <Background pageName={"Events"} />
       <Layout>
-        <Background pageName={"Events"} />
         <Flex
           id="blossom-container"
           flexDir="column"
@@ -90,7 +90,6 @@ export async function getStaticProps(context) {
     const res = await fetch(`${API_BASE_URL}/e`).then((response) =>
       response.json()
     );
-    console.log(res);
     return {
       props: {
         events: res.events,
