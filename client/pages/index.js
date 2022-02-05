@@ -2,7 +2,7 @@ import { Box, Center, Heading, Flex, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Flower from "../components/Flower";
 import { randNum } from "../components/utils/utils";
-import Layout from "../components/layout/Layout";
+import Layout from "../components/layout";
 import Head from "next/head";
 import Background from "../components/Background";
 import "@fontsource/birthstone-bounce";
@@ -13,7 +13,7 @@ if (typeof window !== "undefined") {
 
 export default function Home() {
   useEffect(() => {
-    window.addEventListener("mousedown", function(e) {
+    window.addEventListener("mousedown", function (e) {
       var amt = randNum(1, 3);
       for (var i = 0; i < amt; i++) {
         var top = randNum(e.clientY - 30, e.clientY + 30);
@@ -45,8 +45,8 @@ export default function Home() {
       <Head>
         <title>ETAMAX-22 | Home</title>
       </Head>
+      <Background pageName={"Home"} />
       <Layout>
-        <Background pageName={"Home"} />
         <Flex bg="transparent" h="100vh" maxW="100vw" flexDirection="column">
           <Center h="60vh" w="100%">
             <Box w="80%">

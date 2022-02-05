@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import EventCard from "../components/cards/EventCards";
 import Background from "../components/Background";
-import Layout from "../components/layout/Layout";
+import Layout from "../components/layout";
 import { API_BASE_URL } from "../config";
 
 if (typeof window !== "undefined") {
@@ -31,8 +31,8 @@ export default function Events(props) {
       <Head>
         <title>ETAMAX-22 | Events</title>
       </Head>
+      <Background pageName={"Events"} />
       <Layout>
-        <Background pageName={"Events"} />
         <Flex
           id="blossom-container"
           flexDir="column"
@@ -90,7 +90,6 @@ export async function getStaticProps(context) {
     const res = await fetch(`${API_BASE_URL}/e`).then((response) =>
       response.json()
     );
-    console.log(res);
     return {
       props: {
         events: res.events,
