@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Flex,
   Box,
@@ -13,29 +13,107 @@ import {
   Text,
   useColorModeValue,
   FormErrorMessage,
+  InputGroup,
+  InputRightAddon,
+  InputRightElement,
+  useToast,
 } from "@chakra-ui/react";
+import { API_BASE_URL } from "../config";
+import { useRouter } from "next/router";
 
 const LoginForm = () => {
-  var [rollNo, setRoll] = useState("");
-  var [password, setPassword] = useState("");
-  var [isFormValid, setFormValid] = useState(true);
+  const [values, setValues] = useState({
+    roll_no: "",
+    password: "",
+  });
+  const [showPassword, setShowPassword] = useState(false);
 
-  const rollNoHandler = (event) => {
-    setRoll(event.target.value);
-  };
-  const passwordHandler = (event) => {
-    setPassword(event.target.value);
+  const errorToast = useToast({
+    position: "top-right",
+    duration: 3000,
+    status: "error",
+    isClosable: true,
+  });
+
+  const successToast = useToast({
+    position: "top-right",
+    duration: 3000,
+    status: "success",
+    isClosable: true,
+  });
+
+  const router = useRouter();
+  useEffect(() => {
+    let userJSON = localStorage.getItem("eta_user");
+    if (userJSON && JSON.parse(userJSON).token) {
+      router.replace("/");
+    }
+  }, []);
+
+  const handleChange = (e) => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const submitFormHandler = (event) => {
-    event.preventDefault();
-    if (rollNo == "" && password.trim() == "") {
-      setFormValid(false);
+  const validateInput = () => {
+    const { roll_no: r, password } = values;
+    let roll_no = Number.parseInt(r);
+    if (Number.isNaN(roll_no)) {
+      errorToast({
+        title: "Please enter a valid Roll Number",
+      });
+      return false;
+    }
+
+    if (password.trim().length <= 0) {
+      errorToast({
+        title: "Please enter a valid password",
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSubmit = (e) => {
+    if (!validateInput()) {
       return;
     }
-    setFormValid(true);
-    console.log({ rollNo, password });
+    const { roll_no: r, password } = values;
+    let username = Number.parseInt(r);
+    let body = {
+      username,
+      password,
+    };
+
+    fetch(`${API_BASE_URL}/u/auth/login/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify(body),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        successToast({
+          title: "Successfully Logged In!",
+          description: `Welcome ${res.user.roll_no}!`,
+        });
+        localStorage.setItem("eta_user", JSON.stringify(res));
+        router.push("/");
+      })
+      .catch((err) => {
+        errorToast({
+          title: "Someting went Wrong!",
+        });
+        console.error(err);
+      });
   };
+
   return (
     <Flex
       minH={"80vh"}
@@ -59,30 +137,36 @@ const LoginForm = () => {
         >
           <Stack spacing={4}>
             <FormControl isRequired>
-              <FormLabel color={isFormValid ? "black" : "red"}>
-                Roll Number
-              </FormLabel>
+              <FormLabel>Roll Number</FormLabel>
               <Input
-                placeholder="1019104"
+                placeholder="eg. 1010101"
                 type="number"
-                value={rollNo}
-                onChange={rollNoHandler}
-                borderColor={isFormValid ? "black" : "red"}
+                name="roll_no"
+                value={values.roll_no}
+                onChange={handleChange}
               />
-              {!isFormValid && <Text color="red">Incorrect Roll No</Text>}
             </FormControl>
             <FormControl isRequired>
-              <FormLabel color={isFormValid ? "black" : "red"}>
-                Password
-              </FormLabel>
-              <Input
-                type="password"
-                value={password}
-                onChange={passwordHandler}
-                placeholder="*******"
-                borderColor={isFormValid ? "grey" : "red"}
-              />
-              {!isFormValid && <Text color="red">Incorrect Password</Text>}
+              <FormLabel>Password</FormLabel>
+              <InputGroup>
+                <Input
+                  pr="4.5rem"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  value={values.password}
+                  onChange={handleChange}
+                  placeholder="*******"
+                />
+                <InputRightElement width="4.5rem">
+                  <Button
+                    h="1.75rem"
+                    size="sm"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? "Hide" : "Show"}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
             </FormControl>
             <Stack spacing={10}>
               <Button
@@ -92,7 +176,7 @@ const LoginForm = () => {
                 _hover={{
                   bg: "pink.500",
                 }}
-                onClick={submitFormHandler}
+                onClick={handleSubmit}
               >
                 Log In
               </Button>
