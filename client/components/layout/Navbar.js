@@ -7,10 +7,14 @@ import {
   Collapse,
   SlideFade,
   Stack,
+  useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import LinkButtons from "./LinkButtons";
 import { useState, useEffect, useRef } from "react";
+import { API_BASE_URL } from "../../config";
+import router from "next/router";
 
 const Path = (props) => (
   <motion.path
@@ -84,6 +88,16 @@ function MenuItems({ children, to, color }) {
 
 function DrawerNavbar({ isOpen }) {
   const [color, setColor] = useState("pink.400");
+  const [loggedIn, setLoggedIn] = useState(false);
+  const step2 = useColorModeValue("300", "200");
+  const toast = useToast();
+  const successToast = useToast({
+    position: "top-right",
+    duration: 3000,
+    status: "success",
+    isClosable: true,
+  });
+
   useEffect(() => {
     window.addEventListener("scroll", () => {
       if (window.scrollY > 450) {
@@ -92,7 +106,45 @@ function DrawerNavbar({ isOpen }) {
         setColor("pink.400");
       }
     });
+
+    const user = localStorage.getItem("eta_user");
+    if (user) {
+      setLoggedIn(true);
+    }
   }, []);
+
+  async function handleLogout() {
+    let user = JSON.parse(localStorage.getItem("eta_user"));
+    if (user) {
+      const res = await fetch(`${API_BASE_URL}/u/auth/logout/`, {
+        method: "POST",
+        headers: {
+          Authorization: `Token ${user.token}`,
+        },
+        redirect: "follow",
+        referrer: "no-referrer",
+      }).catch((err) => {
+        console.log(err);
+        toast({
+          title: "Error",
+          description: "Something went wrong",
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+          position: "top-right",
+        });
+      });
+      if (res.status == 200) {
+        localStorage.removeItem("eta_user");
+        setLoggedIn(false);
+        successToast({
+          title: "Success",
+          description: "Logged out successfully",
+        });
+        router.push("/");
+      }
+    }
+  }
 
   return (
     <Box
@@ -121,9 +173,47 @@ function DrawerNavbar({ isOpen }) {
               <MenuItems color={color} to="/events">
                 Events
               </MenuItems>
-              <MenuItems color={color} to="/login">
-                Login
-              </MenuItems>
+              {!loggedIn && (
+                <MenuItems color={color} to="/login">
+                  Login
+                </MenuItems>
+              )}
+              {loggedIn && (
+                <MenuItems color={color} to="/profile">
+                  Profile
+                </MenuItems>
+              )}
+              {loggedIn && (
+                <Button
+                  bg="transparent"
+                  color={color}
+                  fontWeight="medium"
+                  size={"lg"}
+                  _focus={{
+                    outline: "none",
+                  }}
+                  transition="all 0.3s"
+                  backgroundPosition="center"
+                  _hover={{
+                    bgColor: `pink.100`,
+                    bgGradient: `radial(circle, transparent 1%, pink.${step2} 1%)`,
+                    bgPos: "center",
+                    backgroundSize: "15000%",
+                    color: "pink.300",
+                    outline: "none",
+                  }}
+                  _active={{
+                    bgColor: `pink.200`,
+                    backgroundSize: "100%",
+                    transition: "background 0s",
+                    color: "pink.500",
+                    outline: "none",
+                  }}
+                  onClick={handleLogout}
+                >
+                  Logout
+                </Button>
+              )}
             </Stack>
           </SlideFade>
         </Box>

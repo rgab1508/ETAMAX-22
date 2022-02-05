@@ -141,7 +141,7 @@ const LoginForm = () => {
             <FormControl isRequired>
               <FormLabel>Roll Number</FormLabel>
               <Input
-                placeholder="eg. 1010101"
+                placeholder="Enter roll number/ registration number"
                 type="number"
                 name="roll_no"
                 value={values.roll_no}
@@ -157,7 +157,12 @@ const LoginForm = () => {
                   type={showPassword ? "text" : "password"}
                   value={values.password}
                   onChange={handleChange}
-                  placeholder="*******"
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") {
+                      handleSubmit();
+                    }
+                  }}
+                  placeholder="Enter your password"
                 />
                 <InputRightElement width="4.5rem">
                   <Button

@@ -86,16 +86,16 @@ export default function CheckoutForm({}) {
       flexDir={"column"}
       gridGap={"3"}
     >
-      <Text fontSize={"35pt"} color="gray.700">
+      <Text fontSize={{ base: "25pt", md: "35pt" }} color="gray.700">
         Checkout
       </Text>
-      <Text color="gray.600" fontSize={"16pt"}>
+      <Text color="gray.600" fontSize={{ base: "13pt", md: "16pt" }}>
         <b>Total events:</b> 3
       </Text>
-      <Text color="gray.600" fontSize={"16pt"}>
+      <Text color="gray.600" fontSize={{ base: "13pt", md: "16pt" }}>
         <b>Total price:</b> $100
       </Text>
-      <Text color="gray.600" fontSize={"16pt"}>
+      <Text color="gray.600" fontSize={{ base: "13pt", md: "16pt" }}>
         Would you like to donate for this event?
       </Text>
       <Flex flexDir={"row"} gridGap="4">
