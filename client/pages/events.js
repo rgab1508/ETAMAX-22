@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import EventCard from "../components/cards/EventCards";
 import Background from "../components/Background";
-import Layout from "../components/layout/Layout";
+import Layout from "../components/layout";
 import { API_BASE_URL } from "../config";
 
 if (typeof window !== "undefined") {

@@ -2,7 +2,7 @@ import { Box, Center, Heading, Flex, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Flower from "../components/Flower";
 import { randNum } from "../components/utils/utils";
-import Layout from "../components/layout/Layout";
+import Layout from "../components/layout";
 import Head from "next/head";
 import Background from "../components/Background";
 import "@fontsource/birthstone-bounce";

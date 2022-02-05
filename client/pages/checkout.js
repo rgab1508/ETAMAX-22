@@ -1,5 +1,6 @@
 import EventsList from "../components/checkout/EventsList";
 import CheckoutForm from "../components/checkout/CheckoutForm";
+import Layout from "../components/layout";
 import { useState, useEffect } from "react";
 import { API_BASE_URL } from "../config";
 import { Center } from "@chakra-ui/react";
