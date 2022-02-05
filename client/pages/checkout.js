@@ -13,7 +13,14 @@ export default function Checkout() {
         <title>Checkout</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Center bg="#fff2f6" h={{ base: "auto", lg: "100vh" }} w={"100vw"}>
+      <Center
+        backgroundImage={"assets/checkout.svg"}
+        backgroundSize={"cover"}
+        backgroundPosition={"center"}
+        backgroundRepeat={"no-repeat"}
+        h={{ base: "auto", lg: "100vh" }}
+        w={"100vw"}
+      >
         <Center
           w="90%"
           h={{ base: "95%", lg: "90%" }}
