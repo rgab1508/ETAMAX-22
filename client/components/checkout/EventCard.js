@@ -1,7 +1,7 @@
-import { Box, Flex, Button } from "@chakra-ui/react";
+import { Box, Flex, Button, Badge, Text } from "@chakra-ui/react";
 import { API_BASE_URL_IMG } from "../../config";
 
-export default function EventCard({ event, members }) {
+export default function EventCard({ participation }) {
   async function unRegister() {
     // TODO: Code to unregister from event.
   }
@@ -12,101 +12,129 @@ export default function EventCard({ event, members }) {
       backgroundSize={"cover"}
       backgroundPosition={"center"}
       backgroundRepeat="no-repeat"
-      backgroundImage={`${API_BASE_URL_IMG}${event.image}`}
-      h="20vh"
+      backgroundImage={`${API_BASE_URL_IMG}${participation.event.image}`}
+      h={{ base: "16vh", md: "17vh" }}
       borderRadius={"10px"}
     >
       <Flex w="100%" h="100%" bgColor="rgb(0,0,0,0.4)" borderRadius="10px">
         <Flex
           transition="all 0.2s"
           p="15px"
-          w={{ base: "100%", md: "60%" }}
+          w={{ base: "50%", md: "60%" }}
           h="100%"
           borderRadius="10px"
           bg="transparent"
           _hover={{
             bg: "white",
             color: "pink.300",
-            width: "80%",
+            width: { base: "50%", md: "70%" },
           }}
           color="white"
           flexDir="column"
           justifyContent="space-evenly"
         >
+          <Text
+            fontSize={{
+              base: "11pt",
+              md: "12pt",
+            }}
+            transition="all 0.2s ease"
+          >
+            #{participation.part_id.slice(participation.part_id.length - 5)}
+          </Text>
           <Box>
             <Text
               fontWeight="bold"
               fontSize={{
-                base: isOpen ? "22pt" : "18pt",
-                md: "35pt",
+                base: "18pt",
+                md: "20pt",
               }}
               transition="all 0.2s ease"
+              noOfLines={1}
             >
-              {event.title}
-            </Text>
-            <Text
-              w="100%"
-              noOfLines={2}
-              fontWeight="normal"
-              position={"relative"}
-              bottom={isOpen ? "-20px" : "0px"}
-              fontSize={{
-                base: isOpen ? "18pt" : "16pt",
-                md: isOpen ? "23pt" : "20pt",
-              }}
-              transition="all 0.2s ease"
-            >
-              {event.start} - {event.end}
+              {participation.event.title}
             </Text>
           </Box>
+          {participation.members.length > 1 && (
+            <Flex gridGap={"1"}>
+              {participation.members.map((mem) => (
+                <Text>•{mem}</Text>
+              ))}
+            </Flex>
+          )}
         </Flex>
         <Box
           overflow="hidden"
           borderRadius="10px"
           position="relative"
-          w={{ base: "100%", md: "50%" }}
-          h={{ base: "15vh", md: "auto" }}
+          w={{ base: "100%", md: "40%" }}
           transition={"all 0.2s ease"}
         >
           <Flex
             p="10px"
-            flexDirection="column"
+            flexDirection="row"
             borderRadius="10px"
             gridGap="2"
             position="absolute"
+            flexDir={{ base: "row", lg: "column" }}
             right={0}
-            zIndex={1}
+            zIndex={0}
+            wrap={"wrap"}
+            transition={"all 0.2s ease"}
           >
             <Badge
               ml="auto"
               bg="purple.900"
               color="white"
-              fontSize={{ base: "10pt", md: "14pt" }}
+              fontSize={"10pt"}
               borderRadius="5px"
             >
-              Day - {event.day}
+              Day - {participation.event.day}
             </Badge>
             <Badge
               ml="auto"
-              bg={event.category == "S" ? "blue.700" : "red.700"}
+              bg={participation.event.category == "S" ? "blue.700" : "red.700"}
               color="white"
-              fontSize={{ base: "10pt", md: "14pt" }}
+              fontSize={"10pt"}
               borderRadius="5px"
             >
-              {event.category == "S" ? "E-sports" : "Cultural"}
+              {participation.event.category == "S" ? "E-sports" : "Cultural"}
             </Badge>
-            {event.team_size > 1 ? (
+            {participation.event.team_size > 1 ? (
               <Badge
                 ml="auto"
                 bg="yellow.500"
                 color="white"
-                fontSize={{ base: "10pt", md: "14pt" }}
+                fontSize={"10pt"}
                 borderRadius="5px"
               >
                 Group
               </Badge>
             ) : null}
           </Flex>
+          <Button
+            variant={"outline"}
+            color="white"
+            bg="transparent"
+            position={"absolute"}
+            _hover={{
+              bg: "white",
+              color: "pink.300",
+            }}
+            _focus={{
+              outline: "none",
+              bg: "white",
+              color: "pink.300",
+            }}
+            px={1}
+            py={1}
+            bottom={2}
+            right={2}
+            onClick={unRegister}
+            fontSize={"11pt"}
+          >
+            Unregister
+          </Button>
         </Box>
       </Flex>
     </Box>
