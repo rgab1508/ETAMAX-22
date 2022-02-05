@@ -12,6 +12,17 @@ from django.http.response import JsonResponse
 from .models import Event
 from users.serializers import ParticipationSerializer
 
+# using SendGrid's Python Library
+# https://github.com/sendgrid/sendgrid-python
+# import os
+# from sendgrid import SendGridAPIClient
+# from sendgrid.helpers.mail import Mail
+
+
+
+
+from django.core.mail import send_mail
+
 def is_time_between(begin_time, end_time, check_time=None):
     check_time = check_time or datetime.utcnow().time()
     if begin_time < end_time:
@@ -21,6 +32,28 @@ def is_time_between(begin_time, end_time, check_time=None):
 
 class EventListView(APIView):
   def get(self, request):
+    # send_mail(
+    #     'Subject here',
+    #     'Here is the message.',
+    #     'etamax2k22@hotmail.com',
+    #     ['rgabriel1508@gmail.com'],
+    #     fail_silently=False,
+    #   )
+    # message = Mail(
+    # from_email='tgaysan69@gmail.com',
+    # to_emails='rgabriel1508@gmail.com',
+    # subject='Sending with Twilio SendGrid is Fun',
+    # html_content='<strong>and easy to do anywhere, even with Python</strong>')
+
+    # try:
+    #   sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+    #   response = sg.send(message)
+    #   print(response.status_code)
+    #   print(response.body)
+    #   print(response.headers)
+    # except Exception as e:
+    #   print(e)
+
     events = Event.objects.all()
     serializer = EventSerializer(events, many=True)
     return JsonResponse({"events": serializer.data, "success": True}, status=200)
@@ -38,10 +71,12 @@ class EventDetailView(APIView):
         **serializer.data,
         "participants": teams.data,
       }
+      
       return JsonResponse({"success": True, "event": data}, status=200)
     except Event.DoesNotExist:
       return JsonResponse({"detail": "Event Doesn't Exists", "success": False}, status=400)
-    
+
+
 class EventRegiterView(APIView):
   permission_classes = [IsAuthenticated, IsProfileFilled]
 
@@ -120,11 +155,11 @@ class EventRegiterView(APIView):
     else:
       # Event is Team Event
       
-      team_name = request.data['team_name']
+      team_name = request.data['team_name'][0]
       members = request.data["members"]
 
       if user.roll_no not in members:
-        members.add(user.roll_no)
+        members.append(user.roll_no)
 
       if event.is_team_size_strict and len(members) != event.team_size:
         return JsonResponse({"detail": f"Event Has a Strict Team Size of {event.team_size}", "success": False}, status=400)

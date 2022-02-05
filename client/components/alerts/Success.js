@@ -7,8 +7,8 @@ const Ma = ({ message }) => {
   return (
     <Flex
       w="full"
-      bg="gray.600"
-      p={50}
+      bg="transparent"
+      p={10}
       alignItems="center"
       justifyContent="center"
     >

@@ -8,20 +8,26 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^1.1.1",
     "@chakra-ui/react": "^1.7.2",
     "@emotion/react": "11",
     "@emotion/styled": "11",
-    "@firebase/app": "^0.7.12",
+    "@firebase/app": "^0.7.16",
     "@firebase/auth": "^0.19.5",
     "@fontsource/birthstone-bounce": "^4.5.0",
     "@fontsource/lato": "^4.5.0",
     "@fontsource/paytone-one": "^4.5.0",
     "@fontsource/poppins": "^4.5.0",
+    "axios": "^0.25.0",
+    "cookie": "^0.4.2",
+    "firebase": "^9.6.6",
+    "firebase-admin": "^10.0.2",
     "framer-motion": "4",
     "next": "12.0.4",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-icons": "^4.3.1"
+    "react-icons": "^4.3.1",
+    "react-markdown": "^7.1.2"
   },
   "devDependencies": {
     "eslint": "7",

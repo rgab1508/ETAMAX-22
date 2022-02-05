@@ -3,13 +3,14 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import EventCard from "../components/cards/EventCards";
 import Background from "../components/Background";
-import Layout from "../components/layout/Layout";
+import Layout from "../components/layout";
+import { API_BASE_URL } from "../config";
 
 if (typeof window !== "undefined") {
   import("../components/utils/blossom");
 }
 
-export default function Events() {
+export default function Events(props) {
   useEffect(() => {
     window.addEventListener("scroll", () => {
       const dist = window.scrollY;
@@ -23,15 +24,15 @@ export default function Events() {
   }, []);
 
   // create a simple array of numbers
-  const [numbers, setNumbers] = useState([1, 2, 3, 4]);
+  const [events, setEvents] = useState(props.events);
 
   return (
     <>
       <Head>
         <title>ETAMAX-22 | Events</title>
       </Head>
+      <Background pageName={"Events"} />
       <Layout>
-        <Background pageName={"Events"} />
         <Flex
           id="blossom-container"
           flexDir="column"
@@ -72,9 +73,9 @@ export default function Events() {
             </Center>
           </Flex>
           <Center py="30px" w="100%" minH="60vh" flexDir={"column"} gridGap="4">
-            {numbers.map((num) => (
-              <Center w="100vw" key={num}>
-                <EventCard />
+            {events.map((event, idx) => (
+              <Center w="100vw" key={idx}>
+                <EventCard event={event} />
               </Center>
             ))}
           </Center>
@@ -82,4 +83,23 @@ export default function Events() {
       </Layout>
     </>
   );
+}
+
+export async function getStaticProps(context) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/e`).then((response) =>
+      response.json()
+    );
+    return {
+      props: {
+        events: res.events,
+      },
+      revalidate: 10,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      props: {},
+    };
+  }
 }
