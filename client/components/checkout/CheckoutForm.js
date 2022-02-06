@@ -78,7 +78,7 @@ export default function CheckoutForm({ participations, user, setEvents }) {
     }
   }, [donation, eventAmount]);
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (transactionId.trim().length < 5) {
       toast({
         title: "Please Enter a valid Transaction ID",
@@ -103,6 +103,7 @@ export default function CheckoutForm({ participations, user, setEvents }) {
 
     //! CHECK CRITERIA
     let criteriaJSON = user.user.criteria;
+    console.log(criteriaJSON);
     let c = JSON.parse(criteriaJSON);
     if (c["C"] < 1 || c["T"] < 1) {
       toast({
