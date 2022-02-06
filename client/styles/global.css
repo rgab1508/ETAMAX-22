@@ -48,6 +48,21 @@ body {
   border-radius: 100px;
 }
 
+body::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  background: #ff8ba0;
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: #e4e4e4;
+  border-radius: 100px;
+}
+
+
 /* .section::-webkit-scrollbar-thumb {
   background-color: #d4aa70;
   border-radius: 100px;
