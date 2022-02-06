@@ -343,15 +343,39 @@ export default function EventCard({ event }) {
                 >
                   Day - {event.day}
                 </Badge>
-                <Badge
-                  ml="auto"
-                  bg={event.category == "S" ? "blue.700" : "red.700"}
-                  color="white"
-                  fontSize={{ base: "10pt", md: "14pt" }}
-                  borderRadius="5px"
-                >
-                  {event.category == "S" ? "E-sports" : "Cultural"}
-                </Badge>
+                {event.category == "C" ? (
+                  <Badge
+                    ml="auto"
+                    bg={"red.700"}
+                    color="white"
+                    fontSize={{ base: "10pt", md: "14pt" }}
+                    borderRadius="5px"
+                  >
+                    Cultural
+                  </Badge>
+                ) : null}
+                {event.category == "T" ? (
+                  <Badge
+                    ml="auto"
+                    bg={"blue.700"}
+                    color="white"
+                    fontSize={{ base: "10pt", md: "14pt" }}
+                    borderRadius="5px"
+                  >
+                    Technical
+                  </Badge>
+                ) : null}
+                {event.category == "S" ? (
+                  <Badge
+                    ml="auto"
+                    bg={"green.700"}
+                    color="white"
+                    fontSize={{ base: "10pt", md: "14pt" }}
+                    borderRadius="5px"
+                  >
+                    Sports
+                  </Badge>
+                ) : null}
                 {event.team_size > 1 ? (
                   <Badge
                     ml="auto"

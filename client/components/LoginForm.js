@@ -114,7 +114,7 @@ const LoginForm = () => {
           description: `Welcome ${res.user.roll_no}!`,
         });
         localStorage.setItem("eta_user", JSON.stringify(res));
-        window.document.cookie = cookie.serialize("token", res.token);
+        window.document.cookie = cookie.serialize("eta_token", res.token);
         router.push("/");
       })
       .catch((err) => {

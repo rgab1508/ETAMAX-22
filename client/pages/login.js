@@ -11,6 +11,7 @@ import LoginForm from "../components/LoginForm";
 import LoginOtherColleges from "../components/LoginOtherColleges";
 import Background from "../components/Background";
 import Head from "next/head";
+import * as cookie from "cookie";
 
 if (typeof window !== "undefined") {
   import("../components/utils/blossom");
@@ -62,4 +63,15 @@ export default function Login(props) {
       </Box>
     </>
   );
+}
+
+export async function getServerSideProps({ req, res }) {
+  const token = cookie.parse(req.headers.cookie || "")["eta_token"];
+  if (token) {
+    res.writeHead(302, {
+      Location: "/",
+    });
+    res.end();
+  }
+  return { props: {} };
 }

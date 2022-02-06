@@ -6,6 +6,7 @@ import { API_BASE_URL } from "../config";
 import { Center, Spacer } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import * as cookie from "cookie";
 
 export default function Checkout() {
   const [events, setEvents] = useState([]);
@@ -90,4 +91,17 @@ export default function Checkout() {
       </Layout>
     </>
   );
+}
+
+export async function getServerSideProps({ req, res }) {
+  const token = cookie.parse(req.headers.cookie || "")["eta_token"];
+  if (!token) {
+    res.writeHead(302, {
+      Location: "/",
+    });
+    res.end();
+    return { props: {} };
+  } else {
+    return { props: {} };
+  }
 }
