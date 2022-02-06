@@ -37,7 +37,6 @@ export default function EventCard({ event }) {
     if (userJSON) {
       let user = JSON.parse(userJSON);
       setUser(user);
-
       for (let p of user.user.participations) {
         if (p.event.event_code == event.event_code) {
           newIsRegistered = true;
@@ -130,13 +129,8 @@ export default function EventCard({ event }) {
       .then((res) => {
         if (res.success) {
           setIsRegitered(true);
-          // userDispatch({
-          //   type: "ADD_USER",
-          //   payload: {
-          //     ...userState.userInfo,
-          //     teams: [...userState.userInfo.teams, res.team],
-          //   },
-          // });
+          user.user.participations.push(res.team);
+          localStorage.setItem("eta_user", JSON.stringify(user));
           // ! update user state
           toast({
             title: res.detail,

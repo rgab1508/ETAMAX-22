@@ -12,7 +12,6 @@ import { API_BASE_URL_IMG, API_BASE_URL } from "../../config";
 export default function EventCard({ participation, token, setEvents }) {
   const toast = useToast();
   async function unRegister() {
-    console.log(participation.part_id, token);
     fetch(`${API_BASE_URL}/e/unregister/`, {
       method: "POST",
       headers: {
@@ -28,6 +27,7 @@ export default function EventCard({ participation, token, setEvents }) {
       .then((res) => res.json())
       .then((res) => {
         if (res.success) {
+          console.log(res);
           toast({
             title: res.detail,
             status: "success",

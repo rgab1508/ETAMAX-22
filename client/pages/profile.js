@@ -278,12 +278,7 @@ export default function Profile(props) {
                       </InputRightElement>
                     </InputGroup>
                     {editPhone && (
-                      <Button
-                        bg="pink.400"
-                        onClick={login}
-                        m={2}
-                        color="white"
-                      >
+                      <Button bg="pink.400" onClick={login} m={2} color="white">
                         Verify OTP
                       </Button>
                     )}
