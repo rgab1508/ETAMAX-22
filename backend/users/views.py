@@ -176,10 +176,19 @@ class UserCheckout(APIView):
   def post(self, request):
     user = request.user
 
+    def check_criteria(user) -> bool:
+      criteria = json.loads(user.criteria)
+
+      return True if criteria["C"] >= 1 and criteria["T"] >= 1 else False
+
+
     participations = request.data['participations']
     upi_transaction_id = request.data['upi_transaction_id']
     if len(upi_transaction_id) < 5:
       return JsonResponse({"detail": "Enter a Valid Transaction ID", "success": False},status=400)
+
+    if not check_criteria(user):
+      return JsonResponse({"detail": "Criteria Not Satisfied: Atleast One Cultural & One Technical Event !", "success": False}, status=400)
 
     event_amount = 0
     t = Transaction(user=user, upi_transaction_id=upi_transaction_id,is_paid=True)

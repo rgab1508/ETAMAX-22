@@ -2,7 +2,7 @@ import json
 import random
 from uuid import uuid4
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils.translation import ugettext_lazy as _
@@ -43,7 +43,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
   money_owed = models.DecimalField(_("Money Owed"),decimal_places=2,max_digits=10, default=0.00)
   has_filled_profile = models.BooleanField(_("Has Filled Profile"), default=False)
-  criteria = models.TextField(_("Criteria JSON (DONT FILL THIS)"), default='{"C": 0, "T": 0}')
+  criteria = models.TextField(_("Criteria JSON (DONT FILL THIS)"), default='{"C": 0, "T": 0, "S": 0}')
 
   is_staff = models.BooleanField(default=False)
   is_superuser = models.BooleanField(default=False)
@@ -114,8 +114,35 @@ class Participation(models.Model):
   team_name = models.CharField(_("Team Name"), max_length=256,blank=False)
   event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="participations")
   members = models.ManyToManyField(User, related_name='participations')
-  transaction = models.ForeignKey(Transaction, on_delete=models.CASCADE, related_name="participations", null=True, blank=True)
+  transaction = models.ForeignKey(Transaction, on_delete=models.SET_NULL, related_name="participations", null=True, blank=True)
   is_verified = models.BooleanField(_("Is Verified"), default=False)
 
   def __str__(self) -> str:
     return f"{self.team_name}#{self.part_id}"
+
+@receiver(pre_delete, sender=Participation)
+def update_criteria_after_delete(sender, instance, using, **kwargs):
+  def update_criteria(user, event):
+    criteria = json.loads(user.criteria)
+    criteria[event.category] -= 1
+    print(criteria, event.category)
+    user.criteria = json.dumps(criteria)
+    user.save()
+
+  members = instance.members.all()
+  for m in members:
+    update_criteria(m, instance.event)
+
+# @receiver(post_save, sender=Participation)
+# def update_criteria_after_participation(sender, instance, created, **kwargs):
+#   if created:
+#     def update_criteria(user, event):
+#       criteria = json.loads(user.criteria)
+#       criteria[event.category] += 1
+#       print(criteria, event.category)
+#       user.criteria = json.dumps(criteria)
+#       user.save()
+#     print(instance.members)
+#     print("mem", instance.members.first(), sender)
+#     for m in instance.members.all():
+#       update_criteria(m, instance.event)

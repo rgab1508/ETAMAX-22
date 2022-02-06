@@ -81,11 +81,11 @@ class EventRegiterView(APIView):
   permission_classes = [IsAuthenticated, IsProfileFilled]
 
   def post(self, request):
-    # def update_criteria(user: User, event: Event) -> User:
-    #   user_criteria = json.loads(user.criteria)
-    #   user_criteria[str(event.day)] = True
-    #   user.criteria = json.dumps(user_criteria)
-    #   return user
+    def update_criteria(user: User, event: Event) -> User:
+      user_criteria = json.loads(user.criteria)
+      user_criteria[event.category] += 1
+      user.criteria = json.dumps(user_criteria)
+      return user
 
     # ! CHECK FCRIT ONLY EVENT
     
@@ -134,7 +134,7 @@ class EventRegiterView(APIView):
       user.money_owed += event.entry_fee
 
       # update criteria
-      # user = update_criteria(user, event)
+      user = update_criteria(user, event)
 
       # Update Event seats
       # now changed to after team verified
@@ -197,13 +197,13 @@ class EventRegiterView(APIView):
         p.save()
         event.save()
         # update criteria for members
-        # print(t.members.all())
-        # for m in t.members.all():
-        #   if m.roll_no == user.roll_no: continue
-        #   m = update_criteria(m, event)
-        #   m.save()
+        print(p.members.all())
+        for m in p.members.all():
+          if m.roll_no == user.roll_no: continue
+          m = update_criteria(m, event)
+          m.save()
 
-        # user = update_criteria(user, event)
+        user = update_criteria(user, event)
         user.save()
         p_serializer = ParticipationSerializer(p)
         return JsonResponse({"detail": "Event Registered Sucessfully!", "team": p_serializer.data, "success": True}, status=200)
@@ -215,6 +215,13 @@ class EventRegiterView(APIView):
 class EventUnregister(APIView):
   permission_classes = [IsAuthenticated]
   def post(self, request):
+    
+    def update_criteria(user, event):
+      criteria = json.loads(user.criteria)
+      criteria[event.category] -= 1
+      user.criteria = json.dumps(criteria)
+      user.save()
+
     user = request.user
     part_id = request.data["part_id"]
 
@@ -224,11 +231,20 @@ class EventUnregister(APIView):
       return JsonResponse({"detail": "You have not Registered For the Event", "success": False}, status=400)
 
     part = participations.first()
-    if part.is_paid:
+    # print(part.transaction)
+    if part.transaction:
       return JsonResponse({"detail": "You have Already Paid for the Event", "success": False}, status=400)
+
+    members = part.members.all()
+    event = part.event
+
 
     try:
       part.delete()
+      print(members)
+      for m in members:
+        print(m, event.category)
+        update_criteria(m, event)
       return JsonResponse({"detail": "Participation Successfully Deleted!", "success": True}, status=200)
     except:
       return JsonResponse({"detail": "Something Went Wrong!", "success": False}, status=400)
