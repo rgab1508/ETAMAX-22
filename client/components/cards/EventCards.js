@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { API_BASE_URL_IMG, API_BASE_URL } from "../../config";
 import AlertDialogBox from "../AlertDialogBox";
+import * as ga from "../../libs/ga";
 
 export default function EventCard({ event }) {
   const [isOpen, setOpen] = useState(false);
@@ -128,6 +129,15 @@ export default function EventCard({ event }) {
       .then((res) => res.json())
       .then((res) => {
         if (res.success) {
+          ga.event({
+            action: "Event Registration",
+            params: {
+              event_code: event.event_code,
+              category: event.category,
+              day: event.day,
+              is_solo: event.team_size == 1,
+            },
+          });
           setIsRegitered(true);
           user.user.participations.push(res.team);
           localStorage.setItem("eta_user", JSON.stringify(user));

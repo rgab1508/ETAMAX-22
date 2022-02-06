@@ -22,6 +22,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { API_BASE_URL } from "../config";
 import Success from "../components/alerts/Success";
+import * as ga from "../libs/ga";
 
 const LoginOtherColleges = () => {
   var [email, setEmail] = useState("");
@@ -168,6 +169,14 @@ const LoginOtherColleges = () => {
     })
       .then((res) => res.json())
       .then((res) => {
+        ga.event({
+          action: "User Request",
+          params: {
+            college,
+            department,
+            semester,
+          },
+        });
         successToast({
           title: "Request sent successfully!",
           description: "You will recieve an email when approved",

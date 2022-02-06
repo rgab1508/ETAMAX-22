@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { API_BASE_URL } from "../../config";
+import * as ga from "../../libs/ga";
 
 function RadioCard(props) {
   const { getInputProps, getCheckboxProps } = useRadio(props);
@@ -121,6 +122,15 @@ export default function CheckoutForm({ participations, user, setEvents }) {
       participations: participations.map((p) => p.part_id),
       donation_amount: donation,
     };
+
+    ga.event({
+      action: "Checkout",
+      params: {
+        event_amount: eventAmount,
+        donation_amount: donation,
+        total_amount: totalAmount,
+      },
+    });
 
     fetch(`${API_BASE_URL}/u/checkout/`, {
       method: "POST",

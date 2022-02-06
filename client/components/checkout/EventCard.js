@@ -8,6 +8,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { API_BASE_URL_IMG, API_BASE_URL } from "../../config";
+import * as ga from "../../libs/ga";
 
 export default function EventCard({ participation, token, setEvents }) {
   const toast = useToast();
@@ -27,6 +28,13 @@ export default function EventCard({ participation, token, setEvents }) {
       .then((res) => res.json())
       .then((res) => {
         if (res.success) {
+          ga.event({
+            action: "Unregister",
+            params: {
+              event_id: participation.part_id,
+              event_name: participation.event.title,
+            },
+          });
           console.log(res);
           toast({
             title: res.detail,

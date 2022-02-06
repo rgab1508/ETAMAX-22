@@ -21,6 +21,7 @@ import {
 import { API_BASE_URL } from "../config";
 import { useRouter } from "next/router";
 import * as cookie from "cookie";
+import * as ga from "../libs/ga";
 
 const LoginForm = () => {
   const [values, setValues] = useState({
@@ -100,6 +101,14 @@ const LoginForm = () => {
     })
       .then((res) => res.json())
       .then((res) => {
+        ga.event({
+          action: "Login",
+          params: {
+            roll_no: username,
+            semester: res.user.semester,
+            department: res.user.department,
+          },
+        });
         successToast({
           title: "Successfully Logged In!",
           description: `Welcome ${res.user.roll_no}!`,
