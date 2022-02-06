@@ -1,9 +1,48 @@
-import { Box, Flex, Button, Badge, Text } from "@chakra-ui/react";
-import { API_BASE_URL_IMG } from "../../config";
+import {
+  Box,
+  Flex,
+  Button,
+  Badge,
+  Text,
+  toast,
+  useToast,
+} from "@chakra-ui/react";
+import { API_BASE_URL_IMG, API_BASE_URL } from "../../config";
 
-export default function EventCard({ participation }) {
+export default function EventCard({ participation, token, setEvents }) {
+  const toast = useToast();
   async function unRegister() {
-    // TODO: Code to unregister from event.
+    console.log(participation.part_id, token);
+    fetch(`${API_BASE_URL}/e/unregister/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Token " + token,
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify({
+        part_id: participation.part_id,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.success) {
+          toast({
+            title: res.detail,
+            status: "success",
+            position: "top-right",
+            isClosable: true,
+          });
+          setEvents((prevEvents) =>
+            prevEvents.filter((e) => participation.part_id != e.part_id)
+          );
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        toast({ title: res.detail, status: "error", position: "top-right" });
+      });
   }
 
   return (
@@ -74,7 +113,7 @@ export default function EventCard({ participation }) {
             p="10px"
             flexDirection="row"
             borderRadius="10px"
-            gridGap="2"
+            gridGap="1"
             position="absolute"
             flexDir={{ base: "row", lg: "column" }}
             right={0}
