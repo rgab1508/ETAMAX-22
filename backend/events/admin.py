@@ -14,7 +14,6 @@ class SeatsFilterList(admin.SimpleListFilter):
     parameter_name = 'seats'
 
     def lookups(self, request, model_admin):
-        
         return (
             ('FULL', 'Seats Full'),
             ('VACENT', 'Seats Vacant'),
@@ -28,6 +27,6 @@ class SeatsFilterList(admin.SimpleListFilter):
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-  list_filter = ('day', 'category', SeatsFilterList)
+  list_filter = ('day', 'category', SeatsFilterList, 'is_fcrit_only')
   search_fields = ('event_code', 'title', 'description', )
   formfield_overrides = {MartorField: {'widget': AdminMartorWidget}}

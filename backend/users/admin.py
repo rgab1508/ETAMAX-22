@@ -8,16 +8,17 @@ from .models import User, UserRequest , Participation
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-  list_filter = ('is_phone_no_verified', 'has_filled_profile') #'money_owed')
+  list_filter = ('is_phone_no_verified', 'has_filled_profile', 'is_from_fcrit') #'money_owed')
   search_fields = ('roll_no', 'name', 'email', 'phone_no')
 
 @admin.register(UserRequest)
 class UserRequestAdmin(admin.ModelAdmin):
   search_fields = ('name', 'email', 'phone_no')
+  list_filter = ('is_approved', 'department', 'semester')
 
 @admin.register(Participation)
 class ParticipationAdmin(admin.ModelAdmin):
-  search_fields = ('part_id', 'team_name', 'transaction_id', 'members__name', 'members__roll_no', 'members__email', 'event__title')
+  search_fields = ('part_id', 'team_name', 'transaction__upi_transaction_id', 'transaction__transaction_id', 'members__name', 'members__roll_no', 'members__email', 'event__title')
   list_filter = ('is_verified',)
 
   actions = ['export_as_csv']
