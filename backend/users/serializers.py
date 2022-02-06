@@ -31,7 +31,7 @@ class UserSerializer(serializers.ModelSerializer):
   participations = ParticipationSerializer(many=True, read_only=True)
   class Meta:
     model = User
-    fields = [ 'roll_no', 'email', 'password', 'name', 'avatar', 'department', 'semester', 'money_owed', 'has_filled_profile', 'phone_no', 'date_joined', 'participations']
+    fields = [ 'roll_no', 'email', 'password', 'name', 'avatar', 'department', 'semester', 'money_owed', 'has_filled_profile', 'phone_no', 'date_joined', 'participations', 'criteria']
     extra_kwargs = {
       'password': {'write_only': True},
     }
