@@ -14,7 +14,11 @@ const Sponsors = () => {
   ];
 
   return (
-    <Center bg="#fcc0cb" pt="5" pb="10">
+    <Center
+      bgGradient={"linear(to-b,rgb(252, 193, 203,0.6),#fcc0cb)"}
+      pt="5"
+      pb="10"
+    >
       <Flex w={["90%", "90%", "90%", "90%"]} flexDir={"column"}>
         <Box my={5}>
           <Heading color="white" fontSize={["3xl", "4xl", "5xl", "5xl"]}>
@@ -22,7 +26,7 @@ const Sponsors = () => {
           </Heading>
         </Box>
         <Flex h="auto" borderRadius={"2rem"} overflow="hidden">
-          <Carousal items={banners} />
+          <Carousal allowPagination={true} items={banners} />
         </Flex>
       </Flex>
     </Center>
