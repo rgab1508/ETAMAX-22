@@ -335,7 +335,7 @@ export default function Profile(props) {
 }
 
 export async function getServerSideProps({ req, res }) {
-  var token = cookie.parse(req.headers.cookie || "")["token"];
+  var token = cookie.parse(req.headers.cookie || "")["eta_token"];
   if (!token) {
     res.writeHead(302, { Location: "/" });
     res.end();
@@ -348,7 +348,6 @@ export async function getServerSideProps({ req, res }) {
         Authorization: "Token " + token,
       },
     });
-    console.log(profile.data.user);
     return {
       props: {
         profile: profile.data.user,
