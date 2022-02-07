@@ -26,7 +26,7 @@ export default function EventCard({ event }) {
           backgroundPosition="center"
           backgroundRepeat="no-repeat"
           backgroundImage={`${API_BASE_URL_IMG}${event.image}`}
-          h="30vh"
+          h={{ base: "20vh", lg: "30vh" }}
           borderRadius="10px"
           cursor="pointer"
         >
