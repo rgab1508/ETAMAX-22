@@ -148,6 +148,11 @@ function DrawerNavbar({ isOpen }) {
         });
       });
       if (res.status == 200) {
+        function delete_cookie(name) {
+          document.cookie =
+            name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+        }
+        delete_cookie("eta_token");
         localStorage.removeItem("eta_user");
         setLoggedIn(false);
         successToast({
