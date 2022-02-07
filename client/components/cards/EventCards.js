@@ -221,7 +221,7 @@ export default function EventCard({ event }) {
   return (
     <>
       <Flex
-        w={["90%", "90%", "75%", "60%"]}
+        w={["95%", "95%", "75%", "60%"]}
         h="auto"
         flexDirection="column"
         bgColor="#e96196"
@@ -251,7 +251,7 @@ export default function EventCard({ event }) {
           backgroundPosition="center"
           backgroundRepeat="no-repeat"
           backgroundImage={`${API_BASE_URL_IMG}${event.image}`}
-          h="30vh"
+          h={{ base: "auto", lg: "30vh" }}
           onClick={() => setOpen(!isOpen)}
           borderRadius="10px"
           cursor="pointer"
@@ -322,7 +322,7 @@ export default function EventCard({ event }) {
               borderRadius="10px"
               position="relative"
               w={{ base: "100%", md: "50%" }}
-              h={{ base: "15vh", md: "auto" }}
+              h={{ base: "20vh", md: "auto" }}
               transition={"all 0.2s ease"}
             >
               <Flex

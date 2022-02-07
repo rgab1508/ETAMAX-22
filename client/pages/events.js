@@ -130,7 +130,7 @@ export default function Events(props) {
             </Center>
           </Flex>
           <Center w="100%" gridGap={"3"}>
-            <Center w="50%" gridGap={3}>
+            <Center w={{ base: "95%", lg: "50%" }} gridGap={3}>
               <Select
                 value={catSelect}
                 onChange={(e) => setCatSelect(e.target.value)}

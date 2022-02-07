@@ -181,8 +181,8 @@ function DrawerNavbar({ isOpen }) {
         >
           <SlideFade in={isOpen}>
             <Stack
-              justify={["center", "space-between", "flex-end", "flex-end"]}
-              direction={["column", "row", "row", "row"]}
+              justify={["center", "flex-end", "flex-end", "flex-end"]}
+              direction={["column", "column", "row", "row"]}
               pt={[4, 4, 0, 0]}
             >
               <MenuItems color={color} to="/">
