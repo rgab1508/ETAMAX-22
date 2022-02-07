@@ -62,6 +62,22 @@ body::-webkit-scrollbar-track {
   border-radius: 100px;
 }
 
+.sponsor-image {
+  border-radius: 2rem;
+}
+
+/* Swiper */
+.swiper-pagination-bullet {
+  width: 12px !important;
+  height: 12px !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #ff009d !important;
+  width: 12px !important;
+  height: 12px !important;
+}
+
 
 /* .section::-webkit-scrollbar-thumb {
   background-color: #d4aa70;
