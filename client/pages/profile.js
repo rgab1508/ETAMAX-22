@@ -348,7 +348,6 @@ export async function getServerSideProps({ req, res }) {
         Authorization: "Token " + token,
       },
     });
-    console.log(profile.data.user);
     return {
       props: {
         profile: profile.data.user,
