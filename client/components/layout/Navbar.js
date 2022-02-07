@@ -154,7 +154,6 @@ function DrawerNavbar({ isOpen }) {
         }
         delete_cookie("eta_token");
         localStorage.removeItem("eta_user");
-        window.document.cookie = `eta_token=; path=/;`;
         setLoggedIn(false);
         successToast({
           title: "Success",
