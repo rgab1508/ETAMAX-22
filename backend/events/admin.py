@@ -27,6 +27,6 @@ class SeatsFilterList(admin.SimpleListFilter):
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-  list_filter = ('day', 'category', SeatsFilterList, 'is_fcrit_only')
+  list_filter = ('day', 'category', 'is_featured', SeatsFilterList, 'is_fcrit_only')
   search_fields = ('event_code', 'title', 'description', )
   formfield_overrides = {MartorField: {'widget': AdminMartorWidget}}
