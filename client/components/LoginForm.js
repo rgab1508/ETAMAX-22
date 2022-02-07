@@ -75,7 +75,6 @@ const LoginForm = () => {
       });
       return false;
     }
-
     return true;
   };
 

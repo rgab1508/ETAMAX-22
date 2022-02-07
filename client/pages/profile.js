@@ -29,8 +29,8 @@ import { useState, useEffect } from "react";
 import { API_BASE_URL } from "../config";
 import * as cookie from "cookie";
 import axios from "axios";
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
+import { firebase } from "@firebase/app";
+import "@firebase/auth";
 
 function RadioCard(props) {
   const { getInputProps, getCheckboxProps } = useRadio(props);
@@ -159,7 +159,7 @@ export default function Profile(props) {
       url: `${API_BASE_URL}/u/update/`,
       method: "POST",
       data: {
-        name: profile.name,
+        name: profile.fname + " " + profile.lname,
         department: profile.department,
         semester: profile.semester,
       },
@@ -176,6 +176,13 @@ export default function Profile(props) {
     });
   }
 
+  useEffect(() => {
+    var fname = profile.name.split(" ")[0];
+    var lname =
+      profile.name.split(" ").length == 2 ? profile.name.split(" ")[1] : "";
+    setProfile({ ...profile, fname, lname });
+  }, []);
+
   return (
     <>
       <Head>
@@ -184,7 +191,7 @@ export default function Profile(props) {
       <Layout>
         <Background pageName={"Home"} />
         <Flex minH={"100vh"} align={"center"} justify={"center"}>
-          <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+          <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12}>
             <Stack align={"center"}>
               <Heading fontSize={"4xl"} textAlign={"center"}>
                 Edit Profile
@@ -209,19 +216,37 @@ export default function Profile(props) {
                     <Box>
                       <FormControl id="firstName" isRequired>
                         <FormLabel>First Name</FormLabel>
-                        <Input type="text" />
+                        <Input
+                          type="text"
+                          value={profile.fname}
+                          onChange={(e) =>
+                            setProfile({ ...profile, fname: e.target.value })
+                          }
+                        />
                       </FormControl>
                     </Box>
                     <Box>
                       <FormControl id="lastName">
                         <FormLabel>Last Name</FormLabel>
-                        <Input type="text" />
+                        <Input
+                          type="text"
+                          value={profile.lname}
+                          onChange={(e) =>
+                            setProfile({ ...profile, lname: e.target.value })
+                          }
+                        />
                       </FormControl>
                     </Box>
                   </HStack>
                   <FormControl id="email" isRequired>
                     <FormLabel>Email address</FormLabel>
-                    <Input type="email" />
+                    <Input
+                      type="email"
+                      value={profile.email}
+                      onChange={(e) =>
+                        setProfile({ ...profile, email: e.target.value })
+                      }
+                    />
                   </FormControl>
                   <FormControl id="password" isRequired>
                     <FormLabel>Department</FormLabel>
@@ -294,9 +319,6 @@ export default function Profile(props) {
                       <Input
                         id="otp"
                         onChange={(e) => setOTP(e.target.value)}
-                        variant="filled"
-                        color="white"
-                        bg="black"
                       />
                       <Button
                         bg="linear-gradient(147deg, #000000 0%,rgb(17, 82, 45) 74%)"
@@ -314,6 +336,7 @@ export default function Profile(props) {
                       size="lg"
                       bg={"pink.400"}
                       color={"white"}
+                      onClick={updateProfile}
                       _hover={{
                         bg: "blue.500",
                       }}
