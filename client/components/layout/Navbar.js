@@ -149,6 +149,7 @@ function DrawerNavbar({ isOpen }) {
       });
       if (res.status == 200) {
         localStorage.removeItem("eta_user");
+        window.document.cookie = `eta_token=; path=/;`;
         setLoggedIn(false);
         successToast({
           title: "Success",
