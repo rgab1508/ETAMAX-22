@@ -289,6 +289,8 @@ const LoginOtherColleges = () => {
                 {/* <Input type='tel' placeholder='phone number' /> */}
                 <Input
                   type="number"
+                  inputMode="numeric"
+                  min="0"
                   value={values.phone_no}
                   name="phone_no"
                   onChange={handleChange}
