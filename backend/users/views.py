@@ -67,15 +67,18 @@ class UserUpdate(APIView):
     DEPARTMENTS = ("COMP", "IT", "EXTC", "MECH", "ELEC", "OTHER")
     
     name = request.data['name']
-    department = request.data['department']
-    semester = request.data['semester']
+    # department = request.data['department']
+    # semester = request.data['semester']
 
-    if name == "" or department not in DEPARTMENTS or semester < 0 or semester > 8:
+    # if name == "" or department not in DEPARTMENTS or semester < 0 or semester > 8:
+    #   return JsonResponse({"detail": "Invalid Fields", "success": False}, status=400)
+
+    if name.strip() == "":
       return JsonResponse({"detail": "Invalid Fields", "success": False}, status=400)
 
     user.name = name
-    user.department = department
-    user.semester = semester
+    # user.department = department
+    # user.semester = semester
     
     # if user.is_phone_no_verified:
     user.has_filled_profile = True
