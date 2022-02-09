@@ -9,6 +9,7 @@ import "@fontsource/birthstone-bounce";
 import Sponsors from "../components/Sponsors";
 import FeaturedEvents from "../components/FeaturedEvents";
 import { API_BASE_URL } from "../config";
+import DroneEvent from "../components/DroneEvent";
 
 if (typeof window !== "undefined") {
   import("../components/utils/blossom");
@@ -16,7 +17,7 @@ if (typeof window !== "undefined") {
 
 export default function Home(props) {
   useEffect(() => {
-    window.addEventListener("mousedown", function (e) {
+    window.addEventListener("mousedown", function(e) {
       var amt = randNum(1, 3);
       for (var i = 0; i < amt; i++) {
         var top = randNum(e.clientY - 30, e.clientY + 30);
@@ -62,6 +63,7 @@ export default function Home(props) {
             </Box>
           </Center>
         </Flex>
+        <DroneEvent />
         <FeaturedEvents events={props.events} />
         <Sponsors />
       </Layout>

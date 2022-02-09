@@ -19,6 +19,8 @@ export default function EventCard({ event }) {
         zIndex="1"
         transition="box-shadow 0.2s ease, height 1s"
         mb={{ base: "10px", lg: "30px" }}
+        as="a"
+        href={"/events?id=" + event.event_code}
       >
         <Flex
           flexDirection={{ base: "column-reverse", md: "row" }}

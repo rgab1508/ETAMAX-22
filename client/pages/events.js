@@ -5,12 +5,15 @@ import EventCard from "../components/cards/EventCards";
 import Background from "../components/Background";
 import Layout from "../components/layout";
 import { API_BASE_URL } from "../config";
+import { useRouter } from "next/router";
 
 if (typeof window !== "undefined") {
   import("../components/utils/blossom");
 }
 
 export default function Events(props) {
+  const router = useRouter();
+
   useEffect(() => {
     window.addEventListener("scroll", () => {
       const dist = window.scrollY;
@@ -22,6 +25,20 @@ export default function Events(props) {
       ).style.transform = `translateY(${dist * 0.1}px)`;
     });
   }, []);
+
+  useEffect(() => {
+    const { id } = router.query;
+    if (!id) return;
+
+    const ele = document.getElementById(id);
+    if (!ele) return;
+
+    const y = ele.getBoundingClientRect().top + window.pageYOffset - 200;
+
+    window.scrollTo({ top: y, behavior: "smooth" });
+    // ele.scrollIntoView({ behavior: "smooth" });
+    // window.scrollBy(0, -100);
+  }, [router.query]);
 
   // create a simple array of numbers
   const [events, setEvents] = useState(

@@ -221,6 +221,7 @@ export default function EventCard({ event }) {
   return (
     <>
       <Flex
+        id={event.event_code}
         w={["95%", "95%", "75%", "60%"]}
         h="auto"
         flexDirection="column"
