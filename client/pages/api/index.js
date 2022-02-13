@@ -18,7 +18,7 @@ export default function handler(req, res) {
       .auth()
       .verifyIdToken(req.body.user)
       .then(async (user) => {
-        fetch(`${API_BASE_URL}/api/u/auth/otp-verify/`, {
+        fetch(`${API_BASE_URL}/u/auth/otp-verify/`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

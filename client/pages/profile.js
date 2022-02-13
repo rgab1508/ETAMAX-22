@@ -8,6 +8,7 @@ import {
   FormLabel,
   Input,
   Checkbox,
+  Avatar,
   HStack,
   InputGroup,
   Stack,
@@ -17,6 +18,7 @@ import {
   InputLeftElement,
   InputRightElement,
   useColorModeValue,
+  useToast,
   useRadio,
   useRadioGroup,
 } from "@chakra-ui/react";
@@ -24,13 +26,14 @@ import { EditIcon } from "@chakra-ui/icons";
 import Layout from "../components/layout";
 import Head from "next/head";
 import Background from "../components/Background";
-import ProfileCard from "../components/cards/ProfileCard";
 import { useState, useEffect } from "react";
 import { API_BASE_URL } from "../config";
 import * as cookie from "cookie";
 import axios from "axios";
 import { firebase } from "@firebase/app";
 import "@firebase/auth";
+
+import EventsList from "../components/checkout/EventsList";
 
 function RadioCard(props) {
   const { getInputProps, getCheckboxProps } = useRadio(props);
@@ -71,6 +74,18 @@ export default function Profile(props) {
   const [OTPSent, setOTPSent] = useState(false);
   const [phoneSet, setPhoneSet] = useState(false);
   const [editPhone, setEditPhone] = useState(false);
+  const [token, setToken] = useState(null);
+  const toast = useToast();
+
+  useEffect(() => {
+    const userJSON = localStorage.getItem("eta_user");
+    if (!userJSON) {
+      router.replace("/login");
+      return;
+    }
+    let user = JSON.parse(userJSON);
+    setToken(user.token);
+  }, []);
 
   function randomAvatar() {
     var randomAvatar = `https://avatars.dicebear.com/api/human/${Math.random()
@@ -90,6 +105,7 @@ export default function Profile(props) {
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: "department",
     value: profile.department,
+    readOnly: true,
   });
 
   const group = getRootProps();
@@ -127,7 +143,7 @@ export default function Profile(props) {
           .currentUser.getIdToken(true)
           .then(async (user) => {
             await axios({
-              url: `${API_BASE_URL}/submit_phone`,
+              url: `${window.location.origin}/submit_phone`,
               method: "POST",
               data: { user, token: profile.token },
             });
@@ -160,8 +176,6 @@ export default function Profile(props) {
       method: "POST",
       data: {
         name: profile.fname + " " + profile.lname,
-        department: profile.department,
-        semester: profile.semester,
       },
       headers: {
         Authorization:
@@ -190,28 +204,70 @@ export default function Profile(props) {
       </Head>
       <Layout>
         <Background pageName={"Home"} />
-        <Flex minH={"100vh"} align={"center"} justify={"center"}>
-          <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12}>
-            <Stack align={"center"}>
-              <Heading fontSize={"4xl"} textAlign={"center"}>
-                Edit Profile
-              </Heading>
-              <Text fontSize={"lg"} color={"gray.600"}>
-                to participate in all events ✌️
-              </Text>
-            </Stack>
-            <Flex
-              align="center"
-              w={{ base: "auto", md: "80vh" }}
-              direction={{ base: "column", md: "row" }}
+        <Center
+          backgroundImage={"assets/checkout.svg"}
+          backgroundSize={"cover"}
+          backgroundPosition={"center"}
+          backgroundRepeat={"no-repeat"}
+          h={{ base: "auto", lg: "105vh" }}
+          w={"100vw"}
+          flexDir={"column"}
+        >
+          <Center bg="transparent" h={{ base: "13vh", md: "0vh" }} />
+          <Stack align={"center"}>
+            <Heading fontSize={"4xl"} textAlign={"center"}>
+              Edit Profile
+            </Heading>
+            <Text fontSize={"lg"} color={"gray.600"}>
+              to participate in all events ✌️
+            </Text>
+          </Stack>
+          <Center
+            w={{ base: "97%", lg: "90%" }}
+            h={{ base: "95%", lg: "90%" }}
+            p="10px"
+            flexDirection={["column", "row"]}
+            gridGap={"10"}
+          >
+            <Center
+              borderRadius={"10px"}
+              w={{ base: "100%", lg: "43%" }}
+              h="90%"
+              p="10px"
+              flexDir={"column"}
             >
-              <Box
-                rounded={"lg"}
-                bg={useColorModeValue("white", "gray.700")}
-                boxShadow={"lg"}
-                p={8}
-              >
+              <Box rounded={"lg"} bg="white" boxShadow={"lg"} p={8}>
                 <Stack spacing={4}>
+                  <Flex align="center">
+                    <Avatar
+                      size={"xl"}
+                      src={profile.avatar}
+                      alt={"Avatar Alt"}
+                      mb={4}
+                      pos={"relative"}
+                      onClick={randomAvatar}
+                      _after={{
+                        content: '""',
+                        w: 4,
+                        h: 4,
+                        bg: "green.300",
+                        border: "2px solid white",
+                        rounded: "full",
+                        pos: "absolute",
+                        bottom: 0,
+                        right: 3,
+                      }}
+                    />
+                    <Button
+                      bg="pink.400"
+                      onClick={randomAvatar}
+                      m={2}
+                      ml={5}
+                      color="white"
+                    >
+                      SHUFFLE
+                    </Button>
+                  </Flex>
                   <HStack>
                     <Box>
                       <FormControl id="firstName" isRequired>
@@ -243,6 +299,7 @@ export default function Profile(props) {
                     <Input
                       type="email"
                       value={profile.email}
+                      readOnly
                       onChange={(e) =>
                         setProfile({ ...profile, email: e.target.value })
                       }
@@ -263,7 +320,11 @@ export default function Profile(props) {
                   </FormControl>
                   <FormControl id="password" isRequired>
                     <FormLabel>Semester</FormLabel>
-                    <Select placeholder="Select Semester">
+                    <Select
+                      placeholder="Select Semester"
+                      readOnly
+                      value={profile.semester}
+                    >
                       {[1, 2, 3, 4, 6, 7, 8].map((sem) => (
                         <option key={sem} value={sem}>
                           Semester {sem}
@@ -321,8 +382,8 @@ export default function Profile(props) {
                         onChange={(e) => setOTP(e.target.value)}
                       />
                       <Button
-                        bg="linear-gradient(147deg, #000000 0%,rgb(17, 82, 45) 74%)"
                         onClick={verifyOTP}
+                        bg={"pink.400"}
                         m={3}
                         color="white"
                       >
@@ -346,12 +407,24 @@ export default function Profile(props) {
                   </Stack>
                 </Stack>
               </Box>
-              <Flex p={4}>
-                <ProfileCard profile={profile} randomAvatar={randomAvatar} />
-              </Flex>
-            </Flex>
-          </Stack>
-        </Flex>
+            </Center>
+            <Center
+              borderRadius={"10px"}
+              bg="white"
+              w={{ base: "100%", lg: "43%" }}
+              h="90%"
+              p="10px"
+              flexDir={"column"}
+            >
+              <EventsList
+                events={profile.participations}
+                token={token}
+                setEvents={console.log}
+              />
+            </Center>
+          </Center>
+          <Center bg="transparent" h={{ base: "10vh", md: "0vh" }} />
+        </Center>
       </Layout>
     </>
   );
