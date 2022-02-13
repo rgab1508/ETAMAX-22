@@ -420,6 +420,7 @@ export default function Profile(props) {
                 events={profile.participations}
                 token={token}
                 setEvents={console.log}
+                isProfile
               />
             </Center>
           </Center>

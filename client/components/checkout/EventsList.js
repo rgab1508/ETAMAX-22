@@ -30,6 +30,7 @@ export default function EventsList(props) {
                 participation={event}
                 token={props.token}
                 setEvents={props.setEvents}
+                isProfile={props.isProfile}
               />
             </Flex>
           ))

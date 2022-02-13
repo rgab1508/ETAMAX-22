@@ -4,13 +4,20 @@ import {
   Button,
   Badge,
   Text,
+  IconButton,
   toast,
   useToast,
 } from "@chakra-ui/react";
 import { API_BASE_URL_IMG, API_BASE_URL } from "../../config";
+import { FaWhatsappSquare } from "react-icons/fa";
 import * as ga from "../../libs/ga";
 
-export default function EventCard({ participation, token, setEvents }) {
+export default function EventCard({
+  participation,
+  token,
+  setEvents,
+  isProfile,
+}) {
   const toast = useToast();
   async function unRegister() {
     fetch(`${API_BASE_URL}/e/unregister/`, {
@@ -183,29 +190,58 @@ export default function EventCard({ participation, token, setEvents }) {
               </Badge>
             ) : null}
           </Flex>
-          <Button
-            variant={"outline"}
-            color="white"
-            bg="transparent"
-            position={"absolute"}
-            _hover={{
-              bg: "white",
-              color: "pink.300",
-            }}
-            _focus={{
-              outline: "none",
-              bg: "white",
-              color: "pink.300",
-            }}
-            px={1}
-            py={1}
-            bottom={2}
-            right={2}
-            onClick={unRegister}
-            fontSize={"11pt"}
-          >
-            Unregister
-          </Button>
+          {isProfile && (
+            <IconButton
+              as={FaWhatsappSquare}
+              variant={"outline"}
+              cursor="pointer"
+              color="white"
+              bg="transparent"
+              position={"absolute"}
+              _hover={{
+                bg: "white",
+                color: "pink.300",
+              }}
+              _focus={{
+                outline: "none",
+                bg: "white",
+                color: "pink.300",
+              }}
+              px={1}
+              py={1}
+              bottom={2}
+              right={2}
+              fontSize={"11pt"}
+              onClick={() =>
+                window.open(participation.event.whatsapp_link, "_blank")
+              }
+            />
+          )}
+          {!isProfile && (
+            <Button
+              variant={"outline"}
+              color="white"
+              bg="transparent"
+              position={"absolute"}
+              _hover={{
+                bg: "white",
+                color: "pink.300",
+              }}
+              _focus={{
+                outline: "none",
+                bg: "white",
+                color: "pink.300",
+              }}
+              px={1}
+              py={1}
+              bottom={2}
+              right={2}
+              onClick={unRegister}
+              fontSize={"11pt"}
+            >
+              Unregister
+            </Button>
+          )}
         </Box>
       </Flex>
     </Box>
