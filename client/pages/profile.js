@@ -212,7 +212,7 @@ export default function Profile(props) {
           backgroundSize={"cover"}
           backgroundPosition={"center"}
           backgroundRepeat={"no-repeat"}
-          h={{ base: "auto", lg: "auto" }}
+          h={{ base: "auto", lg: "120vh" }}
           w={"100vw"}
           flexDir={"column"}
         >
