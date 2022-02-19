@@ -249,7 +249,7 @@ function DrawerNavbar({ isOpen }) {
   );
 }
 
-function NavbarContainer({ setVisible, children, ref, ...rest }) {
+function NavbarContainer({ setVisible, children, ...rest }) {
   const [background, setBackground] = useState("transparent");
 
   useEffect(() => {
@@ -279,7 +279,6 @@ function NavbarContainer({ setVisible, children, ref, ...rest }) {
           ? "0px 1px 10px 0px rgb(255 0 200 / 25%)"
           : "none"
       }
-      ref={ref}
       {...rest}
     >
       {children}
@@ -291,7 +290,6 @@ export default function Navbar(props) {
   const [isOpen, toggleOpen] = useState(true);
   const [visible, setVisible] = useState(0);
   const toggle = () => toggleOpen(!isOpen);
-  const containerRef = useRef(null);
 
   useEffect(() => {
     window.onresize = () => {
@@ -315,11 +313,7 @@ export default function Navbar(props) {
   }, []);
 
   return (
-    <NavbarContainer
-      animate={isOpen ? "open" : "closed"}
-      ref={containerRef}
-      {...props}
-    >
+    <NavbarContainer animate={isOpen ? "open" : "closed"} {...props}>
       <Logo visible={visible} />
       <MenuToggle toggle={toggle} />
       <DrawerNavbar isOpen={isOpen} />
