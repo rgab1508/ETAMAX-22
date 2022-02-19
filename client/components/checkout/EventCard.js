@@ -42,7 +42,7 @@ export default function EventCard({
               event_name: participation.event.title,
             },
           });
-          console.log(res);
+          // console.log(res);
           toast({
             title: res.detail,
             status: "success",

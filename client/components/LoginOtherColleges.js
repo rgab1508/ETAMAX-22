@@ -168,6 +168,9 @@ const LoginOtherColleges = () => {
       }),
     })
       .then((res) => res.json())
+      .catch((res) => {
+        errorToast({ title: "Something went wrong!" });
+      })
       .then((res) => {
         ga.event({
           action: "User Request",
@@ -177,14 +180,12 @@ const LoginOtherColleges = () => {
             semester,
           },
         });
+        // console.log(res);
         successToast({
           title: "Request sent successfully!",
           description: "You will recieve an email when approved",
         });
         router.push("/");
-      })
-      .catch((res) => {
-        errorToast({ title: "Something went wrong!" });
       });
   };
 
@@ -197,7 +198,7 @@ const LoginOtherColleges = () => {
     });
   };
 
-  useEffect(() => console.log(values), [values]);
+  // useEffect(() => console.log(values), [values]);
 
   return (
     <Flex

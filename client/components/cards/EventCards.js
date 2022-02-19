@@ -69,7 +69,7 @@ export default function EventCard({ event }) {
       body: JSON.stringify({ roll_no: rollNo }),
     });
     let res = await response.json();
-    console.log(res);
+    // console.log(res);
 
     if (res.exists) {
       setNames({ ...names, [rollNo]: res.name });

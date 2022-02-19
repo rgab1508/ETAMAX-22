@@ -138,7 +138,7 @@ function DrawerNavbar({ isOpen }) {
         redirect: "follow",
         referrer: "no-referrer",
       }).catch((err) => {
-        console.log(err);
+        console.error(err);
         toast({
           title: "Error",
           description: "Something went wrong",

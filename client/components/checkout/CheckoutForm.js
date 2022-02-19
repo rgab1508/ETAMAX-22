@@ -104,7 +104,7 @@ export default function CheckoutForm({ participations, user, setEvents }) {
 
     //! CHECK CRITERIA
     let criteriaJSON = user.user.criteria;
-    console.log(criteriaJSON);
+    // console.log(criteriaJSON);
     let c = JSON.parse(criteriaJSON);
     if (c["C"] < 1 || c["T"] < 1) {
       toast({
