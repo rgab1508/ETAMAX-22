@@ -151,27 +151,25 @@ const LoginOtherColleges = () => {
       return;
     }
     // resgister user
-    fetch(`${API_BASE_URL}/u/request/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      redirect: "follow",
-      referrerPolicy: "no-referrer",
-      body: JSON.stringify({
-        name,
-        email,
-        college,
-        department,
-        semester,
-        phone_no: "+91" + p,
-      }),
-    })
-      .then((res) => res.json())
-      .catch((res) => {
-        errorToast({ title: "Something went wrong!" });
-      })
-      .then((res) => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/u/register/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        redirect: "follow",
+        referrerPolicy: "no-referrer",
+        body: JSON.stringify({
+          name,
+          email,
+          college,
+          department,
+          semester,
+          phone_no: "+91" + p,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
         ga.event({
           action: "User Request",
           params: {
@@ -180,13 +178,17 @@ const LoginOtherColleges = () => {
             semester,
           },
         });
-        // console.log(res);
         successToast({
           title: "Request sent successfully!",
           description: "You will recieve an email when approved",
         });
         router.push("/");
-      });
+      } else {
+        errorToast({ title: "Something went wrong!" });
+      }
+    } catch (err) {
+      errorToast({ title: "Something went wrong!" });
+    }
   };
 
   const handleChange = (e) => {
