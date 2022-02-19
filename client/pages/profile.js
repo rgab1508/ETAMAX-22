@@ -212,16 +212,16 @@ export default function Profile(props) {
           backgroundSize={"cover"}
           backgroundPosition={"center"}
           backgroundRepeat={"no-repeat"}
-          h={{ base: "auto", lg: "105vh" }}
+          h={{ base: "auto", lg: "auto" }}
           w={"100vw"}
           flexDir={"column"}
         >
-          <Center bg="transparent" h={{ base: "13vh", md: "0vh" }} />
+          <Center bg="transparent" h={{ base: "13vh", md: "15vh" }} />
           <Stack align={"center"}>
-            <Heading fontSize={"4xl"} textAlign={"center"}>
+            <Heading fontSize={"4xl"} textAlign={"center"} color="pink.500">
               Edit Profile
             </Heading>
-            <Text fontSize={"lg"} color={"gray.600"}>
+            <Text fontSize={"2xl"} color={"pink.500"}>
               to participate in all events ✌️
             </Text>
           </Stack>
@@ -427,7 +427,7 @@ export default function Profile(props) {
               />
             </Center>
           </Center>
-          <Center bg="transparent" h={{ base: "10vh", md: "0vh" }} />
+          <Center bg="transparent" h={{ base: "10vh", md: "10vh" }} />
         </Center>
       </Layout>
     </>

@@ -17,7 +17,7 @@ const DroneEvent = () => {
       w={["100%", "80%", "30%", "30%"]}
       p={3}
       bg="#fcc0cb"
-      position="fixed"
+      position="absolute"
       right="0"
       top="calc(70vh - 100px)"
       as="a"
@@ -33,8 +33,8 @@ const DroneEvent = () => {
       <Box flex="0.3">
         <Image h="120px" src="/assets/drone.svg" />
       </Box>
-      <Flex flex="0.7" flexDir="column">
-        <Heading>Drone Event!!</Heading>
+      <Flex flex="0.7" flexDir="column" gridGap={2}>
+        <Heading fontSize={{ base: "xl", lg: "3xl" }}>Drone Event!!</Heading>
         <SkeletonText noOfLines={4} />
       </Flex>
       <Flex alignSelf={"center"}>

@@ -1,34 +1,12 @@
-// import { Flex, Text } from "@chakra-ui/react";
-
-// export default function Footer() {
-//   return (
-//     <Flex
-//       position="relative"
-//       bottom="0"
-//       w="100%"
-//       h="50px"
-//       justifyContent="center"
-//       bg="pink.100"
-//     >
-//       <Text fontSize="xl" color="pink.400">
-//         FCRIT
-//       </Text>
-//     </Flex>
-//   );
-// }
-
 import { Flex, Link, Text } from "@chakra-ui/react";
 
 export default function Footer() {
   return (
     <Flex
-      //bgGradient="linear(to-r,rgb(69, 39, 160,0.75),rgb(69, 40, 160,0.75),rgb(69, 49, 160,0.75),rgb(0, 121, 107,0.75))"
-      // bg="rgb(69, 39, 160,0.75)"
+      as="footer"
       bg="pink.100"
       w="100%"
       h={{ md: "9vh" }}
-      // px={{ base: "20px", md: "50px" }}
-      // py={{ md: "20px" }}
       py="20px"
       gridGap="2"
       align="center"
@@ -62,11 +40,14 @@ export default function Footer() {
             Trevor
           </Link>
           ,{" "}
-          <Link target="_blank" href="https://github.com/">
+          <Link
+            target="_blank"
+            href="https://www.linkedin.com/in/anushka-amte-210253195/"
+          >
             Anushka
           </Link>{" "}
           &{" "}
-          <Link target="_blank" href="https://github.com/">
+          <Link target="_blank" href="https://www.linkedin.com/in/elishagras/">
             Elisha
           </Link>
         </Text>

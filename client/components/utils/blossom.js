@@ -6,8 +6,11 @@ const petalsTypes = [
   new Petal({ customClass: "petal-style3" }),
   new Petal({ customClass: "petal-style4" }),
 ];
+
+const viewWidth = window.innerWidth;
+
 const b = new BlossomScene({
   id: "blossom-container",
   petalsTypes,
-  numPetals: 50,
+  numPetals: viewWidth > 768 ? 30 : 30,
 });

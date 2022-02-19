@@ -16,6 +16,7 @@ import LinkButtons from "./LinkButtons";
 import { useState, useEffect, useRef } from "react";
 import { API_BASE_URL } from "../../config";
 import router from "next/router";
+import { forwardRef } from "react";
 
 const Path = (props) => (
   <motion.path
@@ -248,7 +249,7 @@ function DrawerNavbar({ isOpen }) {
   );
 }
 
-function NavbarContainer({ setVisible, children, ...rest }) {
+function NavbarContainer({ setVisible, children, ref, ...rest }) {
   const [background, setBackground] = useState("transparent");
 
   useEffect(() => {
@@ -278,6 +279,7 @@ function NavbarContainer({ setVisible, children, ...rest }) {
           ? "0px 1px 10px 0px rgb(255 0 200 / 25%)"
           : "none"
       }
+      ref={ref}
       {...rest}
     >
       {children}

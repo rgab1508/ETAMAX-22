@@ -35,7 +35,7 @@ export class BlossomScene {
     this.container = container;
     this.placeholder = container;
     this.petals = [];
-    this.numPetals = config.numPetals || 5;
+    this.numPetals = config.numPetals || 10;
     this.petalsTypes = config.petalsTypes;
     this.gravity = config.gravity || 0.8;
     this.windMaxSpeed = config.windMaxSpeed || 4;
@@ -138,9 +138,10 @@ export class BlossomScene {
    */
   createPetals() {
     for (let i = 0; i < this.numPetals; i++) {
-      let tmpPetalType = this.petalsTypes[
-        Math.floor(Math.random() * (this.petalsTypes.length - 1))
-      ];
+      let tmpPetalType =
+        this.petalsTypes[
+          Math.floor(Math.random() * (this.petalsTypes.length - 1))
+        ];
       let tmpPetal = new Petal({ customClass: tmpPetalType.customClass });
       this.resetPetal(tmpPetal);
       this.petals.push(tmpPetal);
