@@ -18,6 +18,19 @@ export default function handler(req, res) {
       .auth()
       .verifyIdToken(req.body.user)
       .then(async (user) => {
+        console.log(`${API_BASE_URL}/u/auth/otp-verify/`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Token " + req.body.token,
+          },
+          redirect: "follow",
+          referrerPolicy: "no-referrer",
+          body: JSON.stringify({
+            phone_no: user.phone_number,
+            secret: process.env.OTP_SECRET,
+          }),
+        });
         fetch(`${API_BASE_URL}/u/auth/otp-verify/`, {
           method: "POST",
           headers: {

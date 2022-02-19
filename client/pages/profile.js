@@ -145,7 +145,10 @@ export default function Profile(props) {
             await axios({
               url: `${window.location.origin}/submit_phone`,
               method: "POST",
-              data: { user, token: profile.token },
+              data: {
+                user,
+                token: JSON.parse(localStorage.getItem("eta_user")).token,
+              },
             });
           });
       })
