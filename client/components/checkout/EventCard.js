@@ -195,7 +195,7 @@ export default function EventCard({
               as={FaWhatsappSquare}
               variant={"outline"}
               cursor="pointer"
-              color="white"
+              color="green.500"
               bg="transparent"
               position={"absolute"}
               _hover={{
