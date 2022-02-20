@@ -1,4 +1,4 @@
-import { BlossomScene, Petal } from "../Blossom";
+import { BlossomScene, Petal } from "../misc/Blossom";
 
 const petalsTypes = [
   new Petal({ customClass: "petal-style1" }),

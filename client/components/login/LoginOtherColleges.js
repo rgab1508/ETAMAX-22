@@ -10,7 +10,6 @@ import {
   Heading,
   Text,
   useColorModeValue,
-  Link,
   HStack,
   Select,
   InputLeftAddon,
@@ -20,9 +19,10 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { API_BASE_URL } from "../config";
-import Success from "../components/alerts/Success";
-import * as ga from "../libs/ga";
+import { API_BASE_URL } from "../../config";
+import Success from "../alerts/Success";
+import * as ga from "../../libs/ga";
+import NextLink from "next/link";
 
 const LoginOtherColleges = () => {
   var [email, setEmail] = useState("");
@@ -204,21 +204,22 @@ const LoginOtherColleges = () => {
 
   return (
     <Flex
-      minH={"80vh"}
+      minH={"90vh"}
       align={"center"}
       justify={"center"}
       bg={useColorModeValue("pink.100", "pink.800")}
       borderRadius={"10px"}
+      flexDir={"column"}
     >
       <Stack w="100%" spacing={6} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
-          <Heading fontSize={"2xl"} textAlign={"center"}>
+          <Heading fontSize={"2xl"} color="pink.600" textAlign={"center"}>
             *Only for Non-FCRIT Students
           </Heading>
         </Stack>
         <Box
           rounded={"lg"}
-          bg={useColorModeValue("white", "gray.700")}
+          bg={useColorModeValue("pink.50", "gray.700")}
           boxShadow={"lg"}
           p={8}
         >
@@ -231,7 +232,16 @@ const LoginOtherColleges = () => {
                   value={values.name}
                   name="name"
                   onChange={handleChange}
-                  placeholder="John Doe"
+                  placeholder="Enter your full name here"
+                  _focus={{
+                    outline: "none",
+                    borderColor: "pink.400",
+                    borderWidth: "2px",
+                  }}
+                  _hover={{
+                    borderColor: "pink.300",
+                    borderWidth: "2px",
+                  }}
                 />
               </FormControl>
             </Box>
@@ -243,7 +253,16 @@ const LoginOtherColleges = () => {
                 name="email"
                 value={values.email}
                 onChange={handleChange}
-                placeholder="abc@xyz.com"
+                placeholder="Enter your email address"
+                _focus={{
+                  outline: "none",
+                  borderColor: "pink.400",
+                  borderWidth: "2px",
+                }}
+                _hover={{
+                  borderColor: "pink.300",
+                  borderWidth: "2px",
+                }}
               />
             </FormControl>
             <FormControl isRequired>
@@ -257,6 +276,15 @@ const LoginOtherColleges = () => {
                 name="semester"
                 onChange={handleChange}
                 placeholder="5"
+                _focus={{
+                  outline: "none",
+                  borderColor: "pink.400",
+                  borderWidth: "2px",
+                }}
+                _hover={{
+                  borderColor: "pink.300",
+                  borderWidth: "2px",
+                }}
               />
             </FormControl>
             <FormControl isRequired>
@@ -266,6 +294,15 @@ const LoginOtherColleges = () => {
                 value={values.department}
                 name="department"
                 onChange={handleChange}
+                _focus={{
+                  outline: "none",
+                  borderColor: "pink.400",
+                  borderWidth: "2px",
+                }}
+                _hover={{
+                  borderColor: "pink.300",
+                  borderWidth: "2px",
+                }}
               >
                 <option value={"COMP"}>Computer</option>
                 <option value={"IT"}>IT</option>
@@ -282,7 +319,16 @@ const LoginOtherColleges = () => {
                 value={values.college}
                 name="college"
                 onChange={handleChange}
-                placeholder="XYZ College"
+                placeholder="Enter your college name and location"
+                _focus={{
+                  outline: "none",
+                  borderColor: "pink.400",
+                  borderWidth: "2px",
+                }}
+                _hover={{
+                  borderColor: "pink.300",
+                  borderWidth: "2px",
+                }}
               />
             </FormControl>
             <FormControl isRequired>
@@ -297,7 +343,16 @@ const LoginOtherColleges = () => {
                   value={values.phone_no}
                   name="phone_no"
                   onChange={handleChange}
-                  placeholder="1234567890"
+                  placeholder="Your phone no."
+                  _focus={{
+                    outline: "none",
+                    borderColor: "pink.400",
+                    borderWidth: "2px",
+                  }}
+                  _hover={{
+                    borderColor: "pink.300",
+                    borderWidth: "2px",
+                  }}
                 />
               </InputGroup>
             </FormControl>
@@ -314,6 +369,12 @@ const LoginOtherColleges = () => {
           </Stack>
         </Box>
       </Stack>
+      <Text pb="30px" color="pink.500">
+        Need help with registration ?{" "}
+        <b>
+          <NextLink href="/contact-council">Click here</NextLink>
+        </b>
+      </Text>
     </Flex>
   );
 };

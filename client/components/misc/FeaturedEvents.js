@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Flex, Center, Heading, Box } from "@chakra-ui/react";
-import EventCards from "./cards/FeaturedEventCard";
+import EventCards from "../cards/FeaturedEventCard";
 import Carousal from "./Carousal";
 
 export default function FeaturedEvents({ events }) {

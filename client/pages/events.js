@@ -2,7 +2,7 @@ import { Box, Flex, Center, Heading, Text, Select } from "@chakra-ui/react";
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import EventCard from "../components/cards/EventCards";
-import Background from "../components/Background";
+import Background from "../components/misc/Background";
 import Layout from "../components/layout";
 import { API_BASE_URL } from "../config";
 import { useRouter } from "next/router";

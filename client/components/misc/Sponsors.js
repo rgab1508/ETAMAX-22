@@ -1,7 +1,7 @@
 import React from "react";
-import B1 from "../public/assets/sponsors/b1.jpg";
-import B2 from "../public/assets/sponsors/b2.jpeg";
-import B3 from "../public/assets/sponsors/b3.jpg";
+import B1 from "../../public/assets/sponsors/b1.jpg";
+import B2 from "../../public/assets/sponsors/b2.jpeg";
+import B3 from "../../public/assets/sponsors/b3.jpg";
 import Image from "next/image";
 import { Box, Center, Flex, Heading } from "@chakra-ui/react";
 import Carousal from "./Carousal";

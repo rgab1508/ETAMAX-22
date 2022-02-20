@@ -14,7 +14,7 @@ import { AddIcon, CheckIcon, MinusIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { API_BASE_URL_IMG, API_BASE_URL } from "../../config";
-import AlertDialogBox from "../AlertDialogBox";
+import AlertDialogBox from "../misc/AlertDialogBox";
 import * as ga from "../../libs/ga";
 
 export default function EventCard({ event }) {

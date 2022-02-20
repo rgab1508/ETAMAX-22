@@ -1,5 +1,3 @@
-import { randNum } from "./utils/utils";
-
 export class Petal {
   constructor(config) {
     this.customClass = config.customClass || "";

@@ -7,9 +7,9 @@ import {
   TabList,
   Center,
 } from "@chakra-ui/react";
-import LoginForm from "../components/LoginForm";
-import LoginOtherColleges from "../components/LoginOtherColleges";
-import Background from "../components/Background";
+import LoginForm from "../components/login/LoginForm";
+import LoginOtherColleges from "../components/login/LoginOtherColleges";
+import Background from "../components/misc/Background";
 import Head from "next/head";
 import * as cookie from "cookie";
 
@@ -24,7 +24,12 @@ export default function Login(props) {
         <title>ETAMAX-22 | Login</title>
       </Head>
       <Background pageName={"Login"} />
-      <Box id="blossom-container" alignItems="center" borderRadius="lg">
+      <Box
+        id="blossom-container"
+        w="100vw"
+        alignItems="center"
+        borderRadius="lg"
+      >
         <Center>
           <Tabs
             w={["90%", "80%", "60%", "60%"]}
@@ -36,7 +41,7 @@ export default function Login(props) {
               <Tab
                 _selected={{ color: "white", bg: "#fcc0cb" }}
                 fontSize={"xl"}
-                color="pink.00"
+                color="pink.400"
                 _focus={{ outline: "none!important" }}
               >
                 Login
@@ -44,7 +49,7 @@ export default function Login(props) {
               <Tab
                 _selected={{ color: "white", bg: "#fcc0cb" }}
                 fontSize={"xl"}
-                color="pink.700"
+                color="pink.400"
                 _focus={{ outline: "none!important" }}
               >
                 Register

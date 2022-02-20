@@ -25,7 +25,7 @@ import {
 import { EditIcon } from "@chakra-ui/icons";
 import Layout from "../components/layout";
 import Head from "next/head";
-import Background from "../components/Background";
+import Background from "../components/misc/Background";
 import { useState, useEffect } from "react";
 import { API_BASE_URL } from "../config";
 import * as cookie from "cookie";

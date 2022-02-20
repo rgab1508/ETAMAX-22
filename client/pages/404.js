@@ -1,4 +1,4 @@
-import Background from "../components/Background";
+import Background from "../components/misc/Background";
 import { Center, Text } from "@chakra-ui/react";
 import Footer from "../components/layout/Footer";
 import Head from "next/head";
@@ -13,8 +13,8 @@ export default function NotFound() {
       <Head>
         <title>This page does not exist</title>
       </Head>
-      <Center id="blossom-container" h="100vh">
-        <Background pageName="Home" />
+      <Background pageName="Home" />
+      <Center id="blossom-container" flexDir={"column"} h="100vh">
         <Text color="pink.400" fontSize="30pt" fontWeight="bold">
           404 | PAGE NOT FOUND
         </Text>

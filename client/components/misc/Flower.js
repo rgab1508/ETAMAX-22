@@ -1,4 +1,4 @@
-import { randNum } from "./utils/utils";
+import { randNum } from "../utils/utils";
 
 class Flower {
   constructor(opts) {

@@ -18,10 +18,11 @@ import {
   InputRightElement,
   useToast,
 } from "@chakra-ui/react";
-import { API_BASE_URL } from "../config";
+import { API_BASE_URL } from "../../config";
 import { useRouter } from "next/router";
 import * as cookie from "cookie";
-import * as ga from "../libs/ga";
+import * as ga from "../../libs/ga";
+import NextLink from "next/link";
 
 const LoginForm = () => {
   const [values, setValues] = useState({
@@ -132,15 +133,20 @@ const LoginForm = () => {
       bg={useColorModeValue("pink.100", "pink.800")}
       w="100%"
       borderRadius={"10px"}
+      flexDir="column"
     >
       <Stack w="100%" spacing={6} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
-          <Heading fontSize={"2xl"}>Credentials sent in email</Heading>
-          <Text>*check spam folder</Text>
+          <Heading color="pink.600" fontSize={"3xl"}>
+            Credentials are sent via email
+          </Heading>
+          <Text color={"pink.500"} fontSize={"xl"}>
+            *check spam folder if not in inbox
+          </Text>
         </Stack>
         <Box
           rounded={"lg"}
-          bg={useColorModeValue("white", "gray.700")}
+          bg={useColorModeValue("pink.50", "gray.700")}
           boxShadow={"lg"}
           p={8}
           w="100%"
@@ -154,6 +160,15 @@ const LoginForm = () => {
                 name="roll_no"
                 value={values.roll_no}
                 onChange={handleChange}
+                _focus={{
+                  outline: "none",
+                  borderColor: "pink.400",
+                  borderWidth: "2px",
+                }}
+                _hover={{
+                  borderColor: "pink.300",
+                  borderWidth: "2px",
+                }}
               />
             </FormControl>
             <FormControl isRequired>
@@ -171,6 +186,15 @@ const LoginForm = () => {
                     }
                   }}
                   placeholder="Enter your password"
+                  _focus={{
+                    outline: "none",
+                    borderColor: "pink.400",
+                    borderWidth: "2px",
+                  }}
+                  _hover={{
+                    borderColor: "pink.300",
+                    borderWidth: "2px",
+                  }}
                 />
                 <InputRightElement width="4.5rem">
                   <Button
@@ -199,6 +223,12 @@ const LoginForm = () => {
           </Stack>
         </Box>
       </Stack>
+      <Text color="pink.500">
+        Need help with login ?{" "}
+        <b>
+          <NextLink href="/contact-council">Click here</NextLink>
+        </b>
+      </Text>
     </Flex>
   );
 };

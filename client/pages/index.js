@@ -1,15 +1,15 @@
 import { Box, Center, Heading, Flex, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import Flower from "../components/Flower";
+import Flower from "../components/misc/Flower";
 import { randNum } from "../components/utils/utils";
 import Layout from "../components/layout";
 import Head from "next/head";
-import Background from "../components/Background";
+import Background from "../components/misc/Background";
 import "@fontsource/birthstone-bounce";
-import Sponsors from "../components/Sponsors";
-import FeaturedEvents from "../components/FeaturedEvents";
+import Sponsors from "../components/misc/Sponsors";
+import FeaturedEvents from "../components/misc/FeaturedEvents";
 import { API_BASE_URL } from "../config";
-import DroneEvent from "../components/DroneEvent";
+import DroneEvent from "../components/misc/DroneEvent";
 
 if (typeof window !== "undefined") {
   import("../components/utils/blossom");
@@ -17,7 +17,7 @@ if (typeof window !== "undefined") {
 
 export default function Home(props) {
   useEffect(() => {
-    window.addEventListener("mousedown", function(e) {
+    window.addEventListener("mousedown", function (e) {
       var amt = randNum(1, 3);
       for (var i = 0; i < amt; i++) {
         var top = randNum(e.clientY - 30, e.clientY + 30);
