@@ -47,7 +47,13 @@ export default function Home(props) {
   return (
     <>
       <Head>
-        <title>ETAMAX-22 | Home</title>
+        <title>ETAMAX-22</title>
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="title" content="ETAMAX-22" />
+        <meta
+          name="description"
+          content="Annual sports and cultural festival organised at F.C.R.I.T"
+        />
       </Head>
       <Background pageName={"Home"} />
       <Layout>

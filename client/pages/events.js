@@ -104,6 +104,12 @@ export default function Events(props) {
     <>
       <Head>
         <title>ETAMAX-22 | Events</title>
+        <meta name="ETAMAX-22" content="Events" />
+        <meta
+          name="description"
+          content="Here is the list of events for this year"
+        />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Background pageName={"Events"} />
       <Layout>

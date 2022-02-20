@@ -33,6 +33,7 @@ export default function Checkout() {
       <Head>
         <title>Checkout</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
         {user && (
