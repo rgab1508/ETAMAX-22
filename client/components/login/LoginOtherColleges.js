@@ -152,7 +152,7 @@ const LoginOtherColleges = () => {
     }
     // resgister user
     try {
-      const res = await fetch(`${API_BASE_URL}/u/register/`, {
+      const res = await fetch(`${API_BASE_URL}/u/request/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
