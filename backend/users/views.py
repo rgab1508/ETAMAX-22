@@ -303,9 +303,17 @@ class UserRequestView(APIView):
     serializer = UserRequestSerializer(data=request.data)
     if serializer.is_valid():
       serializer.save()
-      return JsonResponse(serializer.data, status=201)
+      data = {
+        "success": True,
+        "data": serializer.data
+      }
+      return JsonResponse(data, status=201)
     else:
-      return JsonResponse(serializer.errors, status=400)
+      data = {
+        "success": False,
+        "errors": serializer.errors
+      }
+      return JsonResponse(data, status=400)
 
 # class TeamList(APIView):
 #   permission_classes=[IsAdminUser]

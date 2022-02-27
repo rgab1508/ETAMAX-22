@@ -7,7 +7,9 @@ from django.dispatch import receiver
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
+from django.core.mail import send_mail
 from transactions.models import Transaction
+
 
 from events.models import Event
 from .managers import UserManager
@@ -99,10 +101,24 @@ def make_user_when_approved(sender, instance, created, **kwargs):
         is_phone_no_verified=True,
         has_filled_profile=True,
         is_from_fcrit=False,
-        password=pwd
       )
-      print(pwd)
-      ## ! SEND EMAIL HERE
+      user.set_password(pwd)
+      
+      # SEND EMAIL HERE
+      send_mail(
+        'ETAMAX 2022 | FCRIT',
+        f"""
+          Etamax Login Details
+
+          username: {new_roll_no}
+          password: {pwd}
+
+          Login here: https://etamax.fcrit.ac.in/login
+        """,
+        'etamax2k22@hotmail.com',
+        [instance.email],
+        fail_silently=False,
+      )
       user.save()
     except Exception as e:
       print(f"Error creating User: {instance.email}#{new_roll_no}")

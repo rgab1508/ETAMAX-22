@@ -12,16 +12,8 @@ from django.http.response import JsonResponse
 from .models import Event
 from users.serializers import ParticipationSerializer
 
-# using SendGrid's Python Library
-# https://github.com/sendgrid/sendgrid-python
-# import os
-# from sendgrid import SendGridAPIClient
-# from sendgrid.helpers.mail import Mail
 
 
-
-
-from django.core.mail import send_mail
 
 def is_time_between(begin_time, end_time, check_time=None):
     check_time = check_time or datetime.utcnow().time()
@@ -32,13 +24,6 @@ def is_time_between(begin_time, end_time, check_time=None):
 
 class EventListView(APIView):
   def get(self, request):
-    # send_mail(
-    #     'Subject here',
-    #     'Here is the message.',
-    #     'etamax2k22@hotmail.com',
-    #     ['rgabriel1508@gmail.com'],
-    #     fail_silently=False,
-    #   )
 
     events = Event.objects.all()
     serializer = EventSerializer(events, many=True)
