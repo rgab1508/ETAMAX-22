@@ -184,7 +184,10 @@ const LoginOtherColleges = () => {
         });
         router.push("/");
       } else {
-        errorToast({ title: "Something went wrong!" });
+        console.log(data);
+        for (let x in data.errors) {
+          errorToast({ title: data.errors[x] });
+        }
       }
     } catch (err) {
       errorToast({ title: "Something went wrong!" });

@@ -14,7 +14,7 @@ const DroneEvent = () => {
 
   return (
     <Box
-      w={["100%", "80%", "30%", "30%"]}
+      w={["100%", "80%", "45%", "35%"]}
       p={3}
       bg="#fcc0cb"
       position="absolute"

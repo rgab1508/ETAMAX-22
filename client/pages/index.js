@@ -10,6 +10,7 @@ import Sponsors from "../components/misc/Sponsors";
 import FeaturedEvents from "../components/misc/FeaturedEvents";
 import { API_BASE_URL } from "../config";
 import DroneEvent from "../components/misc/DroneEvent";
+import FooterOnTopOfFooter from "../components/misc/FooterOnTopOfFooter";
 
 if (typeof window !== "undefined") {
   import("../components/utils/blossom");
@@ -17,7 +18,7 @@ if (typeof window !== "undefined") {
 
 export default function Home(props) {
   useEffect(() => {
-    window.addEventListener("mousedown", function (e) {
+    window.addEventListener("mousedown", function(e) {
       var amt = randNum(1, 3);
       for (var i = 0; i < amt; i++) {
         var top = randNum(e.clientY - 30, e.clientY + 30);
@@ -72,6 +73,7 @@ export default function Home(props) {
         <DroneEvent />
         <FeaturedEvents events={props.events} />
         <Sponsors />
+        <FooterOnTopOfFooter />
       </Layout>
     </>
   );

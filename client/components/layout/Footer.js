@@ -6,7 +6,7 @@ export default function Footer() {
       as="footer"
       bg="pink.100"
       w="100%"
-      h={{ md: "9vh" }}
+      h={{ md: "7vh" }}
       py="20px"
       gridGap="2"
       align="center"

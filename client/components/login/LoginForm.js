@@ -30,6 +30,7 @@ const LoginForm = () => {
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const errorToast = useToast({
     position: "top-right",
@@ -83,6 +84,7 @@ const LoginForm = () => {
     if (!validateInput()) {
       return;
     }
+    setIsLoading(true);
     const { roll_no: r, password } = values;
     let username = Number.parseInt(r);
     let body = {
@@ -116,13 +118,16 @@ const LoginForm = () => {
         localStorage.setItem("eta_user", JSON.stringify(res));
         window.document.cookie = cookie.serialize("eta_token", res.token);
         router.push("/");
+        setIsLoading(false);
       })
       .catch((err) => {
         errorToast({
           title: "Someting went Wrong!",
         });
         console.error(err);
+        setIsLoading(false);
       });
+    setIsLoading(false);
   };
 
   return (
@@ -215,6 +220,7 @@ const LoginForm = () => {
                 _hover={{
                   bg: "pink.500",
                 }}
+                isLoading={isLoading}
                 onClick={handleSubmit}
               >
                 Log In
