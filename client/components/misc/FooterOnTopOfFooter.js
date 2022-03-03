@@ -12,7 +12,7 @@ const FooterOnTopOfFooter = () => {
       alignItems={"center"}
       gridGap="2"
     >
-      <Text color="pink.500">In Loving Memories of __NAME__.</Text>
+      <Text color="pink.500">In loving memory of Myron Savio Castellino.</Text>
     </Box>
   );
 };

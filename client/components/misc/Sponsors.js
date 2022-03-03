@@ -1,17 +1,36 @@
-import React from "react";
-import B1 from "../../public/assets/sponsors/b1.jpg";
-import B2 from "../../public/assets/sponsors/b2.jpeg";
-import B3 from "../../public/assets/sponsors/b3.jpg";
-import Image from "next/image";
-import { Box, Center, Flex, Heading } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
+import { Box, Center, Flex, Heading, Image } from "@chakra-ui/react";
 import Carousal from "./Carousal";
 
 const Sponsors = () => {
-  const banners = [
-    <Image className="sponsor-image" src={B1} />,
-    <Image className="sponsor-image" src={B2} />,
-    <Image className="sponsor-image" src={B3} />,
-  ];
+  const bans = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13].map((num) => (
+    <Image
+      borderRadius={"15px"}
+      mb={5}
+      align={"center"}
+      src={`/assets/sponsors/${num}.png`}
+    />
+  ));
+
+  const [banners, setBanners] = useState([]);
+  useEffect(() => {
+    setBanners([...bans]);
+  }, []);
+
+  const breakpoints = {
+    1024: {
+      slidesPerView: 3,
+      spaceBetween: 10,
+    },
+    620: {
+      slidesPerView: 2,
+      spaceBetween: 5,
+    },
+    480: {
+      slidesPerView: 1,
+      spaceBetween: 5,
+    },
+  };
 
   return (
     <Center
@@ -25,8 +44,12 @@ const Sponsors = () => {
             Our Sponsors
           </Heading>
         </Box>
-        <Flex h="auto" borderRadius={"2rem"} overflow="hidden">
-          <Carousal allowPagination={true} items={banners} />
+        <Flex my={4} h="auto" overflow="hidden">
+          <Carousal
+            breakpoints={breakpoints}
+            allowPagination={true}
+            items={banners}
+          />
         </Flex>
       </Flex>
     </Center>
