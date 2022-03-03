@@ -275,6 +275,7 @@ class MakeUsersView(APIView):
         roll_no = int(roll_no)
 
         user = User()
+        user.name = name
         user.roll_no = roll_no
         user.email = email
         user.department = department
@@ -282,7 +283,6 @@ class MakeUsersView(APIView):
         user.set_password(text_password)
 
         if roll_no >= 9000000:
-          user.name = name
           user.has_filled_profile = True
           user.is_phone_no_verified = True
 
