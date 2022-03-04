@@ -22,7 +22,7 @@ export default function Events(props) {
       ).style.transform = `-translateY(${dist * 1}px)`;
       document.getElementById(
         "background-image"
-      ).style.transform = `translateY(${dist * 0.1}px)`;
+      ).style.transform = `translateY(${dist * 0.03}px)`;
     });
   }, []);
 
