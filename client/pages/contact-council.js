@@ -82,14 +82,16 @@ export default function AboutCouncil() {
         <Flex
           justifyContent={"center"}
           w="100vw"
-          h="140vh"
+          h={{ base: "auto", lg: "140vh" }}
           id="blossom-container"
           p={{ base: "10px", md: "25px" }}
           flexDir="column"
         >
           <Center flexDir="column" gridGap={"5"}>
-            <Center py="30px">
-              <Heading color="pink.500">Contact the council members</Heading>
+            <Center py={{ base: "50px", lg: "30px" }}>
+              <Heading fontSize={{ base: "17pt", lg: "auto" }} color="pink.500">
+                Contact the council members
+              </Heading>
             </Center>
             <SimpleGrid spacing={10} columns={{ base: "1", md: "2" }}>
               {councilMembers.map((member, index) => (
