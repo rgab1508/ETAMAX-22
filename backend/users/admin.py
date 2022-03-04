@@ -16,6 +16,14 @@ class UserRequestAdmin(admin.ModelAdmin):
   search_fields = ('name', 'email', 'phone_no')
   list_filter = ('is_approved', 'department', 'semester')
 
+  actions = ['approve_user_request']
+
+  @admin.action(description='Approve user request')
+  def approve_user_request(modeladmin, request, queryset):
+    for user_request in queryset:
+      user_request.is_approved = True
+      user_request.save()
+
 @admin.register(Participation)
 class ParticipationAdmin(admin.ModelAdmin):
   search_fields = ('part_id', 'team_name', 'transaction__upi_transaction_id', 'transaction__transaction_id', 'members__name', 'members__roll_no', 'members__email', 'event__title')
