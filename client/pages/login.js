@@ -22,7 +22,7 @@ export default function Login(props) {
     <>
       <Head>
         <title>ETAMAX-22 | Login</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/images/favicon.ico" />
       </Head>
       <Background pageName={"Login"} />
       <Box

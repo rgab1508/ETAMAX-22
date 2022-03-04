@@ -12,7 +12,7 @@ export default function NotFound() {
     <>
       <Head>
         <title>This page does not exist</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/images/favicon.ico" />
       </Head>
       <Background pageName="Home" />
       <Center id="blossom-container" flexDir={"column"} h="100vh">
