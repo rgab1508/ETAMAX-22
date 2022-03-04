@@ -204,7 +204,7 @@ export default function Profile(props) {
     <>
       <Head>
         <title>ETAMAX-22 | Profile</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/images/favicon.ico" />
       </Head>
       <Layout>
         <Background pageName={"Home"} />

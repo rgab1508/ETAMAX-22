@@ -18,7 +18,7 @@ if (typeof window !== "undefined") {
 
 export default function Home(props) {
   useEffect(() => {
-    window.addEventListener("mousedown", function(e) {
+    window.addEventListener("mousedown", function (e) {
       var amt = randNum(1, 3);
       for (var i = 0; i < amt; i++) {
         var top = randNum(e.clientY - 30, e.clientY + 30);
@@ -49,7 +49,7 @@ export default function Home(props) {
     <>
       <Head>
         <title>ETAMAX-22</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/images/favicon.ico" />
         <meta name="title" content="ETAMAX-22" />
         <meta
           name="description"

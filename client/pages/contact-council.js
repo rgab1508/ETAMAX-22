@@ -75,21 +75,23 @@ export default function AboutCouncil() {
       <Head>
         <title>Contact the council members</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/images/favicon.ico" />
       </Head>
       <Background pageName={"Home"} />
       <Layout>
         <Flex
           justifyContent={"center"}
           w="100vw"
-          h="140vh"
+          h={{ base: "auto", lg: "140vh" }}
           id="blossom-container"
           p={{ base: "10px", md: "25px" }}
           flexDir="column"
         >
           <Center flexDir="column" gridGap={"5"}>
-            <Center py="30px">
-              <Heading color="pink.500">Contact the council members</Heading>
+            <Center py={{ base: "50px", lg: "30px" }}>
+              <Heading fontSize={{ base: "17pt", lg: "auto" }} color="pink.500">
+                Contact the council members
+              </Heading>
             </Center>
             <SimpleGrid spacing={10} columns={{ base: "1", md: "2" }}>
               {councilMembers.map((member, index) => (

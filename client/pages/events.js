@@ -109,7 +109,7 @@ export default function Events(props) {
           name="description"
           content="Here is the list of events for this year"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/images/favicon.ico" />
       </Head>
       <Background pageName={"Events"} />
       <Layout>
