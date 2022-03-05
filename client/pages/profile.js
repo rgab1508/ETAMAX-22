@@ -421,7 +421,9 @@ export default function Profile(props) {
               flexDir={"column"}
             >
               <EventsList
-                events={profile.participations}
+                events={profile.participations.filter(
+                  (p) => p.transaction && p.transaction.is_verified
+                )}
                 token={token}
                 setEvents={console.log}
                 isProfile
