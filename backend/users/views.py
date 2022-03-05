@@ -1,4 +1,5 @@
 import json
+from logging import critical
 import os
 from re import U
 import uuid
@@ -181,8 +182,10 @@ class UserCheckout(APIView):
 
     def check_criteria(user) -> bool:
       criteria = json.loads(user.criteria)
-
-      return True if criteria["C"] >= 1 and criteria["T"] >= 1 else False
+      if criteria["C"] < 1 or criteria["T"] < 1:
+        return True
+      else:
+        return False
 
 
     participations = request.data['participations']
@@ -190,7 +193,7 @@ class UserCheckout(APIView):
     if len(upi_transaction_id) < 5:
       return JsonResponse({"detail": "Enter a Valid Transaction ID", "success": False},status=400)
 
-    if not check_criteria(user):
+    if check_criteria(user):
       return JsonResponse({"detail": "Criteria Not Satisfied: Atleast One Cultural & One Technical Event !", "success": False}, status=400)
 
     event_amount = 0
