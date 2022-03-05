@@ -18,9 +18,9 @@ from users.serializers import ParticipationSerializer
 def is_time_between(begin_time, end_time, check_time=None):
     check_time = check_time or datetime.utcnow().time()
     if begin_time < end_time:
-        return check_time >= begin_time and check_time <= end_time
+        return check_time > begin_time and check_time < end_time
     else:
-        return check_time >= begin_time or check_time <= end_time
+        return check_time > begin_time or check_time < end_time
 
 class EventListView(APIView):
   def get(self, request):
@@ -61,6 +61,7 @@ class EventRegiterView(APIView):
   def post(self, request):
     def update_criteria(user: User, event: Event) -> User:
       user_criteria = json.loads(user.criteria)
+      print(event.category)
       user_criteria[event.category] += 1
       user.criteria = json.dumps(user_criteria)
       return user
