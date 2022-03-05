@@ -17,6 +17,28 @@ if (typeof window !== "undefined") {
 }
 
 export default function Home(props) {
+  const [over, setOver] = useState(false);
+  // deadline to be on 10th March 2022 IST
+  let deadline = new Date("2022-03-10T18:30:00.000Z").getTime();
+  let now = new Date().getTime();
+  const [daysLeft, setDaysLeft] = useState(
+    Math.floor((deadline - now) / (1000 * 60 * 60 * 24))
+  );
+
+  function tick() {
+    now = new Date().getTime();
+    let t = deadline - now;
+    setDaysLeft(Math.floor(t / (1000 * 60 * 60 * 24)));
+    if (t <= 0) {
+      setOver(true);
+    }
+  }
+
+  useEffect(() => {
+    const timerId = setInterval(tick, 1000);
+    return () => clearInterval(timerId);
+  });
+
   useEffect(() => {
     window.addEventListener("mousedown", function (e) {
       var amt = randNum(1, 3);
@@ -59,7 +81,7 @@ export default function Home(props) {
       <Background pageName={"Home"} />
       <Layout>
         <Flex bg="transparent" h="100vh" maxW="100vw" flexDirection="column">
-          <Center h="60vh" w="100%">
+          <Center h="60vh" w="100%" flexDir={"column"}>
             <Box w="80%">
               <Heading color="pink.300" fontSize="6xl">
                 ETAMAX-22{" "}
@@ -67,6 +89,35 @@ export default function Home(props) {
                   Fleur
                 </Text>
               </Heading>
+            </Box>
+          </Center>
+          <Center
+            h={{
+              base: "calc(30vh - 100px)",
+              lg: "calc(30vh - 100px)",
+            }}
+            w="100%"
+            mt={{ base: "240px", md: "0", lg: "0" }}
+          >
+            <Box w="80%">
+              {!over ? (
+                <Text
+                  color={"pink.400"}
+                  fontWeight="bold"
+                  fontSize={{ base: "3xl", lg: "4xl" }}
+                >
+                  Countdown to fun!
+                </Text>
+              ) : (
+                ""
+              )}
+              <Text
+                color="pink.300"
+                fontWeight={"500"}
+                fontSize={{ base: "2xl", lg: "2xl" }}
+              >
+                {!over ? `${daysLeft} days left` : "On now!"}
+              </Text>
             </Box>
           </Center>
         </Flex>

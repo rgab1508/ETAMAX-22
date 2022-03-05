@@ -64,9 +64,10 @@ function MenuToggle({ toggle }) {
       color="white"
       display={{ md: "none", base: "block" }}
       onClick={toggle}
-      _focus={{ outline: "none!important", bg: "pink.100" }}
+      _focus={{ outline: "none!important", background: "pink.100" }}
+      mr={0}
     >
-      <svg width="20" height="20" viewBox="0 0 20 20">
+      <svg width="18" height="18" viewBox="0 0 18 18">
         <Path
           variants={{
             closed: { d: "M 2 2.5 L 20 2.5" },

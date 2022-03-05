@@ -1,4 +1,12 @@
-import { Box, Flex, Center, Heading, Text, Select } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Center,
+  Heading,
+  Text,
+  Select,
+  Button,
+} from "@chakra-ui/react";
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import EventCard from "../components/cards/EventCards";
@@ -55,7 +63,7 @@ export default function Events(props) {
   useEffect(() => {
     if (daySelect === "") {
       setEvents(
-        props.events.sort((event1, event2) => {
+        events.sort((event1, event2) => {
           if (event1.day > event2.day) return 1;
           if (event1.day < event2.day) return -1;
           if (event1.start > event2.start) return 1;
@@ -64,7 +72,7 @@ export default function Events(props) {
       );
     } else {
       setEvents(
-        props.events
+        events
           .filter((event) => event.day === parseInt(daySelect, 10))
           .sort((event1, event2) => {
             if (event1.day > event2.day) return 1;
@@ -79,7 +87,7 @@ export default function Events(props) {
   useEffect(() => {
     if (catSelect === "") {
       setEvents(
-        props.events.sort((event1, event2) => {
+        events.sort((event1, event2) => {
           if (event1.day > event2.day) return 1;
           if (event1.day < event2.day) return -1;
           if (event1.start > event2.start) return 1;
@@ -88,7 +96,7 @@ export default function Events(props) {
       );
     } else {
       setEvents(
-        props.events
+        events
           .filter((event) => event.category === catSelect)
           .sort((event1, event2) => {
             if (event1.day > event2.day) return 1;
@@ -188,6 +196,32 @@ export default function Events(props) {
                 <option value="2">Day 2</option>
                 <option value="3">Day 3</option>
               </Select>
+              <Button
+                _focus={{
+                  color: "pink.500",
+                  borderColor: "pink.500",
+                }}
+                _hover={{
+                  color: "pink.500",
+                  borderColor: "pink.500",
+                }}
+                variant="outline"
+                fontWeight={"normal"}
+                onClick={() => {
+                  setCatSelect("");
+                  setDaySelect("");
+                  setEvents(
+                    props.events.sort((event1, event2) => {
+                      if (event1.day > event2.day) return 1;
+                      if (event1.day < event2.day) return -1;
+                      if (event1.start > event2.start) return 1;
+                      if (event1.start < event2.start) return -1;
+                    })
+                  );
+                }}
+              >
+                Reset
+              </Button>
             </Center>
           </Center>
           <Center py="30px" w="100%" minH="60vh" flexDir={"column"} gridGap="4">
