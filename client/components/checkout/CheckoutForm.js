@@ -63,6 +63,7 @@ export default function CheckoutForm({ participations, user, setEvents }) {
   const [eventAmount, setEventAmount] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
 
+  const [isBtnLoading, setIsBtnLoading] = useState(false);
   const toast = useToast();
 
   useEffect(() => {
@@ -80,6 +81,7 @@ export default function CheckoutForm({ participations, user, setEvents }) {
   }, [donation, eventAmount]);
 
   const handleCheckout = async () => {
+    setIsBtnLoading(true);
     if (transactionId.trim().length < 5) {
       toast({
         title: "Please Enter a valid Transaction ID",
@@ -88,6 +90,7 @@ export default function CheckoutForm({ participations, user, setEvents }) {
         position: "top-right",
         isClosable: true,
       });
+      setIsBtnLoading(false);
       return;
     }
 
@@ -99,6 +102,7 @@ export default function CheckoutForm({ participations, user, setEvents }) {
         position: "top-right",
         isClosable: true,
       });
+      setIsBtnLoading(false);
       return;
     }
 
@@ -114,6 +118,7 @@ export default function CheckoutForm({ participations, user, setEvents }) {
         duration: 3000,
         position: "top-right",
       });
+      setIsBtnLoading(false);
       return;
     }
 
@@ -158,10 +163,14 @@ export default function CheckoutForm({ participations, user, setEvents }) {
             title: res.detail,
             position: "top-right",
           });
+          setIsBtnLoading(false);
         }
         setEvents([]);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setIsBtnLoading(false);
+      });
   };
 
   const { getRootProps, getRadioProps } = useRadioGroup({

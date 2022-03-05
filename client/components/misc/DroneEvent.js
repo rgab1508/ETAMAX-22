@@ -3,7 +3,7 @@ import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import React from "react";
 
 const DroneEvent = () => {
-  const droneEventId = "88f89e2e-6503-459f-aca7-7700a3cb9185";
+  const droneEventId = "10171e14-005d-4a9a-a542-447e1ef83d0b";
 
   return (
     <Box

@@ -80,11 +80,14 @@ const LoginForm = () => {
     return true;
   };
 
+  useEffect(() => console.log(isLoading), [isLoading]);
+
   const handleSubmit = (e) => {
+    setIsLoading(true);
+
     if (!validateInput()) {
       return;
     }
-    setIsLoading(true);
     const { roll_no: r, password } = values;
     let username = Number.parseInt(r);
     let body = {
@@ -127,7 +130,6 @@ const LoginForm = () => {
         console.error(err);
         setIsLoading(false);
       });
-    setIsLoading(false);
   };
 
   return (
@@ -221,6 +223,7 @@ const LoginForm = () => {
                   bg: "pink.500",
                 }}
                 isLoading={isLoading}
+                isDisabled={isLoading}
                 onClick={handleSubmit}
               >
                 Log In
