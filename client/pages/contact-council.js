@@ -27,28 +27,22 @@ export default function AboutCouncil() {
       igId: "celinenfernandes",
     },
     {
-      name: "Pratamesh Talekar",
-      post: "Sports Secretary",
-      phNo: "+91 90823 26745",
-      igId: "pratameshtalekar",
-    },
-    {
       name: "Ritwik Saraf",
       post: "Joint Secretary",
       phNo: "+91 76660 53044",
       igId: "ritwik.saraf",
     },
     {
-      name: "Daniel Rebeiro",
-      post: "PR Head",
-      phNo: "+91 83558 86733",
-      igId: "dramaraamaa",
-    },
-    {
       name: "Vaivasvat Vashisht",
       post: "Cultural Secretary",
       phNo: "+91 97798 28977",
       igId: "vaivasvatvashisht",
+    },
+    {
+      name: "Pratamesh Talekar",
+      post: "Sports Secretary",
+      phNo: "+91 90823 26745",
+      igId: "pratameshtalekar",
     },
     {
       name: "Preethi Lydia",
@@ -61,6 +55,12 @@ export default function AboutCouncil() {
       post: "Technical Secretary",
       phNo: "+91 96196 59360",
       igId: "ash_win.__",
+    },
+    {
+      name: "Darrel Rebeiro",
+      post: "PR Head",
+      phNo: "+91 83558 86733",
+      igId: "dramaraamaa",
     },
     {
       name: "Jordan Fernandes",

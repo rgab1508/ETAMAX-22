@@ -7,7 +7,7 @@ const DroneEvent = () => {
 
   return (
     <Box
-      w={["100%", "80%", "45%", "35%"]}
+      w={["100%", "80%", "48%", "40%"]}
       p={3}
       bg="#fcc0cb"
       position="absolute"
@@ -28,8 +28,7 @@ const DroneEvent = () => {
       </Box>
       <Flex flex="0.7" flexDir="column" gridGap={2}>
         <Heading fontSize={{ base: "xl", lg: "3xl" }}>Drone Event!!</Heading>
-
-        <Text>
+        <Text fontSize={["sm", "md", "lg", "lg"]}>
           This event is conducted in association with the Indian drone racing
           league which is INDIA’s largest drone racing league. Check it out now!
         </Text>

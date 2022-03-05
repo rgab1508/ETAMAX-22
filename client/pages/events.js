@@ -1,4 +1,12 @@
-import { Box, Flex, Center, Heading, Text, Select } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Center,
+  Heading,
+  Text,
+  Select,
+  Button,
+} from "@chakra-ui/react";
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import EventCard from "../components/cards/EventCards";
@@ -22,7 +30,7 @@ export default function Events(props) {
       ).style.transform = `-translateY(${dist * 1}px)`;
       document.getElementById(
         "background-image"
-      ).style.transform = `translateY(${dist * 0.1}px)`;
+      ).style.transform = `translateY(${dist * 0.03}px)`;
     });
   }, []);
 
@@ -52,52 +60,120 @@ export default function Events(props) {
   const [daySelect, setDaySelect] = useState("");
   const [catSelect, setCatSelect] = useState("");
 
-  useEffect(() => {
+  function filterDay() {
     if (daySelect === "") {
-      setEvents(
-        props.events.sort((event1, event2) => {
-          if (event1.day > event2.day) return 1;
-          if (event1.day < event2.day) return -1;
-          if (event1.start > event2.start) return 1;
-          if (event1.start < event2.start) return -1;
-        })
-      );
-    } else {
-      setEvents(
-        props.events
-          .filter((event) => event.day === parseInt(daySelect, 10))
-          .sort((event1, event2) => {
+      if (!catSelect) {
+        setEvents(
+          props.events.sort((event1, event2) => {
             if (event1.day > event2.day) return 1;
             if (event1.day < event2.day) return -1;
             if (event1.start > event2.start) return 1;
             if (event1.start < event2.start) return -1;
           })
-      );
+        );
+      } else {
+        setEvents(
+          props.events
+            .filter((event) => event.category === catSelect)
+            .sort((event1, event2) => {
+              if (event1.day > event2.day) return 1;
+              if (event1.day < event2.day) return -1;
+              if (event1.start > event2.start) return 1;
+              if (event1.start < event2.start) return -1;
+            })
+        );
+      }
+    } else {
+      if (catSelect) {
+        setEvents(
+          props.events
+            .filter(
+              (event) =>
+                event.day === parseInt(daySelect, 10) &&
+                event.category === catSelect
+            )
+            .sort((event1, event2) => {
+              if (event1.day > event2.day) return 1;
+              if (event1.day < event2.day) return -1;
+              if (event1.start > event2.start) return 1;
+              if (event1.start < event2.start) return -1;
+            })
+        );
+      } else {
+        setEvents(
+          props.events
+            .filter((event) => event.day === parseInt(daySelect, 10))
+            .sort((event1, event2) => {
+              if (event1.day > event2.day) return 1;
+              if (event1.day < event2.day) return -1;
+              if (event1.start > event2.start) return 1;
+              if (event1.start < event2.start) return -1;
+            })
+        );
+      }
     }
+  }
+
+  function filterCategory() {
+    if (catSelect === "") {
+      if (!daySelect) {
+        setEvents(
+          props.events.sort((event1, event2) => {
+            if (event1.day > event2.day) return 1;
+            if (event1.day < event2.day) return -1;
+            if (event1.start > event2.start) return 1;
+            if (event1.start < event2.start) return -1;
+          })
+        );
+      } else {
+        setEvents(
+          props.events
+            .filter((event) => event.day === parseInt(daySelect, 10))
+            .sort((event1, event2) => {
+              if (event1.day > event2.day) return 1;
+              if (event1.day < event2.day) return -1;
+              if (event1.start > event2.start) return 1;
+              if (event1.start < event2.start) return -1;
+            })
+        );
+      }
+    } else {
+      if (daySelect) {
+        setEvents(
+          props.events
+            .filter(
+              (event) =>
+                event.day === parseInt(daySelect, 10) &&
+                event.category === catSelect
+            )
+            .sort((event1, event2) => {
+              if (event1.day > event2.day) return 1;
+              if (event1.day < event2.day) return -1;
+              if (event1.start > event2.start) return 1;
+              if (event1.start < event2.start) return -1;
+            })
+        );
+      } else {
+        setEvents(
+          props.events
+            .filter((event) => event.category === catSelect)
+            .sort((event1, event2) => {
+              if (event1.day > event2.day) return 1;
+              if (event1.day < event2.day) return -1;
+              if (event1.start > event2.start) return 1;
+              if (event1.start < event2.start) return -1;
+            })
+        );
+      }
+    }
+  }
+
+  useEffect(() => {
+    filterDay();
   }, [daySelect]);
 
   useEffect(() => {
-    if (catSelect === "") {
-      setEvents(
-        props.events.sort((event1, event2) => {
-          if (event1.day > event2.day) return 1;
-          if (event1.day < event2.day) return -1;
-          if (event1.start > event2.start) return 1;
-          if (event1.start < event2.start) return -1;
-        })
-      );
-    } else {
-      setEvents(
-        props.events
-          .filter((event) => event.category === catSelect)
-          .sort((event1, event2) => {
-            if (event1.day > event2.day) return 1;
-            if (event1.day < event2.day) return -1;
-            if (event1.start > event2.start) return 1;
-            if (event1.start < event2.start) return -1;
-          })
-      );
-    }
+    filterCategory();
   }, [catSelect]);
 
   return (
@@ -112,7 +188,7 @@ export default function Events(props) {
         <link rel="shortcut icon" href="/images/favicon.ico" />
       </Head>
       <Background pageName={"Events"} />
-      <Layout>
+      <Layout scrollYVar={450}>
         <Flex
           id="blossom-container"
           flexDir="column"
@@ -188,6 +264,32 @@ export default function Events(props) {
                 <option value="2">Day 2</option>
                 <option value="3">Day 3</option>
               </Select>
+              <Button
+                _focus={{
+                  color: "pink.500",
+                  borderColor: "pink.500",
+                }}
+                _hover={{
+                  color: "pink.500",
+                  borderColor: "pink.500",
+                }}
+                variant="outline"
+                fontWeight={"normal"}
+                onClick={() => {
+                  setCatSelect("");
+                  setDaySelect("");
+                  setEvents(
+                    props.events.sort((event1, event2) => {
+                      if (event1.day > event2.day) return 1;
+                      if (event1.day < event2.day) return -1;
+                      if (event1.start > event2.start) return 1;
+                      if (event1.start < event2.start) return -1;
+                    })
+                  );
+                }}
+              >
+                Reset
+              </Button>
             </Center>
           </Center>
           <Center py="30px" w="100%" minH="60vh" flexDir={"column"} gridGap="4">
