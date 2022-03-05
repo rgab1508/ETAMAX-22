@@ -310,7 +310,6 @@ export async function getStaticProps(context) {
     const res = await fetch(`${API_BASE_URL}/e`).then((response) =>
       response.json()
     );
-    console.log(res.events);
     return {
       props: {
         events: res.events,
