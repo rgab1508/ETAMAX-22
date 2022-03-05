@@ -57,6 +57,7 @@ export default function EventCard({ event }) {
                     md: "35pt",
                   }}
                   transition="all 0.2s ease"
+                  noOfLines={2}
                 >
                   {event.title}
                 </Text>
