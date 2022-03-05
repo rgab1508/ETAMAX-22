@@ -16,7 +16,6 @@ import LinkButtons from "./LinkButtons";
 import { useState, useEffect, useRef } from "react";
 import { API_BASE_URL } from "../../config";
 import router from "next/router";
-import { forwardRef } from "react";
 
 const Path = (props) => (
   <motion.path
@@ -101,7 +100,7 @@ function MenuItems({ children, to, color }) {
   );
 }
 
-function DrawerNavbar({ isOpen }) {
+function DrawerNavbar({ isOpen, scrollyvar }) {
   const [color, setColor] = useState("pink.400");
   const [loggedIn, setLoggedIn] = useState(false);
   const step2 = useColorModeValue("300", "200");
@@ -115,7 +114,7 @@ function DrawerNavbar({ isOpen }) {
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 450) {
+      if (window.scrollY > scrollyvar) {
         setColor("white");
       } else {
         setColor("pink.400");
@@ -194,17 +193,17 @@ function DrawerNavbar({ isOpen }) {
                 Events
               </MenuItems>
               {!loggedIn && (
-                <MenuItems color={color} to="/login">
+                <MenuItems color={color} to="/login" nextLink={true}>
                   Login
                 </MenuItems>
               )}
               {loggedIn && (
-                <MenuItems color={color} to="/profile">
+                <MenuItems color={color} to="/profile" nextLink={true}>
                   Profile
                 </MenuItems>
               )}
               {loggedIn && (
-                <MenuItems color={color} to="/checkout">
+                <MenuItems color={color} to="/checkout" nextLink={true}>
                   <Flex gridGap={"1"}>
                     <Box>Checkout</Box>
                     <ShoppingCartIcon />
@@ -250,12 +249,12 @@ function DrawerNavbar({ isOpen }) {
   );
 }
 
-function NavbarContainer({ setVisible, children, ...rest }) {
+function NavbarContainer({ setVisible, scrollyvar, children, ...rest }) {
   const [background, setBackground] = useState("transparent");
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 450) {
+      if (window.scrollY > scrollyvar) {
         setBackground("#fcc0cb");
       } else {
         setBackground("transparent");
@@ -305,7 +304,7 @@ export default function Navbar(props) {
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 450) {
+      if (window.scrollY > props.scrollyvar) {
         setVisible(1);
       } else {
         setVisible(0);
@@ -314,10 +313,14 @@ export default function Navbar(props) {
   }, []);
 
   return (
-    <NavbarContainer animate={isOpen ? "open" : "closed"} {...props}>
+    <NavbarContainer
+      scrollyvar={props.scrollyvar}
+      animate={isOpen ? "open" : "closed"}
+      {...props}
+    >
       <Logo visible={visible} />
       <MenuToggle toggle={toggle} />
-      <DrawerNavbar isOpen={isOpen} />
+      <DrawerNavbar scrollyvar={props.scrollyvar} isOpen={isOpen} />
     </NavbarContainer>
   );
 }

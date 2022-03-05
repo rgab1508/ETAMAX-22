@@ -79,7 +79,7 @@ export default function Home(props) {
         />
       </Head>
       <Background pageName={"Home"} />
-      <Layout>
+      <Layout scrollYVar={450}>
         <Flex bg="transparent" h="100vh" maxW="100vw" flexDirection="column">
           <Center h="60vh" w="100%" flexDir={"column"}>
             <Box w="80%">

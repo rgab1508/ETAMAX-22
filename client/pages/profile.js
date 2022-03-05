@@ -206,14 +206,14 @@ export default function Profile(props) {
         <title>ETAMAX-22 | Profile</title>
         <link rel="shortcut icon" href="/images/favicon.ico" />
       </Head>
-      <Layout>
+      <Layout scrollYVar={80}>
         <Background pageName={"Home"} />
         <Center
           backgroundImage={"assets/checkout.svg"}
           backgroundSize={"cover"}
           backgroundPosition={"center"}
           backgroundRepeat={"no-repeat"}
-          h={{ base: "auto", lg: "120vh" }}
+          h={{ base: "auto", lg: "130vh" }}
           w={"100vw"}
           flexDir={"column"}
         >
@@ -236,7 +236,7 @@ export default function Profile(props) {
             <Center
               borderRadius={"10px"}
               w={{ base: "100%", lg: "43%" }}
-              h="90%"
+              h="99%"
               p="10px"
               flexDir={"column"}
             >
@@ -416,7 +416,7 @@ export default function Profile(props) {
               borderRadius={"10px"}
               bg="white"
               w={{ base: "100%", lg: "43%" }}
-              h="90%"
+              h="96%"
               p="10px"
               flexDir={"column"}
             >

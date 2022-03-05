@@ -2,11 +2,10 @@ import React from "react";
 import { Button, useColorModeValue } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
-export default function Component({ children, to, color }) {
+export default function Component({ children, to, color, nextLink }) {
   const step2 = useColorModeValue("300", "200");
   const router = useRouter();
 
-  const sizes = ["lg"];
   return (
     <Button
       bg="transparent"
@@ -34,7 +33,11 @@ export default function Component({ children, to, color }) {
         outline: "none",
       }}
       onClick={() => {
-        router.push(to);
+        if (nextLink) {
+          router.push(to);
+        } else {
+          window.location.replace(to);
+        }
       }}
     >
       {children}

@@ -60,52 +60,120 @@ export default function Events(props) {
   const [daySelect, setDaySelect] = useState("");
   const [catSelect, setCatSelect] = useState("");
 
-  useEffect(() => {
+  function filterDay() {
     if (daySelect === "") {
-      setEvents(
-        events.sort((event1, event2) => {
-          if (event1.day > event2.day) return 1;
-          if (event1.day < event2.day) return -1;
-          if (event1.start > event2.start) return 1;
-          if (event1.start < event2.start) return -1;
-        })
-      );
-    } else {
-      setEvents(
-        events
-          .filter((event) => event.day === parseInt(daySelect, 10))
-          .sort((event1, event2) => {
+      if (!catSelect) {
+        setEvents(
+          props.events.sort((event1, event2) => {
             if (event1.day > event2.day) return 1;
             if (event1.day < event2.day) return -1;
             if (event1.start > event2.start) return 1;
             if (event1.start < event2.start) return -1;
           })
-      );
+        );
+      } else {
+        setEvents(
+          props.events
+            .filter((event) => event.category === catSelect)
+            .sort((event1, event2) => {
+              if (event1.day > event2.day) return 1;
+              if (event1.day < event2.day) return -1;
+              if (event1.start > event2.start) return 1;
+              if (event1.start < event2.start) return -1;
+            })
+        );
+      }
+    } else {
+      if (catSelect) {
+        setEvents(
+          props.events
+            .filter(
+              (event) =>
+                event.day === parseInt(daySelect, 10) &&
+                event.category === catSelect
+            )
+            .sort((event1, event2) => {
+              if (event1.day > event2.day) return 1;
+              if (event1.day < event2.day) return -1;
+              if (event1.start > event2.start) return 1;
+              if (event1.start < event2.start) return -1;
+            })
+        );
+      } else {
+        setEvents(
+          props.events
+            .filter((event) => event.day === parseInt(daySelect, 10))
+            .sort((event1, event2) => {
+              if (event1.day > event2.day) return 1;
+              if (event1.day < event2.day) return -1;
+              if (event1.start > event2.start) return 1;
+              if (event1.start < event2.start) return -1;
+            })
+        );
+      }
     }
+  }
+
+  function filterCategory() {
+    if (catSelect === "") {
+      if (!daySelect) {
+        setEvents(
+          props.events.sort((event1, event2) => {
+            if (event1.day > event2.day) return 1;
+            if (event1.day < event2.day) return -1;
+            if (event1.start > event2.start) return 1;
+            if (event1.start < event2.start) return -1;
+          })
+        );
+      } else {
+        setEvents(
+          props.events
+            .filter((event) => event.day === parseInt(daySelect, 10))
+            .sort((event1, event2) => {
+              if (event1.day > event2.day) return 1;
+              if (event1.day < event2.day) return -1;
+              if (event1.start > event2.start) return 1;
+              if (event1.start < event2.start) return -1;
+            })
+        );
+      }
+    } else {
+      if (daySelect) {
+        setEvents(
+          props.events
+            .filter(
+              (event) =>
+                event.day === parseInt(daySelect, 10) &&
+                event.category === catSelect
+            )
+            .sort((event1, event2) => {
+              if (event1.day > event2.day) return 1;
+              if (event1.day < event2.day) return -1;
+              if (event1.start > event2.start) return 1;
+              if (event1.start < event2.start) return -1;
+            })
+        );
+      } else {
+        setEvents(
+          props.events
+            .filter((event) => event.category === catSelect)
+            .sort((event1, event2) => {
+              if (event1.day > event2.day) return 1;
+              if (event1.day < event2.day) return -1;
+              if (event1.start > event2.start) return 1;
+              if (event1.start < event2.start) return -1;
+            })
+        );
+      }
+    }
+  }
+
+  useEffect(() => {
+    filterDay();
   }, [daySelect]);
 
   useEffect(() => {
-    if (catSelect === "") {
-      setEvents(
-        events.sort((event1, event2) => {
-          if (event1.day > event2.day) return 1;
-          if (event1.day < event2.day) return -1;
-          if (event1.start > event2.start) return 1;
-          if (event1.start < event2.start) return -1;
-        })
-      );
-    } else {
-      setEvents(
-        events
-          .filter((event) => event.category === catSelect)
-          .sort((event1, event2) => {
-            if (event1.day > event2.day) return 1;
-            if (event1.day < event2.day) return -1;
-            if (event1.start > event2.start) return 1;
-            if (event1.start < event2.start) return -1;
-          })
-      );
-    }
+    filterCategory();
   }, [catSelect]);
 
   return (
@@ -120,7 +188,7 @@ export default function Events(props) {
         <link rel="shortcut icon" href="/images/favicon.ico" />
       </Head>
       <Background pageName={"Events"} />
-      <Layout>
+      <Layout scrollYVar={450}>
         <Flex
           id="blossom-container"
           flexDir="column"
@@ -242,6 +310,7 @@ export async function getStaticProps(context) {
     const res = await fetch(`${API_BASE_URL}/e`).then((response) =>
       response.json()
     );
+    console.log(res.events);
     return {
       props: {
         events: res.events,

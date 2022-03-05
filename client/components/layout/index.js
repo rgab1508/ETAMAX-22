@@ -4,7 +4,7 @@ import { Flex } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { API_BASE_URL } from "../../config";
 
-export default function Layout({ children }) {
+export default function Layout({ children, scrollYVar }) {
   useEffect(() => {
     window.addEventListener("scroll", () => {
       const dist = window.scrollY;
@@ -37,7 +37,7 @@ export default function Layout({ children }) {
 
   return (
     <>
-      <Navbar />
+      <Navbar scrollyvar={scrollYVar} />
       <Flex
         id="blossom-container"
         bg="transparent"
