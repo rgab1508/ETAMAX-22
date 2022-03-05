@@ -92,9 +92,9 @@ function MenuToggle({ toggle }) {
   );
 }
 
-function MenuItems({ children, to, color }) {
+function MenuItems({ children, to, color, nextLink }) {
   return (
-    <LinkButtons color={color} to={to}>
+    <LinkButtons color={color} to={to} nextLink={nextLink}>
       {children}
     </LinkButtons>
   );
@@ -186,24 +186,24 @@ function DrawerNavbar({ isOpen, scrollyvar }) {
               direction={["column", "column", "row", "row"]}
               pt={[4, 4, 0, 0]}
             >
-              <MenuItems color={color} to="/">
+              <MenuItems color={color} to="/" nextLink={true}>
                 Home
               </MenuItems>
-              <MenuItems color={color} to="/events">
+              <MenuItems color={color} to="/events" nextLink={true}>
                 Events
               </MenuItems>
               {!loggedIn && (
-                <MenuItems color={color} to="/login" nextLink={true}>
+                <MenuItems color={color} to="/login" nextLink={false}>
                   Login
                 </MenuItems>
               )}
               {loggedIn && (
-                <MenuItems color={color} to="/profile" nextLink={true}>
+                <MenuItems color={color} to="/profile" nextLink={false}>
                   Profile
                 </MenuItems>
               )}
               {loggedIn && (
-                <MenuItems color={color} to="/checkout" nextLink={true}>
+                <MenuItems color={color} to="/checkout" nextLink={false}>
                   <Flex gridGap={"1"}>
                     <Box>Checkout</Box>
                     <ShoppingCartIcon />
