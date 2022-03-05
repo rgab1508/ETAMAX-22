@@ -48,6 +48,7 @@ export default function Checkout() {
           >
             <Center bg="transparent" h={{ base: "13vh", md: "0vh" }} />
             <Center
+              mt="100px"
               w={{ base: "97%", lg: "90%" }}
               h={{ base: "95%", lg: "90%" }}
               p="10px"
@@ -58,7 +59,7 @@ export default function Checkout() {
                 borderRadius={"10px"}
                 bg="#fccfd7"
                 w={{ base: "100%", lg: "43%" }}
-                h="90%"
+                h="100%"
                 p="10px"
                 flexDir={"column"}
               >
@@ -73,7 +74,7 @@ export default function Checkout() {
                 borderRadius={"10px"}
                 bg="#fccfd7"
                 w={{ base: "100%", lg: "43%" }}
-                h="90%"
+                h="100%"
                 p="10px"
                 flexDir={"column"}
               >

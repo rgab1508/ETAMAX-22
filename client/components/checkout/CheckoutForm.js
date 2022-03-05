@@ -14,10 +14,12 @@ import {
   InputLeftAddon,
   Slide,
   InputRightElement,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { API_BASE_URL } from "../../config";
 import * as ga from "../../libs/ga";
+import PaymentModal from "./PaymentModal";
 
 function RadioCard(props) {
   const { getInputProps, getCheckboxProps } = useRadio(props);
@@ -64,6 +66,7 @@ export default function CheckoutForm({ participations, user, setEvents }) {
   const [totalAmount, setTotalAmount] = useState(0);
 
   const [isBtnLoading, setIsBtnLoading] = useState(false);
+  const payment = useDisclosure();
   const toast = useToast();
 
   useEffect(() => {
@@ -199,7 +202,7 @@ export default function CheckoutForm({ participations, user, setEvents }) {
   return (
     <Flex
       w={{ base: "100%", lg: "90%" }}
-      h="95%"
+      h="100%"
       p="15px"
       flexDir={"column"}
       gridGap={"1"}
@@ -277,6 +280,28 @@ export default function CheckoutForm({ participations, user, setEvents }) {
           </SlideFade>
         </Flex>
       </SlideFade>
+      <PaymentModal payment={payment} />
+      <Flex>
+        <Button
+          isFullWidth
+          // bg="pink.300"
+          _focus={{
+            bg: "pink.300",
+            color: "white",
+          }}
+          _hover={{
+            bg: "pink.300",
+            color: "white",
+          }}
+          onClick={() => {
+            payment.onOpen();
+          }}
+          variant="ghost"
+        >
+          Show Payment Details
+        </Button>
+      </Flex>
+
       <Text transition={"all 0.2s ease"} color="gray.600" fontSize={"16pt"}>
         Enter Transaction ID
       </Text>
