@@ -84,8 +84,9 @@ export default function EventCard({ event }) {
       toast({
         title: "Please Enter a valid Team Name",
         position: "top-right",
-        duration: 3000,
+        duration: 2000,
         status: "error",
+        isClosable: true,
       });
       return false;
     }
@@ -98,8 +99,9 @@ export default function EventCard({ event }) {
         toast({
           title: `This Event has a Strict Team Size of ${event.team_size}`,
           position: "top-right",
-          duration: 3000,
+          duration: 2000,
           status: "error",
+          isClosable: true,
         });
         return false;
       }
@@ -144,17 +146,19 @@ export default function EventCard({ event }) {
           // ! update user state
           toast({
             title: res.detail,
-            duration: 3000,
+            duration: 2000,
             status: "success",
             position: "top-right",
+            isClosable: true,
           });
           clearValues();
         } else {
           toast({
             title: res.detail,
-            duration: 3000,
+            duration: 2000,
             status: "error",
             position: "top-right",
+            isClosable: true,
           });
         }
       })

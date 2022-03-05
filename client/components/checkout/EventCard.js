@@ -111,8 +111,8 @@ export default function EventCard({
           </Box>
           {participation.members.length > 1 && (
             <Flex gridGap={"1"}>
-              {participation.members.map((mem) => (
-                <Text>•{mem}</Text>
+              {participation.members.map((mem, key) => (
+                <Text key={key}>•{mem}</Text>
               ))}
             </Flex>
           )}
