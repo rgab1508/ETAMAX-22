@@ -67,6 +67,7 @@ export default function Home(props) {
       if (ele) ele.style.transform = `translateY(${dist * 0.1}px)`;
     });
   }, []);
+
   return (
     <>
       <Head>

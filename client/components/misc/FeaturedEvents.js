@@ -7,15 +7,17 @@ export default function FeaturedEvents({ events }) {
   const [eventList, setEventList] = useState([]);
 
   useEffect(() => {
-    const list = events
-      .sort((e1, e2) => {
-        if (e1.day > e2.day) return 1;
-        if (e1.day < e2.day) return -1;
-        if (e1.start > e2.start) return 1;
-        if (e1.start < e2.start) return -1;
-      })
-      .map((event) => <EventCards event={event} />);
-    setEventList(list);
+    if (events) {
+      const list = events
+        .sort((e1, e2) => {
+          if (e1.day > e2.day) return 1;
+          if (e1.day < e2.day) return -1;
+          if (e1.start > e2.start) return 1;
+          if (e1.start < e2.start) return -1;
+        })
+        .map((event) => <EventCards event={event} />);
+      setEventList(list);
+    }
   }, []);
 
   const breakpoints = {
