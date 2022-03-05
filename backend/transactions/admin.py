@@ -56,4 +56,4 @@ class TransactionAdmin(admin.ModelAdmin):
   search_fields = ['transaction_id', 'upi_transaction_id']
   list_display = ['transaction_id', 'upi_transaction_id', 'timestamp', 'is_verified',  'event_amount', 'donation_amount', 'total_amount', 'is_paid',]
   list_filter = ['is_verified', 'is_paid', DateFilterList]
-  ordering = ['-timestamp']
+  # ordering = ['-timestamp']
