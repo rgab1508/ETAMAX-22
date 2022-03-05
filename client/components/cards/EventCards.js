@@ -142,8 +142,10 @@ export default function EventCard({ event }) {
           });
           setIsRegitered(true);
           user.user.participations.push(res.team);
+          let newCriteria = JSON.parse(user.user.criteria);
+          newCriteria[event.category] += 1;
+          user.user.criteria = JSON.stringify(newCriteria);
           localStorage.setItem("eta_user", JSON.stringify(user));
-          // ! update user state
           toast({
             title: res.detail,
             duration: 2000,
