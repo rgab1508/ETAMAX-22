@@ -13,14 +13,18 @@ from .models import Event
 from users.serializers import ParticipationSerializer
 
 
+# create a function that check two time interval overlaping
+def check_overlapping(start_time1, end_time1, start_time2, end_time2):
+    return start_time1 < end_time2 and start_time2 < end_time1
+
 
 
 def is_time_between(begin_time, end_time, check_time=None):
     check_time = check_time or datetime.utcnow().time()
     if begin_time < end_time:
-        return check_time > begin_time and check_time < end_time
+        return begin_time > check_time > end_time
     else:
-        return check_time > begin_time or check_time < end_time
+        return end_time > check_time > begin_time
 
 class EventListView(APIView):
   def get(self, request):
@@ -28,7 +32,6 @@ class EventListView(APIView):
     events = Event.objects.all()
     serializer = EventSerializer(events, many=True)
     return JsonResponse({"events": serializer.data, "success": True}, status=200)
-  
 
 class EventFeaturedListView(APIView):
   def get(self, request):
