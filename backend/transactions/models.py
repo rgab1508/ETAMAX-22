@@ -1,7 +1,8 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from uuid import uuid4
-
+from django.db.models.signals import post_save, pre_delete
+from django.dispatch import receiver
 
 class Transaction(models.Model):
   transaction_id = models.CharField(_("Transaction Id"),max_length=36,default=uuid4, unique=True, primary_key=True)
@@ -17,3 +18,12 @@ class Transaction(models.Model):
 
   def __str__(self) -> str:
       return self.transaction_id
+
+
+@receiver(post_save, sender=Transaction)
+def verify_participation_after_transaction_verified(sender, instance, created, **kwargs):
+  if not created:
+    if instance.is_verified:
+      for participation in instance.participations.all():
+        participation.is_verified = True
+        participation.save()
