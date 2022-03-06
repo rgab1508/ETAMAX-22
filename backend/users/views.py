@@ -196,6 +196,10 @@ class UserCheckout(APIView):
     if check_criteria(user):
       return JsonResponse({"detail": "Criteria Not Satisfied: Atleast One Cultural & One Technical Event !", "success": False}, status=400)
 
+    donation = request.data.get('donation_amount', 0)
+    if donation and int(donation) < 0:
+      return JsonResponse({"detail": "Donation Cannot be Negative! :(", "success": False},status=400)
+
     event_amount = 0
     t = Transaction(user=user, upi_transaction_id=upi_transaction_id,is_paid=True)
     p_objs = []
@@ -212,8 +216,7 @@ class UserCheckout(APIView):
     user.money_owed = 0
 
     t.event_amount = event_amount
-    if request.data["donation_amount"]:
-      t.donation_amount = int(request.data["donation_amount"])
+    t.donation_amount = int(donation) if donation else 0
 
     t.total_amount = t.event_amount + t.donation_amount
     try:
