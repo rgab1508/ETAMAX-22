@@ -219,15 +219,17 @@ export default function EventCard({
               }
             />
           ) : (
-            <Text
-              position={"absolute"}
-              bottom={2}
-              right={2}
-              color="white"
-              fontSize={"larger"}
-            >
-              Not verified
-            </Text>
+            isProfile && (
+              <Text
+                position={"absolute"}
+                bottom={2}
+                right={2}
+                color="white"
+                fontSize={"larger"}
+              >
+                Not verified
+              </Text>
+            )
           )}
           {!isProfile && (
             <Button
