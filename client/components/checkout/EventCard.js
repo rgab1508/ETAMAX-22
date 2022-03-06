@@ -191,34 +191,44 @@ export default function EventCard({
             ) : null}
           </Flex>
           {isProfile &&
-            participation.transaction &&
-            participation.transaction.is_verified && (
-              <IconButton
-                as={FaWhatsappSquare}
-                variant={"outline"}
-                cursor="pointer"
-                color="green.500"
-                bg="transparent"
-                position={"absolute"}
-                _hover={{
-                  bg: "white",
-                  color: "pink.300",
-                }}
-                _focus={{
-                  outline: "none",
-                  bg: "white",
-                  color: "pink.300",
-                }}
-                px={1}
-                py={1}
-                bottom={2}
-                right={2}
-                fontSize={"11pt"}
-                onClick={() =>
-                  window.open(participation.event.whatsapp_link, "_blank")
-                }
-              />
-            )}
+          participation.transaction &&
+          participation.transaction.is_verified ? (
+            <IconButton
+              as={FaWhatsappSquare}
+              variant={"outline"}
+              cursor="pointer"
+              color="green.500"
+              bg="transparent"
+              position={"absolute"}
+              _hover={{
+                bg: "white",
+                color: "pink.300",
+              }}
+              _focus={{
+                outline: "none",
+                bg: "white",
+                color: "pink.300",
+              }}
+              px={1}
+              py={1}
+              bottom={2}
+              right={2}
+              fontSize={"11pt"}
+              onClick={() =>
+                window.open(participation.event.whatsapp_link, "_blank")
+              }
+            />
+          ) : (
+            <Text
+              position={"absolute"}
+              bottom={2}
+              right={2}
+              color="white"
+              fontSize={"larger"}
+            >
+              Not verified
+            </Text>
+          )}
           {!isProfile && (
             <Button
               variant={"outline"}
