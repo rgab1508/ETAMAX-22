@@ -57,7 +57,7 @@ function RadioCard(props) {
 }
 
 export default function CheckoutForm({ participations, user, setEvents }) {
-  const donateOptions = ["10 Rs", "20 Rs", "30 Rs", "40 Rs", "Custom Amount"];
+  const donateOptions = ["10 Rs", "20 Rs", "30 Rs", "40 Rs"];
   const [donation, setDonation] = useState(0);
   const [donationOther, setDonationOther] = useState(false);
   const [donationOtherValue, setDonationOtherValue] = useState("");
@@ -237,7 +237,7 @@ export default function CheckoutForm({ participations, user, setEvents }) {
               );
             })}
           </Flex>
-          <SlideFade in={donationOther}>
+          {/* <SlideFade in={donationOther}>
             <InputGroup>
               <InputLeftAddon children="Rs. " />
               <Input
@@ -277,7 +277,7 @@ export default function CheckoutForm({ participations, user, setEvents }) {
                 </Button>
               </InputRightElement>
             </InputGroup>
-          </SlideFade>
+          </SlideFade> */}
         </Flex>
       </SlideFade>
       <PaymentModal payment={payment} />
