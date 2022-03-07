@@ -80,7 +80,7 @@ class EventRegiterView(APIView):
           return [e,True]
       return [None, False]
 
-    user = request.user
+    user: User = request.user
     event_code = request.data['event_code']
     event = None
     print(event_code)
@@ -89,6 +89,8 @@ class EventRegiterView(APIView):
     except Event.DoesNotExist:
       return JsonResponse({"detail": "Event Doesn't Exists", "success": False}, status=400)
 
+    if not user.is_from_fcrit and event.category == 'S':
+      return JsonResponse({"detail": "Non Fcrit cant register for sports events", "success": False}, status=400)
 
     if event.seats == event.max_seats:
       return JsonResponse({"detail": "Event Doesn't have Seats Left!", "success": False}, status=400)
@@ -96,12 +98,13 @@ class EventRegiterView(APIView):
     e = user.participations.filter(event=event).count()
     if e > 0:
       return JsonResponse({"detail": "You have Already Registered For this Event", "success": False}, status=400)
-    
+
+
     # checking time clashes with other events
     [ec, result] = check_event_clashes(user, event)
     if result:
       return JsonResponse({"detail": f"This Event Clashes with the {ec.title} Event({ec.start} - {ec.end})", "success": False}, status=400)
-    
+
     if event.team_size == 1:
       # Event is Solo Event
 
@@ -181,8 +184,10 @@ class EventRegiterView(APIView):
         # update criteria for members
         print(p.members.all())
         for m in p.members.all():
-          if m.roll_no == user.roll_no: continue
+          if m.roll_no == user.roll_no:
+            continue
           m = update_criteria(m, event)
+          print(f"AFTER: {m.criteria}")
           m.save()
 
         user = update_criteria(user, event)

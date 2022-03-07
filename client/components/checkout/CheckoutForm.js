@@ -113,7 +113,7 @@ export default function CheckoutForm({ participations, user, setEvents }) {
     let criteriaJSON = user.user.criteria;
     // console.log(criteriaJSON);
     let c = JSON.parse(criteriaJSON);
-    if (c["C"] < 1 || c["T"] < 1) {
+    if (user.user.is_from_fcrit && (c["C"] < 1 || c["T"] < 1)) {
       toast({
         title:
           "Criteria Not Satisfied: Atleast 1 Cultural and 1 Technical Event",
