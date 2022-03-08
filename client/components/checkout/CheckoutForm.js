@@ -140,40 +140,46 @@ export default function CheckoutForm({ participations, user, setEvents }) {
       },
     });
 
-    fetch(`${API_BASE_URL}/u/checkout/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Token " + user.token,
-      },
-      body: JSON.stringify(data),
-      redirect: "follow",
-      referrerPolicy: "no-referrer",
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.success) {
-          if (donation) {
-            toast({
-              status: "success",
-              title: "Thankyou for Your Donation!",
-              position: "top",
-              duration: 3000,
-            });
-          }
+    try {
+      let res = await fetch(`${API_BASE_URL}/u/checkout/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Token " + user.token,
+        },
+        body: JSON.stringify(data),
+        redirect: "follow",
+        referrerPolicy: "no-referrer",
+      });
+      let resJson = await res.json();
+      if (resJson.success) {
+        if (donation) {
           toast({
             status: "success",
-            title: res.detail,
-            position: "top-right",
+            title: "Thankyou for Your Donation!",
+            position: "top",
+            duration: 3000,
           });
-          setIsBtnLoading(false);
         }
-        setEvents([]);
-      })
-      .catch((err) => {
-        console.log(err);
+        toast({
+          status: "success",
+          title: resJson.detail,
+          position: "top-right",
+        });
         setIsBtnLoading(false);
-      });
+        setEvents([]);
+      } else {
+        toast({
+          status: "error",
+          title: resJson.detail,
+          position: "top-right",
+        });
+        setIsBtnLoading(false);
+      }
+    } catch (err) {
+      console.log(err);
+      setIsBtnLoading(false);
+    }
   };
 
   const { getRootProps, getRadioProps } = useRadioGroup({
