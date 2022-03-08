@@ -149,6 +149,15 @@ def update_criteria_after_delete(sender, instance, using, **kwargs):
   for m in members:
     update_criteria(m, instance.event)
 
+@receiver(post_save, sender=Participation)
+def update_criteria_after_save(sender, instance, created, **kwargs):
+
+  if not created:
+    if instance.is_verified:
+      event = instance.event
+      event.seats += 1
+      event.save()
+
 # @receiver(post_save, sender=Participation)
 # def update_criteria_after_participation(sender, instance, created, **kwargs):
 #   if created:
