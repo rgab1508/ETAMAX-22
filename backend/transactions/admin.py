@@ -53,7 +53,7 @@ class DateFilterList(admin.SimpleListFilter):
 @admin.register(Transaction)
 class TransactionAdmin(admin.ModelAdmin):
   form = TransactionForm
-  search_fields = ['transaction_id', 'upi_transaction_id']
+  search_fields = ['transaction_id', 'upi_transaction_id', 'user__roll_no']
   list_display = ['transaction_id', 'upi_transaction_id', 'timestamp', 'is_verified',  'event_amount', 'donation_amount', 'total_amount', 'is_paid',]
   list_filter = ['is_verified', 'is_paid', DateFilterList]
   # ordering = ['-timestamp']
