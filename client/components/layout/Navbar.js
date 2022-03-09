@@ -92,9 +92,14 @@ function MenuToggle({ toggle }) {
   );
 }
 
-function MenuItems({ children, to, color, nextLink }) {
+function MenuItems({ children, to, color, nextLink, isDisabled }) {
   return (
-    <LinkButtons color={color} to={to} nextLink={nextLink}>
+    <LinkButtons
+      isDisabled={isDisabled}
+      color={color}
+      to={to}
+      nextLink={nextLink}
+    >
       {children}
     </LinkButtons>
   );
@@ -186,24 +191,49 @@ function DrawerNavbar({ isOpen, scrollyvar }) {
               direction={["column", "column", "row", "row"]}
               pt={[4, 4, 0, 0]}
             >
-              <MenuItems color={color} to="/" nextLink={true}>
+              <MenuItems
+                isDisabled={false}
+                color={color}
+                to="/"
+                nextLink={true}
+              >
                 Home
               </MenuItems>
-              <MenuItems color={color} to="/events" nextLink={true}>
+              <MenuItems
+                isDisabled={true}
+                color={color}
+                to="/events"
+                nextLink={true}
+              >
                 Events
               </MenuItems>
               {!loggedIn && (
-                <MenuItems color={color} to="/login" nextLink={false}>
+                <MenuItems
+                  isDisabled={false}
+                  color={color}
+                  to="/login"
+                  nextLink={false}
+                >
                   Login
                 </MenuItems>
               )}
               {loggedIn && (
-                <MenuItems color={color} to="/profile" nextLink={false}>
+                <MenuItems
+                  isDisabled={false}
+                  color={color}
+                  to="/profile"
+                  nextLink={false}
+                >
                   Profile
                 </MenuItems>
               )}
               {loggedIn && (
-                <MenuItems color={color} to="/checkout" nextLink={false}>
+                <MenuItems
+                  isDisabled={false}
+                  color={color}
+                  to="/checkout"
+                  nextLink={false}
+                >
                   <Flex gridGap={"1"}>
                     <Box>Checkout</Box>
                     <ShoppingCartIcon />

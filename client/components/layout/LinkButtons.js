@@ -2,7 +2,13 @@ import React from "react";
 import { Button, useColorModeValue } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
-export default function Component({ children, to, color, nextLink }) {
+export default function Component({
+  children,
+  to,
+  color,
+  nextLink,
+  isDisabled,
+}) {
   const step2 = useColorModeValue("300", "200");
   const router = useRouter();
 
@@ -39,6 +45,7 @@ export default function Component({ children, to, color, nextLink }) {
           window.location.replace(to);
         }
       }}
+      isDisabled={isDisabled}
     >
       {children}
     </Button>
