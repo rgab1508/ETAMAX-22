@@ -229,7 +229,7 @@ function DrawerNavbar({ isOpen, scrollyvar }) {
               )}
               {loggedIn && (
                 <MenuItems
-                  isDisabled={false}
+                  isDisabled={true}
                   color={color}
                   to="/checkout"
                   nextLink={false}
