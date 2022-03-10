@@ -101,7 +101,7 @@ export default function Home(props) {
             mt={{ base: "240px", md: "0", lg: "0" }}
           >
             <Box w="80%">
-              {!over ? (
+              {/* {!over ? (
                 <Text
                   color={"pink.400"}
                   fontWeight="bold"
@@ -111,19 +111,19 @@ export default function Home(props) {
                 </Text>
               ) : (
                 ""
-              )}
-              <Text
+              )} */}
+              {/* <Text
                 color="pink.300"
                 fontWeight={"500"}
                 fontSize={{ base: "2xl", lg: "2xl" }}
               >
                 {!over ? `${daysLeft} days left` : "On now!"}
-              </Text>
+              </Text> */}
               <Text
                 mt={3}
                 color={"pink.400"}
                 fontWeight={"800"}
-                fontSize={"3xl"}
+                fontSize={"5xl"}
               >
                 Registrations closed!
               </Text>
