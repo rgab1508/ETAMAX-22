@@ -1,108 +1,325 @@
-import EventsList from "../components/checkout/EventsList";
-import CheckoutForm from "../components/checkout/CheckoutForm";
-import Layout from "../components/layout";
-import { useState, useEffect } from "react";
-import { Center } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Center,
+  Heading,
+  Text,
+  Select,
+  Button,
+} from "@chakra-ui/react";
 import Head from "next/head";
+import { useState, useEffect } from "react";
+import EventCard from "../components/cards/EventCards";
+import Background from "../components/misc/Background";
+import Layout from "../components/layout";
+import { API_BASE_URL } from "../config";
 import { useRouter } from "next/router";
-import * as cookie from "cookie";
 
-export default function Checkout() {
-  const [events, setEvents] = useState([]);
-  const [user, setUser] = useState(null);
+if (typeof window !== "undefined") {
+  import("../components/utils/blossom");
+}
 
+export default function Events(props) {
   const router = useRouter();
 
   useEffect(() => {
-    const userJSON = localStorage.getItem("eta_user");
-    if (!userJSON) {
-      router.replace("/login");
-      return;
-    }
-    let user = JSON.parse(userJSON);
-    setUser(user);
-    if (user.token) {
-      let es = user.user.participations;
-      es = es.filter((e) => !e.transaction);
-      setEvents(es);
-    }
+    window.addEventListener("scroll", () => {
+      const dist = window.scrollY;
+      document.getElementById(
+        "blossom-container"
+      ).style.transform = `-translateY(${dist * 1}px)`;
+      document.getElementById(
+        "background-image"
+      ).style.transform = `translateY(${dist * 0.03}px)`;
+    });
   }, []);
+
+  useEffect(() => {
+    const { id } = router.query;
+    if (!id) return;
+
+    const ele = document.getElementById(id);
+    if (!ele) return;
+
+    const y = ele.getBoundingClientRect().top + window.pageYOffset - 200;
+
+    window.scrollTo({ top: y, behavior: "smooth" });
+    // ele.scrollIntoView({ behavior: "smooth" });
+    // window.scrollBy(0, -100);
+  }, [router.query]);
+
+  // create a simple array of numbers
+  const [events, setEvents] = useState(
+    props.events.sort((event1, event2) => {
+      if (event1.day > event2.day) return 1;
+      if (event1.day < event2.day) return -1;
+      if (event1.start > event2.start) return 1;
+      if (event1.start < event2.start) return -1;
+    })
+  );
+  const [daySelect, setDaySelect] = useState("");
+  const [catSelect, setCatSelect] = useState("");
+
+  function filterDay() {
+    if (daySelect === "") {
+      if (!catSelect) {
+        setEvents(
+          props.events.sort((event1, event2) => {
+            if (event1.day > event2.day) return 1;
+            if (event1.day < event2.day) return -1;
+            if (event1.start > event2.start) return 1;
+            if (event1.start < event2.start) return -1;
+          })
+        );
+      } else {
+        setEvents(
+          props.events
+            .filter((event) => event.category === catSelect)
+            .sort((event1, event2) => {
+              if (event1.day > event2.day) return 1;
+              if (event1.day < event2.day) return -1;
+              if (event1.start > event2.start) return 1;
+              if (event1.start < event2.start) return -1;
+            })
+        );
+      }
+    } else {
+      if (catSelect) {
+        setEvents(
+          props.events
+            .filter(
+              (event) =>
+                event.day === parseInt(daySelect, 10) &&
+                event.category === catSelect
+            )
+            .sort((event1, event2) => {
+              if (event1.day > event2.day) return 1;
+              if (event1.day < event2.day) return -1;
+              if (event1.start > event2.start) return 1;
+              if (event1.start < event2.start) return -1;
+            })
+        );
+      } else {
+        setEvents(
+          props.events
+            .filter((event) => event.day === parseInt(daySelect, 10))
+            .sort((event1, event2) => {
+              if (event1.day > event2.day) return 1;
+              if (event1.day < event2.day) return -1;
+              if (event1.start > event2.start) return 1;
+              if (event1.start < event2.start) return -1;
+            })
+        );
+      }
+    }
+  }
+
+  function filterCategory() {
+    if (catSelect === "") {
+      if (!daySelect) {
+        setEvents(
+          props.events.sort((event1, event2) => {
+            if (event1.day > event2.day) return 1;
+            if (event1.day < event2.day) return -1;
+            if (event1.start > event2.start) return 1;
+            if (event1.start < event2.start) return -1;
+          })
+        );
+      } else {
+        setEvents(
+          props.events
+            .filter((event) => event.day === parseInt(daySelect, 10))
+            .sort((event1, event2) => {
+              if (event1.day > event2.day) return 1;
+              if (event1.day < event2.day) return -1;
+              if (event1.start > event2.start) return 1;
+              if (event1.start < event2.start) return -1;
+            })
+        );
+      }
+    } else {
+      if (daySelect) {
+        setEvents(
+          props.events
+            .filter(
+              (event) =>
+                event.day === parseInt(daySelect, 10) &&
+                event.category === catSelect
+            )
+            .sort((event1, event2) => {
+              if (event1.day > event2.day) return 1;
+              if (event1.day < event2.day) return -1;
+              if (event1.start > event2.start) return 1;
+              if (event1.start < event2.start) return -1;
+            })
+        );
+      } else {
+        setEvents(
+          props.events
+            .filter((event) => event.category === catSelect)
+            .sort((event1, event2) => {
+              if (event1.day > event2.day) return 1;
+              if (event1.day < event2.day) return -1;
+              if (event1.start > event2.start) return 1;
+              if (event1.start < event2.start) return -1;
+            })
+        );
+      }
+    }
+  }
+
+  useEffect(() => {
+    filterDay();
+  }, [daySelect]);
+
+  useEffect(() => {
+    filterCategory();
+  }, [catSelect]);
 
   return (
     <>
       <Head>
-        <title>Checkout</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <title>ETAMAX-22 | Events</title>
+        <meta name="ETAMAX-22" content="Events" />
+        <meta
+          name="description"
+          content="Here is the list of events for this year"
+        />
         <link rel="shortcut icon" href="/images/favicon.ico" />
       </Head>
-      <Layout>
-        {user && (
-          <Center
-            backgroundImage={"assets/checkout.svg"}
-            backgroundSize={"cover"}
-            backgroundPosition={"center"}
-            backgroundRepeat={"no-repeat"}
-            h={{ base: "auto", lg: "105vh" }}
-            w={"100vw"}
-            flexDir={"column"}
+      <Background pageName={"Events"} />
+      <Layout scrollYVar={450}>
+        <Flex
+          id="blossom-container"
+          flexDir="column"
+          h="auto"
+          w="100vw"
+          maxW="100vw"
+        >
+          <Flex
+            maxW="100vw"
+            flexDirection="column"
+            h={{ base: "120vh", md: "100vh" }}
           >
-            <Center bg="transparent" h={{ base: "13vh", md: "0vh" }} />
             <Center
-              mt="100px"
-              w={{ base: "97%", lg: "90%" }}
-              h={{ base: "95%", lg: "90%" }}
-              p="10px"
-              flexDirection={["column", "row"]}
-              gridGap={"10"}
+              h={{ base: "110vh", md: "100vh" }}
+              w="100%"
+              flexDir={"column"}
             >
-              <Center
-                borderRadius={"10px"}
-                bg="#fccfd7"
-                w={{ base: "100%", lg: "43%" }}
-                h="100%"
-                p="10px"
-                flexDir={"column"}
-              >
-                {/* House the selected events */}
-                <EventsList
-                  events={events}
-                  token={user.token}
-                  setEvents={setEvents}
-                />
-              </Center>
-              <Center
-                borderRadius={"10px"}
-                bg="#fccfd7"
-                w={{ base: "100%", lg: "43%" }}
-                h="100%"
-                p="10px"
-                flexDir={"column"}
-              >
-                {/* Display total price and donations */}
-                <CheckoutForm
-                  participations={events}
-                  user={user}
-                  setEvents={setEvents}
-                />
-              </Center>
+              <Box w="80%">
+                <Heading color="pink.300" fontSize="6xl">
+                  ETAMAX-22{" "}
+                  <Text fontSize="8xl" fontFamily="Birthstone Bounce">
+                    Fleur
+                  </Text>
+                </Heading>
+              </Box>
+              <Box mt={4} w="83%" p="20px">
+                <Text
+                  fontSize={{ base: "xl", md: "3xl" }}
+                  fontWeight={"normal"}
+                  color="pink.400"
+                >
+                  ETAMAX offers you a variety of events to choose from. Feel
+                  free to pick any event of your choice from Technical, Cultural
+                  and Sports (Only for FCRIT students), but make sure you follow
+                  the registration criteria.
+                </Text>
+              </Box>
             </Center>
-            <Center bg="transparent" h={{ base: "10vh", md: "0vh" }} />
+          </Flex>
+          <Center w="100%" gridGap={"3"}>
+            <Center w={{ base: "95%", lg: "50%" }} gridGap={3}>
+              <Select
+                value={catSelect}
+                onChange={(e) => setCatSelect(e.target.value)}
+                placeholder="Select Category"
+                _focus={{
+                  color: "pink.500",
+                  borderColor: "pink.500",
+                }}
+                _hover={{
+                  color: "pink.500",
+                  borderColor: "pink.500",
+                }}
+              >
+                <option value="T">Technical</option>
+                <option value="C">Cultural</option>
+                <option value="S">Sports</option>
+              </Select>
+              <Select
+                value={daySelect}
+                onChange={(e) => setDaySelect(e.target.value)}
+                placeholder="Select Day"
+                _focus={{
+                  color: "pink.500",
+                  borderColor: "pink.500",
+                }}
+                _hover={{
+                  color: "pink.500",
+                  borderColor: "pink.500",
+                }}
+              >
+                <option value="1">Day 1</option>
+                <option value="2">Day 2</option>
+                <option value="3">Day 3</option>
+              </Select>
+              <Button
+                _focus={{
+                  color: "pink.500",
+                  borderColor: "pink.500",
+                }}
+                _hover={{
+                  color: "pink.500",
+                  borderColor: "pink.500",
+                }}
+                variant="outline"
+                fontWeight={"normal"}
+                onClick={() => {
+                  setCatSelect("");
+                  setDaySelect("");
+                  setEvents(
+                    props.events.sort((event1, event2) => {
+                      if (event1.day > event2.day) return 1;
+                      if (event1.day < event2.day) return -1;
+                      if (event1.start > event2.start) return 1;
+                      if (event1.start < event2.start) return -1;
+                    })
+                  );
+                }}
+              >
+                Reset
+              </Button>
+            </Center>
           </Center>
-        )}
+          <Center py="30px" w="100%" minH="60vh" flexDir={"column"} gridGap="4">
+            {events.map((event, idx) => (
+              <Center w="100vw" key={idx}>
+                <EventCard event={event} />
+              </Center>
+            ))}
+          </Center>
+        </Flex>
       </Layout>
     </>
   );
 }
 
-export async function getServerSideProps({ req, res }) {
-  const token = cookie.parse(req.headers.cookie || "")["eta_token"];
-  if (!token) {
-    res.writeHead(302, {
-      Location: "/",
-    });
-    res.end();
-    return { props: {} };
-  } else {
-    return { props: {} };
+export async function getStaticProps(context) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/e`).then((response) =>
+      response.json()
+    );
+    return {
+      props: {
+        events: res.events,
+      },
+      revalidate: 10,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      props: {},
+    };
   }
 }
