@@ -9,14 +9,6 @@ College Event Registration Website.
 | client | Next App (with SSR and SSG) |
 
 
-### Branches
-
-| Folder | Description |
-|:------:|:-----------:|
-| master | Main Branch which is deployed during registration |
-| registrations-closed | Deploy when registration Closed |
-
-
 ### Deploy
 #### Backend
 
