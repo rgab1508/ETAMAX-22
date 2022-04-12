@@ -37,25 +37,25 @@ export default function PaymentModal({ payment }) {
           <Text color="gray.600" fontSize="lg">
             A/c Name-
             <Box as="span" fontWeight={"bold"}>
-              Fr.C.Rodrigues Institute of Technology
+              Account Name
             </Box>
           </Text>
           <Text color="gray.600" fontSize="lg">
             BANK -
             <Box as="span" fontWeight={"bold"}>
-              INDIAN OVERSEAS BANK BRANCH- VASHI (0596)
+              Bank Name
             </Box>
           </Text>
           <Text color="gray.600" fontSize="lg">
             A/C NO-{" "}
             <Box as="span" fontWeight={"bold"}>
-              059601000007942
+              Account NO
             </Box>
           </Text>
           <Text color="gray.600" fontSize="lg">
             IFSC Code -
             <Box as="span" fontWeight={"bold"}>
-              IOBA0000596
+              IFSC CODE
             </Box>
           </Text>
         </AlertDialogBody>
