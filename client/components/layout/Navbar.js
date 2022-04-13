@@ -200,7 +200,7 @@ function DrawerNavbar({ isOpen, scrollyvar }) {
                 Home
               </MenuItems>
               <MenuItems
-                isDisabled={true}
+                isDisabled={false}
                 color={color}
                 to="/events"
                 nextLink={true}
@@ -229,7 +229,7 @@ function DrawerNavbar({ isOpen, scrollyvar }) {
               )}
               {loggedIn && (
                 <MenuItems
-                  isDisabled={true}
+                  isDisabled={false}
                   color={color}
                   to="/checkout"
                   nextLink={false}
